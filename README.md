@@ -96,14 +96,23 @@ exemple de resultat
 }
 ```
 ## Capture
-Récuperations de tout les département
+Récuperations des infos sur le pays
+![CAPTURE](capture/pays.png)
+
+Récuperations de tout les Départements
 ![CAPTURE](capture/alldepartement.png)
+Récuperations d'un seul departement
+![CAPTURE](capture/singledepartement.png)
+Récuperations de tout les Régions
+![CAPTURE](capture/allregion.png)
+Récuperations d'un seul région
+![CAPTURE](capture/singleregion.png)
 
 
 
 ## Author 🌟
 
-[![Daouda BA](https://avatars.githubusercontent.com/u/103085452?u=13ace4d88a52056741734e0f802ca7c0053e1e80&v=4&s=40)](https://github.com/sibylassana95)  
+[![LASSANA SIBY](https://avatars.githubusercontent.com/u/103085452?u=13ace4d88a52056741734e0f802ca7c0053e1e80&v=4&s=40)](https://github.com/sibylassana95)  
 Created by **[Lassana SIBY](https://github.com/daoodaba975)**
 
 
