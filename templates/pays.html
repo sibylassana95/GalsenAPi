@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+ <div class="bg-gray-100 dark:bg-transparent">
+                <div class="container mx-auto flex flex-col items-center py-12 sm:py-24">
+                    <div class="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col  mb-5 sm:mb-10">
+                        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center text-gray-800 dark:text-white font-black leading-7 md:leading-10">
+                           Un projet demo pour vous présenter l'utilisation de l'api
+                            <span class="text-indigo-700">GalsenApi</span>
+
+                        </h1>
+                        <p class="mt-5 sm:mt-10 lg:w-10/12 text-gray-400 font-normal text-center text-sm sm:text-lg">Un projet inspirer du package <a href="https://www.npmjs.com/package/galsenify" class="text-indigo-700">Galsenify</a></p>
+                    </div>
+                    <div class="flex justify-center items-center">
+                        <a href="" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 lg:text-xl lg:font-bold  rounded text-white px-4 sm:px-10 border border-indigo-700 py-2 sm:py-4 text-sm">Github</a>
+
+                        <a href=""  class="ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-transparent transition duration-150 ease-in-out hover:border-indigo-600 lg:text-xl lg:font-bold  hover:text-indigo-600 rounded border border-indigo-700 text-indigo-700 px-4 sm:px-10 py-2 sm:py-4 text-sm">Guide</a>
+                    </div>
+                </div>
+            </div>
+
+<div role="article" tabindex="0" class="focus:outline-none container mx-auto py-8 px-4">
+    <div class="flex  pt-14 xl:px-0 px-4 ">
+                <div class="justify-center  w-full lg:flex">
+                    <div class="lg:w-1/2">
+                        <img tabindex="0" role="img" aria-label=" Beautiful italy street" src="{{ data_pays.drapeau  }}" class="focus:outline-none w-full" alt="Beautiful italy street" />
+                        <div class="mt-8 lg:mb-0 mb-12">
+                            <h2 tabindex="0" class="focus:outline-none dark:text-white f-m-m text-2xl font-semibold leading-7"><p>{{ data_pays.pays }}</p></h2>
+                            <p tabindex="0" class="focus:outline-none dark:text-white text-base f-m-m leading-loose mt-2">Le Sénégal est un pays de l'Afrique de l'Ouest qui partage ses frontières avec la Mauritanie, le Mali, la Guinée, la Gambie, et la Guinée-Bissau. Sa capitale est <span class="text-indigo-700">{{ data_pays.capital }}</span>, une ville animée située sur la côte atlantique. La langue officielle du Sénégal est le <span class="text-indigo-700">{{ data_pays.langueOfficielle }}</span>, bien que plusieurs autres langues locales soient également parlées dans le pays.</p>
+                            <p tabindex="0" class="focus:outline-none dark:text-white text-base f-m-m leading-loose mt-2">La monnaie officielle du Sénégal est le franc CFA (Communauté Financière Africaine), qui est utilisé dans plusieurs autres pays africains. La devise du Sénégal est "<span class="text-indigo-700">{{ data_pays.devise }}</span>". Le code ISO du Sénégal est <span class="text-indigo-700">{{ data_pays.codeIso }}</span>, et l'indicatif téléphonique est <span class="text-indigo-700">{{ data_pays.indicatif }}</span>.</p>
+                            <p tabindex="0" class="focus:outline-none dark:text-white text-base f-m-m leading-loose mt-2">Le Sénégal est un pays peuplé d'environ <span class="text-indigo-700">{{ data_pays.habitants }}</span> habitants, avec une superficie d'environ <span class="text-indigo-700">{{ data_pays.surface }}</span> km². Il est divisé en <span class="text-indigo-700">{{ data_pays.regions }}</span> régions, chacune avec plusieurs <span class="text-indigo-700">{{ data_pays.departments }}</span>. La région de Dakar, qui comprend la capitale, est la plus petite mais aussi la plus peuplée du pays.telque
+                                <span class="text-indigo-700">
+                                    <select class="">
+                                {% for langue in data_pays.languesNationales %}
+                                <option value="{{ langue}}">{{ langue }}</option>
+                             {% endfor %}
+                                    </select>
+
+                                </span> </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+
+
+ {% endblock %}

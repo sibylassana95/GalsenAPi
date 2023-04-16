@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GalsenApi{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <link href="https://unpkg.com/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+     ul li a {
+        color: white !important;
+      }
+      .active{
+        color: blue !important;
+      }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+  <nav class="bg-blue-500 border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <a href="/" class="flex items-center">
+
+              <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">GalsenApi</span>
+          </a>
+          <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+          </button>
+          <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-blue-500 md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              {% url 'home' as url %}
+              <li>
+                <a href="{{url }}" class="block py-2 pl-3 pr-4  text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 {% if request.path == url %}active{% endif %}" >Home</a>
+              </li>
+              {% url 'departement' as url %}
+              <li>
+                <a href="{{url }}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if request.path == url %}active{% endif %}">Departements</a>
+              </li>
+              {% url 'region' as url %}
+              <li>
+                <a href="{{url }}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if request.path == url %}active{% endif %}">Régions</a>
+              </li>
+
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <main class="container mx-auto py-4 px-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+
+<footer class="bg-blue-500 rounded-lg shadow dark:bg-gray-900 m-4">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <span class="block text-sm  sm:text-center text-white">© 2023 <a href="/" class="hover:underline">GalsenApi</a>. All Rights Reserved.</span>
+    </div>
+</footer>
+
+
+
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    {% for message in messages %}
+
+    swal('{{ message }}');
+
+    {% endfor %}
+    {% if form.errors %}
+
+        {% for field_errors in form.errors.values %}
+          {% for error in field_errors %}
+
+            swal('{{ error }}');
+          {% endfor %}
+        {% endfor %}
+
+  {% endif %}
+
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+  <script src="{% static '/accounts/main.js' %}"></script>
+</body>
+</html>
