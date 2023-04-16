@@ -125,8 +125,9 @@ Created by **[Lassana SIBY](https://github.com/daoodaba975)**
 
 ## Demo
 
-Exemple d'utilisation de l'api 
-
+### Exemple d'utilisation de l'api 
+![CAPTURE](capture/departement.png)
+![CAPTURE](capture/region.png)
 https://galsenapi.pythonanywhere.com/
 ## License
 
