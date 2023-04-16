@@ -35,6 +35,28 @@ Créer un super utulisateur
 ```
 Créer un fichier .env dans le projet django pour stocker le secret key
 
+## API Reference
+
+#### Recuperer tous les Régions 
+```http
+  GET /api/regions/
+```
+#### Recuperer une seul région
+```http
+  GET /api/regions/1/
+```
+#### Recuperer  tous les départements
+```http
+  GET /api/departements
+```
+#### Recuperer un seul département
+```http
+  GET /api/departements/1/
+```
+#### Recuperer les infos du pays
+```http
+  GET /api/pays/
+```
 
 ## Usage
 Pour recuperer tous les Régions GET
@@ -105,7 +127,7 @@ Récuperations d'un seul departement
 ![CAPTURE](capture/singledepartement.png)
 Récuperations de tout les Régions
 ![CAPTURE](capture/allregion.png)
-Récuperations d'un seul région
+Récuperations d'une seul région
 ![CAPTURE](capture/singleregion.png)
 
 
