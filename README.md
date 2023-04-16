@@ -130,7 +130,8 @@ Exemple d'utilisation de l'api
 https://galsenapi.pythonanywhere.com/
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[shields.io](https://shields.io/)
+
 [![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)](https://github.com/GalsenDev221/made.in.senegal)
 
 
