@@ -96,7 +96,8 @@ exemple de resultat
 }
 ```
 ## Capture
-
+Récuperations de tout les département
+![COVER](capture/alldepartement.png)
 
 
 
