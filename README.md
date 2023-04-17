@@ -5,8 +5,8 @@
   <h3><b> GalsenApi</b></h3>
 
 </div>
-![COVER](capture/logo.png")
 
+![CAPTURE](capture/logo.png)
 **GalsenApi** est un api qui vous permet de manipuler facilement des données sur le Sénégal.Un projet inspirer du package **[Galsenify](https://www.npmjs.com/package/galsenify)**
 
 
