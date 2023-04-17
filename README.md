@@ -153,6 +153,29 @@ Created by **[Lassana SIBY](https://github.com/daoodaba975)**
 ## **[Demo 🚀](https://galsenapi.pythonanywhere.com/)**
 
 ### Exemple d'utilisation de l'api 
+Views region et departement
+```python
+def regions_view(request):
+    query = request.GET.get('q')
+    url = 'https://galsenapi.pythonanywhere.com/api/regions/'
+    params = {'search': query} if query else {}
+    response = requests.get(url, params=params)
+    data = response.json()
+    regions = data
+    context = {'regions': regions, 'query': query}
+    return render(request, 'demo/regions.html', context)
+
+
+def departments_view(request):
+    query = request.GET.get('q')
+    url = 'https://galsenapi.pythonanywhere.com/api/departements/'
+    params = {'search': query} if query else {}
+    response = requests.get(url, params=params)
+    data = response.json()
+    departments = data
+    context = {'departments': departments, 'query': query}
+    return render(request, 'demo/departements.html', context)
+```
 ![CAPTURE](capture/departement.png)
 ![CAPTURE](capture/region.png)
 
