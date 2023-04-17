@@ -1,12 +1,10 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  
-  <h3><b> GalsenApi</b></h3>
-
+  <img src="capture/logo.png" alt="logo" width="250"  height="auto" />
 </div>
 
-![CAPTURE](capture/logo.png)
+
 **GalsenApi** est un api qui vous permet de manipuler facilement des données sur le Sénégal.Un projet inspirer du package **[Galsenify](https://www.npmjs.com/package/galsenify)**
 
 
