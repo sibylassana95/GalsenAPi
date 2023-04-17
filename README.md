@@ -1,10 +1,17 @@
+<a name="readme-top"></a>
 
-# GalsenApi
+<div align="center">
+  <img src="./assets/logo_menendezon.png" alt="logo" width="140"  height="auto" />
+  <br/>
+  <h3><b> GalsenApi</b></h3>
+
+</div>
+
 
 **GalsenApi** est un api qui vous permet de manipuler facilement des données sur le Sénégal.Un projet inspirer du package **[Galsenify](https://www.npmjs.com/package/galsenify)**
 
 
-## Installation
+## Installation 💻 
 
 Crée l'environement virtuel
 
@@ -129,7 +136,7 @@ Récuperations d'une seul région
 
 
 
-## Author 🌟
+## 👤 Author 
 
 [![LASSANA SIBY](https://avatars.githubusercontent.com/u/103085452?u=13ace4d88a52056741734e0f802ca7c0053e1e80&v=4&s=40)](https://github.com/sibylassana95)  
 Created by **[Lassana SIBY](https://github.com/daoodaba975)**
@@ -143,16 +150,16 @@ Created by **[Lassana SIBY](https://github.com/daoodaba975)**
 
 ### Merci à [Daouda BA](https://github.com/daoodaba975) pour les donées.
 
-## **[Demo](https://galsenapi.pythonanywhere.com/)**
+## **[Demo 🚀](https://galsenapi.pythonanywhere.com/)**
 
 ### Exemple d'utilisation de l'api 
 ![CAPTURE](capture/departement.png)
 ![CAPTURE](capture/region.png)
 
-## License
+## 📝 LLicense
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 [![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)](https://github.com/GalsenDev221/made.in.senegal)
 
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
