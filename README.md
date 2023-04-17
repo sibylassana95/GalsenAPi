@@ -127,16 +127,16 @@ Exemple de résultat :
 ```
 ## Captures d'écran
 ### Voici quelques captures d'écran pour illustrer les résultats de l'API :
-Récuperations des infos sur le pays
+### Récuperations des infos sur le pays
 ![CAPTURE](capture/pays.png)
 
-Récuperations de tout les Départements
+### Récuperations de tout les Départements
 ![CAPTURE](capture/alldepartement.png)
-Récuperations d'un seul departement
+### Récuperations d'un seul departement
 ![CAPTURE](capture/singledepartement.png)
-Récuperations de tout les Régions
+### Récuperations de tout les Régions
 ![CAPTURE](capture/allregion.png)
-Récuperations d'une seul région
+### Récuperations d'une seul région
 ![CAPTURE](capture/singleregion.png)
 
 
@@ -154,6 +154,7 @@ Created by **[Lassana SIBY](https://github.com/sibylassana95)**
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/sibyog13)
 
 ### Merci à [Daouda BA](https://github.com/daoodaba975) pour les donées.
+[![Daouda BA](https://avatars.githubusercontent.com/daoodaba975?s=64)](https://github.com/daoodaba975)
 
 ## **[Demo 🚀](https://galsenapi.pythonanywhere.com/)**
 

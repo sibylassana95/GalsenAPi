@@ -118,16 +118,16 @@ Example Result
 }
 ```
 ## Capture
-Retrieval of information about the country
+### Retrieval of information about the country
 ![CAPTURE](capture/pays.png)
 
-Retrieval of all Departments
+### Retrieval of all Departments
 ![CAPTURE](capture/alldepartement.png)
-Retrieval of a single department
+### Retrieval of a single department
 ![CAPTURE](capture/singledepartement.png)
-Retrieval of all Regions
+### Retrieval of all Regions
 ![CAPTURE](capture/allregion.png)
-Retrieval off a single Region
+### Retrieval off a single Region
 ![CAPTURE](capture/singleregion.png)
 
 
@@ -145,6 +145,7 @@ Created by **[Lassana SIBY](https://github.com/sibylassana95)**
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/sibyog13)
 
 ### Thank you to [Daouda BA](https://github.com/daoodaba975) for the data..
+[![Daouda BA](https://avatars.githubusercontent.com/daoodaba975?s=64)](https://github.com/daoodaba975)
 
 ## **[Demo 🚀](https://galsenapi.pythonanywhere.com/)**
 
