@@ -7,7 +7,7 @@
 
 **GalsenApi** GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package  **[Galsenify](https://www.npmjs.com/package/galsenify)**
 
-***Read in[English](EN.md)***
+***Read in [English](EN.md)***
 ## Installation 💻 
 
 - Créez un environnement virtuel :
