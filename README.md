@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <div align="center">
-  <img src="./assets/logo_menendezon.png" alt="logo" width="140"  height="auto" />
+  <img src="capture/logo.png" alt="logo" width="140"  height="auto" />
   <br/>
   <h3><b> GalsenApi</b></h3>
 
