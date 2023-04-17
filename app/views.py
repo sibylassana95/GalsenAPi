@@ -2,11 +2,12 @@ import json
 
 import requests
 from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.filters import SearchFilter
 
 from .models import Pays, Departements, Regions
 from .serializers import PaysSerializer, DepartementsSerializer, RegionsSerializer
-from rest_framework import generics
-from rest_framework.filters import SearchFilter
+
 
 def pays_view(request):
     url_pays = "https://raw.githubusercontent.com/daoodaba975/galsenify/main/dataset/senegal.json"
@@ -38,7 +39,6 @@ def departement_view(request):
                 arrondissements=departement['arrondissements']
             )
 
-    donne = Departements.objects.all()
     return render(request, 'departement.html', {'data': donne_db})
 
 
@@ -49,7 +49,7 @@ def region_view(request):
     query = request.GET.get('q')
     donnedb = Regions.objects.all()
     if query:
-        donne_db = donnedb.filter(nom__icontains=query)
+        donnedb = donnedb.filter(nom__icontains=query)
     for region in data_region:
         if not Regions.objects.filter(nom=region['nom']).exists():
             region_obj = Regions.objects.create(
@@ -60,11 +60,7 @@ def region_view(request):
                 departments=region['departments']
             )
 
-    donne = Regions.objects.all()
     return render(request, 'region.html', {'data': donnedb})
-
-
-
 
 
 class PaysList(generics.ListAPIView):

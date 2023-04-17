@@ -1,6 +1,6 @@
 import requests
 
-response = requests.get('https://galsenapi.pythonanywhere.com/api/regions/') # Remplacez l'URL par celle de votre serveur
+response = requests.get('https://galsenapi.pythonanywhere.com/api/regions/')
 regions = response.json()
 print (regions)
 
