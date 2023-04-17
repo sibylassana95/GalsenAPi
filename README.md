@@ -65,36 +65,33 @@ https://galsenapi.pythonanywhere.com/api/regions/
 exemple de resultat
 ```javascript
 {
-    "count": 14,
-    "next": "https://galsenapi.pythonanywhere.com/api/regions/?page=2",
-    "previous": null,
-    "results": [
-        {
-            "id": 1,
-            "nom": "Dakar",
-            "code": "DK",
-            "population": 4042225,
-            "superficie": 547,
-            "departments": [
-                "Dakar",
-                "Pikine",
-                "Guédiawaye",
-                "Rufisque",
-                "Keur Massar"
-            ]
-        },
-        {
-            "id": 2,
-            "nom": "Diourbel",
-            "code": "DB",
-            "population": 1980821,
-            "superficie": 4824,
-            "departments": [
-                "Diourbel",
-                "Bambey",
-                "Mbacké"
-            ]
-        },
+    [
+    {
+        "id": 1,
+        "nom": "Dakar",
+        "code": "DK",
+        "population": 4042225,
+        "superficie": 547,
+        "departments": [
+            "Dakar",
+            "Pikine",
+            "Guédiawaye",
+            "Rufisque",
+            "Keur Massar"
+        ]
+    },
+    {
+        "id": 2,
+        "nom": "Diourbel",
+        "code": "DB",
+        "population": 1980821,
+        "superficie": 4824,
+        "departments": [
+            "Diourbel",
+            "Bambey",
+            "Mbacké"
+        ]
+    },
 ```
 Pour recuperer une seul regions GET
 https://galsenapi.pythonanywhere.com/api/regions/1/
