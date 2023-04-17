@@ -10,34 +10,34 @@
 
 ## Installation 💻 
 
-Create a virtual environment:
+- Create a virtual environment:
 
 ```bash
   python -m venv .venv
 ```
-Activate the virtual environment:
+- Activate the virtual environment:
 
 ```bash
   source .venv/bin/activate
 ```  
-Install the dependencies:
+- Install the dependencies:
 
 ```bash
   pip install requirements.txt
 ```
-Run the migrations:
+- Run the migrations:
 
 ```bash
   python manage.py makemigrations
   python manage.py migrate
 ```    
-Create a super user:
+- Create a super user:
 
 ```bash
   python manage.py createsuperuser
   
 ```
-Create a .env file in the Django project to store the secret key.
+- Create a .env file in the Django project to store the secret key.
 
 ## API Reference
 
