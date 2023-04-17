@@ -10,7 +10,7 @@ from .serializers import PaysSerializer, DepartementsSerializer, RegionsSerializ
 
 
 def pays_view(request):
-    url_pays = "https://raw.githubusercontent.com/daoodaba975/galsenify/main/dataset/senegal.json"
+    url_pays = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/senegal.json"
     response = requests.get(url_pays)
     data_pays = json.loads(response.text)
 
@@ -18,7 +18,7 @@ def pays_view(request):
 
 
 def departement_view(request):
-    url_departement = "https://raw.githubusercontent.com/daoodaba975/galsenify/main/dataset/departments.json"
+    url_departement = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/departments.json"
     response = requests.get(url_departement)
     data_departement = json.loads(response.text)
     query = request.GET.get('q')
@@ -43,7 +43,7 @@ def departement_view(request):
 
 
 def region_view(request):
-    url_region = "https://raw.githubusercontent.com/daoodaba975/galsenify/main/dataset/regions.json"
+    url_region = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/regions.json"
     response = requests.get(url_region)
     data_region = json.loads(response.text)
     query = request.GET.get('q')
