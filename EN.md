@@ -5,75 +5,69 @@
 </div>
 
 
-**GalsenApi** GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package  **[Galsenify](https://www.npmjs.com/package/galsenify)**
+**GalsenApi** est un api qui vous permet de manipuler facilement des données sur le Sénégal.Un projet inspirer du package **[Galsenify](https://www.npmjs.com/package/galsenify)**
 
-***Read in[English](EN.md)***
+
 ## Installation 💻 
 
-- Créez un environnement virtuel :
+Crée un l'environement virtuel
 
 ```bash
   python -m venv .venv
 ```
-- Activez l'environnement virtuel :
+Activer l'environement virtuel
 
 ```bash
   source .venv/bin/activate
 ```  
-- Installez les dépendances :
+Installer les dépendances
 
 ```bash
   pip install requirements.txt
 ```
-- Effectuez les migrations :
+Faire les migrations
 
 ```bash
   python manage.py makemigrations
   python manage.py migrate
 ```    
-- Créez un super utilisateur :
+Créer un super utulisateur 
 
 ```bash
   python manage.py createsuperuser
   
 ```
-- Lancez le serveur :
-
-```bash
-  python manage.py runserver
-  
-```
-Créez un fichier .env dans le projet Django pour stocker la clé secrète.
+Créer un fichier .env dans le projet django pour stocker le secret key
 
 ## API Reference
-#### Voici les différentes méthodes d'API disponibles :
-#### Récupérer toutes les régions :
+
+#### Recuperer tous les Régions 
 ```http
   GET /api/regions/
 ```
-#### Récupérer une seule région :
+#### Recuperer une seul région
 ```http
   GET /api/regions/1/
 ```
-#### Récupérer tous les départements :
+#### Recuperer  tous les départements
 ```http
   GET /api/departements
 ```
-#### Récupérer un seul département :
+#### Recuperer un seul département
 ```http
   GET /api/departements/1/
 ```
-#### Récupérer les informations sur le pays :
+#### Recuperer les infos du pays
 ```http
   GET /api/pays/
 ```
 
-## Utilisation
-Pour récupérer toutes les régions :
-GET  https://galsenapi.pythonanywhere.com/api/regions/
+## Usage
+Pour recuperer tous les Régions GET
+https://galsenapi.pythonanywhere.com/api/regions/
 
-Exemple de résultat :
-```json
+exemple de resultat
+```javascript
 {
     [
     {
@@ -101,14 +95,14 @@ Exemple de résultat :
             "Bambey",
             "Mbacké"
         ]
-    }]}
+    },
 ```
-Pour récupérer une seule région :
+Pour recuperer une seul regions GET
 https://galsenapi.pythonanywhere.com/api/regions/1/
 
-Exemple de résultat :
-```json
-
+exemple de resultat
+```javascript
+{
     {
     "id": 1,
     "nom": "Dakar",
@@ -123,10 +117,8 @@ Exemple de résultat :
         "Keur Massar"
     ]
 }
-
 ```
-## Captures d'écran
-### Voici quelques captures d'écran pour illustrer les résultats de l'API :
+## Capture
 Récuperations des infos sur le pays
 ![CAPTURE](capture/pays.png)
 
@@ -153,12 +145,12 @@ Created by **[Lassana SIBY](https://github.com/sibylassana95)**
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sibylassana/)
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/sibyog13)
 
-### Merci à [Daouda BA](https://github.com/daoodaba975) pour les donées.
+### Thank you to [Daouda BA](https://github.com/daoodaba975) for the data..
 
 ## **[Demo 🚀](https://galsenapi.pythonanywhere.com/)**
 
-### Exemple d'utilisation de l'api 
-Views region et departement
+### Example of using the API
+Views for regions and departments.
 ```python
 def regions_view(request):
     query = request.GET.get('q')
