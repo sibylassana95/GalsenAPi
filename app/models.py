@@ -52,5 +52,18 @@ class Regions(models.Model):
 
     def __str__(self):
         return self.nom
+    
+
+class Village(models.Model):
+    nom = models.CharField(max_length=255)
+    region = models.CharField(max_length=255)
+    
+
+    class Meta:
+        verbose_name = 'Village'
+        verbose_name_plural = 'Villages'
+
+    def __str__(self):
+        return self.nom    
 
 
