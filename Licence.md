@@ -1,4 +1,4 @@
-Droit d'auteur (c) [2023] [Lassana SIBY](https://github.com/sibylassana95)
+# Droit d'auteur (c) 2023 [Lassana SIBY](https://github.com/sibylassana95)
 
 En utilisant cette API, vous acceptez les termes suivants :
 

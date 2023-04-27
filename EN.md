@@ -197,9 +197,9 @@ def villages_view(request):
 ![CAPTURE](capture/region.png)
 ![CAPTURE](capture/villages.png)
 
-## 📝 LLicense
+## 📝 License
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](./Licence.md)
 
 [![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)](https://github.com/GalsenDev221/made.in.senegal)
 
