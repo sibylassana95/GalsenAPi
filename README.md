@@ -5,7 +5,7 @@
 </div>
 
 
-**GalsenApi** GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package  **[Galsenify](https://www.npmjs.com/package/galsenify)**
+**GalsenApi**  est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package  **[Galsenify](https://www.npmjs.com/package/galsenify)**
 
 ***Read in [English](EN.md)***
 ## Installation 💻 
@@ -212,9 +212,9 @@ def villages_view(request):
 ![CAPTURE](capture/region.png)
 ![CAPTURE](capture/villages.png)
 
-## 📝 LLicense
+## 📝 License
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](Licence.md)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](./Licence.md)
 
 [![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)](https://github.com/GalsenDev221/made.in.senegal)
 
