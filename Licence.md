@@ -2,7 +2,7 @@
 
 En utilisant cette API, vous acceptez les termes suivants :
 
-Vous pouvez utiliser, copier et distribuer gratuitement cette API, à condition que vous mentionniez l'auteur original de l'API (votre nom) dans tous les projets dérivés, les publications ou les publicités.
+Vous pouvez utiliser, copier et distribuer gratuitement cette API, à condition que vous mentionniez l'auteur original de l'API [Lassana SIBY](https://github.com/sibylassana95) dans tous les projets dérivés, les publications ou les publicités.
 
 Vous pouvez modifier cette API pour votre usage personnel ou commercial, mais si vous publiez ou distribuez des versions modifiées de l'API, vous devez clairement indiquer que les modifications ont été apportées et qui en est l'auteur.
 
@@ -18,7 +18,7 @@ Merci d'utiliser GalsenApi et bonne chance dans votre projet !
 ----------------------------------------------------------------------------------------------------------
 By using this API, you agree to the following terms:
 
-You may use, copy, and distribute this API for free, provided that you give proper credit to the original author of the API (your name) in all derivative works, publications, or advertisements.
+You may use, copy, and distribute this API for free, provided that you give proper credit to the original author of the API [Lassana SIBY](https://github.com/sibylassana95) in all derivative works, publications, or advertisements.
 
 You may modify this API for your personal or commercial use, but if you publish or distribute modified versions of the API, you must clearly indicate that modifications have been made and who the author is.
 
