@@ -57,6 +57,14 @@
 ```http
   GET /api/departements/1/
 ```
+#### Get all villages :
+```http
+  GET api/villages
+```
+#### Get a single village :
+```http
+  GET /api/villages/1
+```
 #### Get country information
 ```http
   GET /api/pays/
@@ -174,9 +182,20 @@ def departments_view(request):
     departments = data
     context = {'departments': departments, 'query': query}
     return render(request, 'demo/departements.html', context)
+
+def villages_view(request):
+    query = request.GET.get('q')
+    url = 'https://galsenapi.pythonanywhere.com/api/villages/'
+    params = {'search': query} if query else {}
+    response = requests.get(url, params=params)
+    data = response.json()
+    villages = data
+    context = {'villages': villages, 'query': query}
+    return render(request, 'demo/village.html', context)    
 ```
 ![CAPTURE](capture/departement.png)
 ![CAPTURE](capture/region.png)
+![CAPTURE](capture/villages.png)
 
 ## 📝 LLicense
 

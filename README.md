@@ -63,6 +63,14 @@ Créez un fichier .env dans le projet Django pour stocker la clé secrète.
 ```http
   GET /api/departements/1/
 ```
+#### Récupérer tous les villages :
+```http
+  GET api/villages
+```
+#### Récupérer un seul département :
+```http
+  GET /api/villages/1
+```
 #### Récupérer les informations sur le pays :
 ```http
   GET /api/pays/
@@ -138,6 +146,11 @@ Exemple de résultat :
 ![CAPTURE](capture/allregion.png)
 ### Récuperations d'une seul région
 ![CAPTURE](capture/singleregion.png)
+### Récuperations de tout les villages
+![CAPTURE](capture/allvillages.png)
+### Récuperations d'un seul village
+![CAPTURE](capture/singleVillage.png)
+
 
 
 
@@ -184,9 +197,20 @@ def departments_view(request):
     departments = data
     context = {'departments': departments, 'query': query}
     return render(request, 'demo/departements.html', context)
+
+def villages_view(request):
+    query = request.GET.get('q')
+    url = 'https://galsenapi.pythonanywhere.com/api/villages/'
+    params = {'search': query} if query else {}
+    response = requests.get(url, params=params)
+    data = response.json()
+    villages = data
+    context = {'villages': villages, 'query': query}
+    return render(request, 'demo/village.html', context)    
 ```
 ![CAPTURE](capture/departement.png)
 ![CAPTURE](capture/region.png)
+![CAPTURE](capture/villages.png)
 
 ## 📝 LLicense
 
