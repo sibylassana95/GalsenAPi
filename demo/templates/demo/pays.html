@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
- <div class="bg-gray-100 dark:bg-transparent">
+ <div class="bg-white shadow-sm dark:bg-gray-500">
                 <div class="container mx-auto flex flex-col items-center py-12 sm:py-24">
                     <div class="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col  mb-5 sm:mb-10">
                         <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center text-gray-800 dark:text-white font-black leading-7 md:leading-10">
                            Un projet demo pour vous présenter l'utilisation de l'api
-                            <span class="text-indigo-700">GalsenApi</span>
+                            <span class="text-blue-700">GalsenApi</span>
 
                         </h1>
-                        <p class="mt-5 sm:mt-10 lg:w-10/12 dark:text-white  font-normal text-center text-sm sm:text-lg">GalsenApi GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package <a href="https://www.npmjs.com/package/galsenify" class="text-indigo-700">Galsenify</a></p>
+                        <p class="mt-5 sm:mt-10 lg:w-10/12 dark:text-white  font-normal text-center text-sm sm:text-lg">GalsenApi GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package <a href="https://www.npmjs.com/package/galsenify" class="text-blue-700">Galsenify</a></p>
                     </div>
                     <div class="flex justify-center items-center">
                         <a href="https://github.com/sibylassana95/GalsenAPi" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 lg:text-xl lg:font-bold  rounded text-white px-4 sm:px-10 border border-indigo-700 py-2 sm:py-4 text-sm">Github</a>
@@ -31,19 +31,19 @@
                     <div class="">
                         <img src="{{ data_pays.drapeau }}" class="w-full h-96 object-cover">
                     </div>
-                    <div class="p-4 pb-5">
-                        <h2 class="block text-2xl font-semibold text-gray-700 font-roboto">
-                            {{ data_pays.pays }}(<span class="text-indigo-700">{{ data_pays.devise }}</span>)
+                    <div class="p-4 pb-5 dark:bg-gray-500">
+                        <h2 class="block text-2xl font-semibold dark:text-white font-roboto">
+                            {{ data_pays.pays }}(<span class="text-blue-700">{{ data_pays.devise }}</span>)
                         </h2>
                         <div class="mt-2 flex space-x-4">
-                            <div class="flex text-gray-400 text-sm items-center">
-                                <span class="mr-2 text-xs">
+                            <div class="flex text-blue-700 text-sm items-center">
+                                <span class="mr-2 text-xs text-blue-700">
                                     <i class="far fa-user"></i>
                                 </span>
                                {{ data_pays.habitants }} habitants
                             </div>
-                            <div class="flex text-gray-400 text-sm items-center">
-                                <span class="mr-2 text-xs">
+                            <div class="flex text-blue-700 text-sm items-center">
+                                <span class="mr-2 text-xs text-blue-700">
                                     <i class="fa fa-building"></i>
                                 </span>
                                 capitale {{ data_pays.capital }}
@@ -51,8 +51,8 @@
                         </div>
 
                         <p class="dark:text-white text-sm mt-5">
-                            Le Sénégal est un pays de l'Afrique de l'Ouest qui partage ses frontières avec la Mauritanie, le Mali, la Guinée, la Gambie, et la Guinée-Bissau. Sa capitale est <span class="text-indigo-700">{{ data_pays.capital }}</span>, une ville animée située sur la côte atlantique. La langue officielle du Sénégal est le <span class="text-indigo-700">{{ data_pays.langueOfficielle }}</span>, bien que plusieurs autres langues locales soient également parlées dans le pays comme le<span class="text-indigo-700">
-                        <select class="">
+                            Le Sénégal est un pays de l'Afrique de l'Ouest qui partage ses frontières avec la Mauritanie, le Mali, la Guinée, la Gambie, et la Guinée-Bissau. Sa capitale est <span class="text-blue-700">{{ data_pays.capital }}</span>, une ville animée située sur la côte atlantique. La langue officielle du Sénégal est le <span class="text-blue-700">{{ data_pays.langueOfficielle }}</span>, bien que plusieurs autres langues locales soient également parlées dans le pays comme le<span class="text-blue-700">
+                        <select class="text-blue-700">
                             {% for langue in data_pays.languesNationales %}
                             <option value="{{ langue}}">{{ langue }}</option>
                             {% endfor %}
@@ -60,14 +60,14 @@
                     </span>
                         </p>
 
-                        <p class="bg-green-50 border border-green-500 p-3 text-sm  mt-5">
+                        <p class="bg-green-50 border dark:text-gray-800 border-green-500 p-3 text-sm   mt-5">
 
-                           La monnaie officielle du Sénégal est le  <span class="text-indigo-700">{{ data_pays.monnaie}}</span>, qui est utilisée dans plusieurs autres pays africains. Le code ISO du Sénégal est <span class="text-indigo-700">{{ data_pays.codeIso }}</span>, et l'indicatif téléphonique est <span class="text-indigo-700">{{ data_pays.indicatif }}</span>.
+                           La monnaie officielle du Sénégal est le  <span class="text-blue-700">{{ data_pays.monnaie}}</span>, qui est utilisée dans plusieurs autres pays africains. Le code ISO du Sénégal est <span class="text-blue-700">{{ data_pays.codeIso }}</span>, et l'indicatif téléphonique est <span class="text-blue-700">{{ data_pays.indicatif }}</span>.
 
                         </p>
 
                         <p class="dark:text-white  text-sm mt-5">
-                           Le Sénégal est un pays peuplé d'environ <span class="text-indigo-700">{{ data_pays.habitants }}</span> habitants, avec une superficie d'environ <span class="text-indigo-700">{{ data_pays.surface }}</span> km². Il est divisé en <span class="text-indigo-700">{{ data_pays.regions }}</span> régions, et <span class="text-indigo-700">{{ data_pays.departments }} </span> départements.
+                           Le Sénégal est un pays peuplé d'environ <span class="text-blue-700">{{ data_pays.habitants }}</span> habitants, avec une superficie d'environ <span class="text-blue-700">{{ data_pays.surface }}</span> km². Il est divisé en <span class="text-blue-700">{{ data_pays.regions }}</span> régions, et <span class="text-blue-700">{{ data_pays.departments }} </span> départements.
                         </p>
 
 </div>

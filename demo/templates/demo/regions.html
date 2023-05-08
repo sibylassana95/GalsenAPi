@@ -15,7 +15,7 @@
     </form>
   </div>
 </div>
-
+<p class="text-white">Nombre total de région : {{ regions|length }}</p>
 <table class="min-w-full divide-y divide-gray-200">
   <thead class="bg-gray-50">
     <tr>
@@ -29,11 +29,11 @@
   <tbody class="bg-white divide-y divide-gray-200">
     {% for region in regions %}
       <tr>
-        <td class="px-6 py-4 whitespace-nowrap">{{ region.nom }}</td>
-        <td class="px-6 py-4 whitespace-nowrap">{{ region.code }}</td>
-        <td class="px-6 py-4 whitespace-nowrap">{{ region.population }}</td>
-        <td class="px-6 py-4 whitespace-nowrap">{{ region.superficie }}</td>
-        <td class="px-6 py-4 whitespace-nowrap">
+        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ region.nom }}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ region.code }}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ region.population }}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ region.superficie }}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-gray-700">
           <div class="relative">
             <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
               {% for department in region.departments %}
