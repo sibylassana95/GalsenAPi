@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
- <div class="bg-white shadow-sm dark:bg-gray-500">
+ <div class="bg-white shadow-sm dark:bg-gray-800">
                 <div class="container mx-auto flex flex-col items-center py-12 sm:py-24">
                     <div class="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col  mb-5 sm:mb-10">
                         <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center text-gray-800 dark:text-white font-black leading-7 md:leading-10">
                            Un projet demo pour vous présenter l'utilisation de l'api
-                            <span class="text-blue-700">GalsenApi</span>
+                            <span class="text-green-500">GalsenApi</span>
 
                         </h1>
-                        <p class="mt-5 sm:mt-10 lg:w-10/12 dark:text-white  font-normal text-center text-sm sm:text-lg">GalsenApi GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package <a href="https://www.npmjs.com/package/galsenify" class="text-blue-700">Galsenify</a></p>
+                        <p class="mt-5 sm:mt-10 lg:w-10/12 dark:text-white  font-normal text-center text-sm sm:text-lg">GalsenApi GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package <a href="https://www.npmjs.com/package/galsenify" class="text-green-500">Galsenify</a></p>
                     </div>
                     <div class="flex justify-center items-center">
                         <a href="https://github.com/sibylassana95/GalsenAPi" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 lg:text-xl lg:font-bold  rounded text-white px-4 sm:px-10 border border-indigo-700 py-2 sm:py-4 text-sm">Github</a>
@@ -31,19 +31,19 @@
                     <div class="">
                         <img src="{{ data_pays.drapeau }}" class="w-full h-96 object-cover">
                     </div>
-                    <div class="p-4 pb-5 dark:bg-gray-500">
+                    <div class="p-4 pb-5 dark:bg-gray-800">
                         <h2 class="block text-2xl font-semibold dark:text-white font-roboto">
-                            {{ data_pays.pays }}(<span class="text-blue-700">{{ data_pays.devise }}</span>)
+                            {{ data_pays.pays }}(<span class="text-green-500">{{ data_pays.devise }}</span>)
                         </h2>
                         <div class="mt-2 flex space-x-4">
-                            <div class="flex text-blue-700 text-sm items-center">
-                                <span class="mr-2 text-xs text-blue-700">
+                            <div class="flex text-green-500 text-sm items-center">
+                                <span class="mr-2 text-xs text-green-500">
                                     <i class="far fa-user"></i>
                                 </span>
                                {{ data_pays.habitants }} habitants
                             </div>
-                            <div class="flex text-blue-700 text-sm items-center">
-                                <span class="mr-2 text-xs text-blue-700">
+                            <div class="flex text-green-500 text-sm items-center">
+                                <span class="mr-2 text-xs text-green-500">
                                     <i class="fa fa-building"></i>
                                 </span>
                                 capitale {{ data_pays.capital }}
@@ -51,8 +51,8 @@
                         </div>
 
                         <p class="dark:text-white text-sm mt-5">
-                            Le Sénégal est un pays de l'Afrique de l'Ouest qui partage ses frontières avec la Mauritanie, le Mali, la Guinée, la Gambie, et la Guinée-Bissau. Sa capitale est <span class="text-blue-700">{{ data_pays.capital }}</span>, une ville animée située sur la côte atlantique. La langue officielle du Sénégal est le <span class="text-blue-700">{{ data_pays.langueOfficielle }}</span>, bien que plusieurs autres langues locales soient également parlées dans le pays comme le<span class="text-blue-700">
-                        <select class="text-blue-700">
+                            Le Sénégal est un pays de l'Afrique de l'Ouest qui partage ses frontières avec la Mauritanie, le Mali, la Guinée, la Gambie, et la Guinée-Bissau. Sa capitale est <span class="text-green-500">{{ data_pays.capital }}</span>, une ville animée située sur la côte atlantique. La langue officielle du Sénégal est le <span class="text-green-500">{{ data_pays.langueOfficielle }}</span>, bien que plusieurs autres langues locales soient également parlées dans le pays comme le<span class="text-green-500">
+                        <select class="text-green-500">
                             {% for langue in data_pays.languesNationales %}
                             <option value="{{ langue}}">{{ langue }}</option>
                             {% endfor %}
@@ -62,12 +62,12 @@
 
                         <p class="bg-green-50 border dark:text-gray-800 border-green-500 p-3 text-sm   mt-5">
 
-                           La monnaie officielle du Sénégal est le  <span class="text-blue-700">{{ data_pays.monnaie}}</span>, qui est utilisée dans plusieurs autres pays africains. Le code ISO du Sénégal est <span class="text-blue-700">{{ data_pays.codeIso }}</span>, et l'indicatif téléphonique est <span class="text-blue-700">{{ data_pays.indicatif }}</span>.
+                           La monnaie officielle du Sénégal est le  <span class="text-green-500">{{ data_pays.monnaie}}</span>, qui est utilisée dans plusieurs autres pays africains. Le code ISO du Sénégal est <span class="text-green-500">{{ data_pays.codeIso }}</span>, et l'indicatif téléphonique est <span class="text-green-500">{{ data_pays.indicatif }}</span>.
 
                         </p>
 
                         <p class="dark:text-white  text-sm mt-5">
-                           Le Sénégal est un pays peuplé d'environ <span class="text-blue-700">{{ data_pays.habitants }}</span> habitants, avec une superficie d'environ <span class="text-blue-700">{{ data_pays.surface }}</span> km². Il est divisé en <span class="text-blue-700">{{ data_pays.regions }}</span> régions, et <span class="text-blue-700">{{ data_pays.departments }} </span> départements.
+                           Le Sénégal est un pays peuplé d'environ <span class="text-green-500">{{ data_pays.habitants }}</span> habitants, avec une superficie d'environ <span class="text-green-500">{{ data_pays.surface }}</span> km². Il est divisé en <span class="text-green-500">{{ data_pays.regions }}</span> régions, et <span class="text-green-500">{{ data_pays.departments }} </span> départements.
                         </p>
                          <p class="dark:text-white text-sm mt-5 text-left text-justify">
                          Un taux d’accroissement moyen annuel intercensitaire resté constant entre 2013 et 2023
@@ -82,9 +82,7 @@ Les enfants âgés de moins de 15 ans constituent 39,2% de la population globale
 <p class="dark:text-white text-sm mt-5 text-left text-justify">
 En considérant les grands groupes d’âges, on observe un avantage numérique des hommes sur les femmes aux âges jeunes, moins de 15 ans avec 110,8 garçons pour 100 filles. Pour les tranches d’âges 15-34 ans et 60 ans ou plus, la tendance s’inverse en faveur des femmes avec respectivement 98,1 et 93,5 hommes pour 100 femmes.</p>
 <p class="dark:text-white text-sm mt-5 text-left text-justify">
-Une population concentrée sur l’axe Dakar-Thiès-Diourbel (46,8%)
-
-La population du Sénégal est répartie de façon inégale dans l’espace. Les plus fortes concentrations humaines s’observent à l’Ouest du pays, au Centre et vers le Nord-Ouest, tandis que l’Est et le Nord-Est demeurent faiblement peuplés.</p>
+Une population concentrée sur l’axe Dakar-Thiès-Diourbel (46,8%).La population du Sénégal est répartie de façon inégale dans l’espace. Les plus fortes concentrations humaines s’observent à l’Ouest du pays, au Centre et vers le Nord-Ouest, tandis que l’Est et le Nord-Est demeurent faiblement peuplés.</p>
 <p class="dark:text-white text-sm mt-5 text-left text-justify">
 La densité de la population initialement à 65 habitants au km² en 2013, est passée à 92 habitants au km² en 2023. La région de Dakar se démarque des autres avec une densité de  7 277 habitants au km². La région de Kédougou est la moins peuplée avec une densité de 15 habitants au km².</p>
 <p class="dark:text-white text-sm mt-5 text-left text-justify">
