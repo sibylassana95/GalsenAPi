@@ -1,0 +1,2691 @@
+[
+    {
+        "nom": "Keur Ndiaye Lo",
+        "region": "Dakar"
+    },
+    {
+        "nom": "Kounoune",
+        "region": "Dakar"
+    },
+    {
+        "nom": "Niaga Ouolof",
+        "region": "Dakar"
+    },
+    {
+        "nom": "Niaga Peul",
+        "region": "Dakar"
+    },
+    {
+        "nom": "Noflaye",
+        "region": "Dakar"
+    },
+    {
+        "nom": "Toubab Dialo",
+        "region": "Dakar"
+    },
+    {
+        "nom": "Baba Garage",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "Kael",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "Lambaye",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "N'Digane",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "Ndame",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "Ndindy",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "Ndoulo",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "Ngodjilème",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "Thieytou",
+        "region": "Diourbel"
+    },
+    {
+        "nom": "Diogane",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Djifer",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Djilasse",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Djilor",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Fambine",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Faoye",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Fimela",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Keur Birane Khorédia",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Loul Sessène",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Mar Lodj",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Mbassis",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Mbissel",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Missirah (Toubacouta)",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Ndangane",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Ndiankha Ali",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Ndiob",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Ngalangue",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Ngayokhem",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Niakhar",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Niodior",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Palmarin",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Sirmang",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Sob",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Somb",
+        "region": "Fatick",
+        "departement": "Gossas"
+    },
+    {
+        "nom": "Tabakali",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Tattaguine",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Thialane",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Thiouthioune",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Toubacouta(Foundiougne)",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Tukar",
+        "region": "Fatick"
+    },
+    {
+        "nom": "Gniby",
+        "region": "Kaffrine"
+    },
+    {
+        "nom": "Katakel",
+        "region": "Kaffrine"
+    },
+    {
+        "nom": "Keur Mboucki",
+        "region": "Kaffrine"
+    },
+    {
+        "nom": "Mabo",
+        "region": "Kaffrine"
+    },
+    {
+        "nom": "Mbegue",
+        "region": "Kaffrine"
+    },
+    {
+        "nom": "Sagna",
+        "region": "Kaffrine"
+    },
+    {
+        "nom": "Aïnoumal",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ali Gane",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Kantor",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Kayemor",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Keur Ngor",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Khalambasse",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Medina Sabakh",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Medna",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndémène",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndiédieng",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Nguélou",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Niayène",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Paoskoto",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Porokhane",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Sagne",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Sama Diaène",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Sine Ngayène",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Taïba Niassène",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Touba Saloum",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Touba Sanokho",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Wack Ngouna",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Bandafassi",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Bembou",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Dakateli",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Dar Salam",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Dimboly",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Ethiolo",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Fongolembi",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Ibel",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Iwol",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Missirah Sirimana",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Ndebou",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Sabodala",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Samécouta",
+        "region": "Kedougou"
+    },
+    {
+        "nom": "Darou Hidjiratou",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Fafacourou",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Mampatim",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Nadjaf Al Achraf",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Ndorna",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Niaming",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Saré Bidji",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Saré Coly Sallé",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Tonguia",
+        "region": "Kolda"
+    },
+    {
+        "nom": "Baralé-Ndiaye",
+        "region": "Louga"
+    },
+    {
+        "nom": "Barkédji",
+        "region": "Louga"
+    },
+    {
+        "nom": "Coki",
+        "region": "Louga"
+    },
+    {
+        "nom": "Darou Mousty",
+        "region": "Louga"
+    },
+    {
+        "nom": "Dodji",
+        "region": "Louga"
+    },
+    {
+        "nom": "Kamb",
+        "region": "Louga"
+    },
+    {
+        "nom": "Keur Momar Sarr",
+        "region": "Louga"
+    },
+    {
+        "nom": "Lompoul-sur-Mer",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mbacké Baari(Sagatta Dioloff)",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mélakh",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ndothie Seye",
+        "region": "Louga"
+    },
+    {
+        "nom": "Pare Cissé",
+        "region": "Louga"
+    },
+    {
+        "nom": "Pass",
+        "region": "Louga"
+    },
+    {
+        "nom": "Potou",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sagatta Dioloff",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sagatta Gueth",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sakal",
+        "region": "Louga"
+    },
+    {
+        "nom": "Taré",
+        "region": "Louga"
+    },
+    {
+        "nom": "Warack Ndiatar",
+        "region": "Louga"
+    },
+    {
+        "nom": "Wiss-Wiss",
+        "region": "Louga"
+    },
+    {
+        "nom": "Yang-Yang",
+        "region": "Louga"
+    },
+    {
+        "nom": "Agnam-Goly",
+        "region": "Matam"
+    },
+    {
+        "nom": "Agnam Civol",
+        "region": "Matam"
+    },
+    {
+        "nom": "Agnam Lidoubé",
+        "region": "Matam"
+    },
+    {
+        "nom": "Agnam Thiodaye",
+        "region": "Matam"
+    },
+    {
+        "nom": "Aly Oury",
+        "region": "Matam"
+    },
+    {
+        "nom": "Dembancané",
+        "region": "Matam"
+    },
+    {
+        "nom": "Doumga Ouro Alpha",
+        "region": "Matam"
+    },
+    {
+        "nom": "Lobaly",
+        "region": "Matam"
+    },
+    {
+        "nom": "Ogo",
+        "region": "Matam"
+    },
+    {
+        "nom": "Orkadiere",
+        "region": "Matam"
+    },
+    {
+        "nom": "Ouro Molo",
+        "region": "Matam"
+    },
+    {
+        "nom": "Polel Diaoubé",
+        "region": "Matam"
+    },
+    {
+        "nom": "Séno Palel",
+        "region": "Matam"
+    },
+    {
+        "nom": "Sinthiou Bara",
+        "region": "Matam"
+    },
+    {
+        "nom": "Sinthiou Boumacka",
+        "region": "Matam"
+    },
+    {
+        "nom": "Soringho",
+        "region": "Matam"
+    },
+    {
+        "nom": "Vélingara Ferlo",
+        "region": "Matam"
+    },
+    {
+        "nom": "Wouro Sidy",
+        "region": "Matam"
+    },
+    {
+        "nom":"Verma",
+        "region":"Matam"
+    },
+    {
+        "nom": "Boké Dialloubé",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Cas-Cas",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Diatar",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Donaye Taredji",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Fanaye",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Gamadji Saré",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Halwar",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Kadione 2",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Lampsar",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Maka",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Mbane",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Merinaghen",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "N'Guelakh",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Nder",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Ndiawar",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Rao",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Saldé",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Sinthiou Dangdé",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Sioure",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Tassinère",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Thillé Boubacar",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Wallah",
+        "region": "Saint-Louis"
+    },
+    {
+        "nom": "Bindaba",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Boghal",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Bona",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Dialankine(Bona)",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Diaroumé",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Diendé",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Djibabouya",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Djibanar",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Djiredji",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Kamoya",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Karantaba",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Simbandi Brassou",
+        "region": "Sedhiou"
+    },
+    {
+        "nom": "Bala",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Bamba Thialène",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Bélé",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Boynguel Bamba",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Dianké Makha",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Kéniéba",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Koulor",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Kounghany",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Koussanar",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Kouthiaba Wolof",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Makacolibantang",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Moudéry",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Nayé",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Ouro Himadou",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Sénoudébou",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Tuabou",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Yaféra",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Gandé",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Galladé",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Aroundou",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Golmy",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Kounghani",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Manael",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Yelingara",
+        "region": "Tambancounda"
+    },
+    {
+        "nom": "Abéné",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Adéane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Affiniam",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Agnack Grand",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Agnack Petit",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Aïnoumane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Alacounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Albadar",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Babatte",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bacounoun",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Badème",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Badiana",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Badiatte Grand",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Badiatte Soughère",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Badioncoto Comboli",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Badiouré",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Badjigui",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baffa Bayotte",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bafican",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bagame",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bagaya",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baghagha(Adéane)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baghagha(Niamone)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baïla",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baïpeul Frontière",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baïpeung",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bakassouk",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bakinghaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balandine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balankine Nord",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balankine Sud",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balignane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baline",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balingore",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balla Bassène",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balla Djipalone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balla Djiring",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balla Ougounor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Balonguine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bambatouma",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bandial",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bandjikaki",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bani Israël",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baraf",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baraka Bounao",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baraka Pakao",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baraka Patata",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Barakesse",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Baranlir",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bassène",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bassène Kansana",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bassène Mandouard",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bassèré",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bassire",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Batighere",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Batinding Boudiakene",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Batinding Diémé",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Batinière",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Batong",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Belaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bilasse",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bindago",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bindialoum Bainounk",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bindialoum Manjacque",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bissine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Biti Biti",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bodé",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boffa",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boko(Kafountine)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boucotte Diola",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boucotte Mancagne",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boucotte Wolof",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bougnack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bougoutoub Bani",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bougoutoub Djinoubor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bouhinor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bouhouyou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boukenoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boukitingho",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boulandor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boulayotte",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boulélaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boulindieng",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boulinghoye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bouliwaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boulome",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boundiangatte",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boureck",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bourofaye Bainounk",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bourofaye Diola",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bourome",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boussoloum",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boutégol",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boutem",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bouto",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boutolate",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boutolatte",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boutoupa",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Boutoute",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bouyal",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bouyeum",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bouyouye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Bricamanding",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Brin",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Brindiago",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Broundène",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Cachouane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Cagnoute Bouhibane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Cagnoute Ebrouaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Cagnoute Houyoho",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Camaracounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Cap Skirring",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Caparan",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Carabane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Congoly",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Couba",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coubalan",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coubanack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coubanao",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coudioube",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coulandiang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coulaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coulobori",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coumbaloulou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Councoudiang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Courame",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Coussabel",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Daroul Khayri",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Darsalam",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Darsalam Chérif",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diabir",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diaboudior",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diaboudior Frontière",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diaboudior Tangal",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diacoye Banga",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diacoye Comboli",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diagho",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diagnon",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diagobel",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diagongue",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diagoper",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diagour",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diakène Diola",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diakène Ouolof",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diakine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dialang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dialankine(Oulampane)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diamaye Inor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diamaye Kansirani",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diandialate",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diango",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dianki",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diannah",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diantene",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diarone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diatock",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diattang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diediel",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diégoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diembéring",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diengue",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diénoucounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dimbaya",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diocadou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diogué",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dioher",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diongol",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dioubour",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dioundane Kaliore",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dioundane Kantanpor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diounoug",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Diourou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djibara",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djibélor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djibiame",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djibidione",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djibonker",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djifanga",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djifanghor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djigoudière",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiguinoume",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiguipoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiguirone(Djibidione)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiguirone(Oulampane)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djikesse Kampoundone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djikoutang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djilacoumoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djilacounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djilacoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djilanfary",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djilondine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djilonguia",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djimakakor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djimande",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djinaky",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djinal",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djinéa Djiaguibé",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djinéa Djilecounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djinéa Sibogola",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiniper",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djinoubor O",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djinoundié",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiondji",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djipakoum",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djirack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiral",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djireme",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiringoumane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiro",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiromait",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiter",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djitoucoubon",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djiva",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Djivente",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Dombodir",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ebinako",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ebinkine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ediouma",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Edioungou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Edjamat",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Effoc Balandiante",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Effoc Eghina",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Effoc Ehinting",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Effoc Kakounoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Efissao",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Eguilaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ehidje",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Elana",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Elinkine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Elol",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Elol Madiedame",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Eloubaline",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Emaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Enampore",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ering",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Essaoute",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Essom Silathiaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Essoukoudiack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Essyl",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Etafoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Etama",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Etomé",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Etoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Falméré",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Fanda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Fangoumé",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Faregnab",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Fintiock",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Francounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ghamoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ghoniame",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Gnikine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Goungouloung",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Gouraf",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Grand Coulaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Grand Kanao",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Guérina",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Guidel Bambadinka",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Hatioune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Hillol",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Hitou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kabadio",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kabiline",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kaboungoutte",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kabrousse",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kadialouck",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kadiéné",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kadjinolle Ebankine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kadjinolle Hassouka",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kadjinolle Kadianka",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kadjinolle Kafone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kadjinolle Kagnao",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kadjinolle Sagheur",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kaégha",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kafesse",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kafountine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kagnarou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kagnobon",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kagnout",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kaguitte",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kahéme",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kahinda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kailo",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kailong",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kailou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kakaré",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kakène",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kaléane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kaléou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kalomba",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kaloubaloub",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kamobeul",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kandiadiou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kandialong",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kandiou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kanfounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kankandy",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kantimba",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kaoudioul",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Karanaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kariaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Karongue",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Karounate",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Karounor Djiragone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Karounor Narang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kartiack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kassel",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kassila",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kassou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kassoulou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kataba 1",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kataba 2",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Katack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kateum Teum",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Katinong",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Katinoro Kaeghor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Katoudié",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Katouré",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kigniding",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kindieng",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kindiong",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Koba Séléty",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kolomba",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kona",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Koudioughor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Koulican",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Koundioundou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kourègue",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kouring",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Kourouk",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Koutenghor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Laty",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Leufeu",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Loudia Diola",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Loudia Ouolof",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Macouda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Madina Birassou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Madina Daffé",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mahamouda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mahmouda Chérif",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mahmouda Diola",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mamatoro",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mambigne Katampor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mampalago",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mandégane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mandina Mancagne",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mandina Manjaque",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mandouard",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mandouard 2",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mangagoulack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mangoule Banni",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mangoule Centre",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mangoule Nialor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mantate",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Maracounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mararan",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Margoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Massara",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Matankigne",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mawa",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Medieck",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Médina(Enampore)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mlomp",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mlomp(Bignona)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mlomp Djibetene",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mlomp Djicomol",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mlomp Etebemaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mlomp Haer",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mlomp Kadjifolong",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mongone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Mpack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ndembane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ndiagne(Ouonck)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ndiéba",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Néma-Djinaré",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ngoniam",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niabina",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niadiou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niaféna",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niafourang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niaguis",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niaïré",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niallé",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Nialokane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niambalang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niamone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niandane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niankitte",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niassarang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Niomoune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Nyassia",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Oubème",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ouel Kalir",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ouel Moundaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Oufoulo",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ougonor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Oukout Eteilo",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Oukout Madiop",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Oulampane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ouniock",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ouonck",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Oupeuth",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Ourong",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Oussack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Petit-Balandine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Piran",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Pointe Saint-Georges",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Poubosse",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Poukène",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Saloulou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sam Sam",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Samatite",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Samboulandiang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Samick",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sandiaba Manjacque",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sandougou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Santack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Santhiaba Manjacque",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Santhiaba Ouolof",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Séléki",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Séléty",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Senghalène",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sibogola",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sifoca",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Siganar Boulouf",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Siganar Houssal",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Siganar Kaboukout",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Siganar Katakal",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Silick",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Silinkine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sindialon(Ouonck)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sindian",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sindone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sinko",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sitoukène",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Siwol",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Sône",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Soucouta",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Souda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Soutou",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Suelle",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Suzana",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tabi",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Takème",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Talloum",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tambacoumba",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tambacounda(Djibidione)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tambacounda(Kataba 1)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tambouille",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tampindo",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tandine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tandouboune",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tankoron",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tao",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tapilane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tendaba",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tendième",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tendimane",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tendine",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tendouck",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tenghory",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Thiangouth",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Thiobon",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Tobor",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Togho",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Touba(Kataba 1)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Toubacouta(Ziguinchor)",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Toukara",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Wagarang",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Wendaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Woniack",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Yabocounda",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Yabone",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Youtou Bouhème",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Youtou Bringo",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Youtou Djibonker",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Youtou Essoukaye",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Youtou Kagar",
+        "region": "Ziguinchor"
+    },
+    {
+        "nom": "Youtou Kanokindo",
+        "region": "Ziguinchor"
+    }
+]
