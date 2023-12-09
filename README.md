@@ -82,7 +82,7 @@ GET  https://galsenapi.pythonanywhere.com/api/regions/
 
 Exemple de résultat :
 ```json
-{
+
     [
     {
         "id": 1,
@@ -108,8 +108,9 @@ Exemple de résultat :
             "Diourbel",
             "Bambey",
             "Mbacké"
-        ]
-    }]}
+       	]
+	}
+]
 ```
 Pour récupérer une seule région :
 https://galsenapi.pythonanywhere.com/api/regions/1/
