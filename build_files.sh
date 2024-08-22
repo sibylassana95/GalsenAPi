@@ -8,7 +8,7 @@ source venv/bin/activate
 
 # install all deps in the venv
 pip install -r requirements.txt
-pip install mysqlclient
+pip install mysqlclient==2.2.4
 pip install django-cors-headers
 # collect static files using the Python interpreter from venv
 python manage.py collectstatic 
