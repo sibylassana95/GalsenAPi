@@ -6,7 +6,7 @@ python3.9 -m venv venv
 # activate the virtual environment
 source venv/bin/activate
 pip install --upgrade setuptools
-pip install PyMySQLl
+python3.9 -m pip install PyMySQL
 # install all deps in the venv
 pip install -r requirements.txt
 pip install django-cors-headers
