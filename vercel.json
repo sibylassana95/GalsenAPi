@@ -23,5 +23,6 @@
             "src": "/(.*)",
             "dest": "GalsenifyDj/wsgi.py"
         }
-    ]
+    ],
+     "outputDirectory": "staticfiles"
 }
