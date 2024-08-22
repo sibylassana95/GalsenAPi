@@ -71,9 +71,9 @@ WSGI_APPLICATION = 'GalsenifyDj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv("DB_NAME")
-        'USER': os.getenv("DB_USER")
-        'PASSWORD': os.getenv("PASSWORD")
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("PASSWORD"),
         'HOST': os.getenv("HOST"),   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
