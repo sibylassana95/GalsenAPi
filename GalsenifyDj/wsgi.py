@@ -1,18 +1,8 @@
-"""
-WSGI config for GalsenifyDj project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
-"""
-
 import os
-
 from django.core.wsgi import get_wsgi_application
 
+# Assurez-vous que le nom du module de paramètres est correct
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'GalsenifyDj.settings')
 
-app = get_wsgi_application()
-
-app = application
+# Cette ligne crée l'application WSGI que Vercel utilisera
+application = get_wsgi_application()
