@@ -12,6 +12,7 @@ pip install -r requirements.txt
 pip install django-cors-headers
 # collect static files using the Python interpreter from venv
 python3.9 manage.py collectstatic 
+python3.9 -c "import pymysql; print('pymysql is installed')"
 
 echo "BUILD END"
 
