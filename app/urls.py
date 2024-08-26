@@ -1,7 +1,11 @@
 from django.urls import path
 
 from . import views
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+urlpatterns = router.urls
 urlpatterns = [
 
     path('paysapi/', views.pays_view, name='paysapi'),

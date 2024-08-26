@@ -32,9 +32,8 @@ INSTALLED_APPS = [
     'app',
     'rest_framework_swagger',       # Swagger 
     'rest_framework',               # Django rest framework
-    'drf_yasg'                      # Yet Another Swagger generator
+    'drf_yasg',                     # Yet Another Swagger generator
     'corsheaders',
-    'drf_yasg'
     'demo'
 ]
 
@@ -82,6 +81,14 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+"""
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -130,3 +137,10 @@ CORS_ALLOWED_ORIGINS = [
     # Ajoutez d'autres origines si nécessaire
 ]
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        }
+    }
+}
