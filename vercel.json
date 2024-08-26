@@ -1,24 +1,27 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "GalsenifyDj/wsgi.py",
       "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+    },
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
       "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.12",
-        "buildCommand": "bash setup.sh",
         "distDir": "staticfiles"
       }
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/GalsenifyDj/wsgi.py"
-    },
-    {
       "src": "/static/(.*)",
       "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "GalsenifyDj/wsgi.py"
     }
   ]
 }
