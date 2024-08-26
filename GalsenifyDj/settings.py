@@ -30,8 +30,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'rest_framework',
+    'rest_framework_swagger',       # Swagger 
+    'rest_framework',               # Django rest framework
+    'drf_yasg'                      # Yet Another Swagger generator
     'corsheaders',
+    'drf_yasg'
     'demo'
 ]
 
