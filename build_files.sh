@@ -9,6 +9,7 @@ pip install --upgrade setuptools
 python3.9 -m pip install PyMySQL
 # install all deps in the venv
 pip install -r requirements.txt
+pip install whitenoise
 pip install django-cors-headers
 
 # collect static files using the Python interpreter from venv
