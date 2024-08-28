@@ -129,9 +129,11 @@ MEDIA_URL = '/images/'
 if DEBUG:
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 else:
-
+    STATICFILES_DIRS = []  # Assurez-vous que STATICFILES_DIRS est vide ou ajusté pour les fichiers statiques en production
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+
 
 
 # Default primary key field type
