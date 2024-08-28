@@ -1,5 +1,114 @@
 {% extends 'base.html' %}
 {% block content %}
- <p>pays api</p>
+ <div class="bg-white shadow-sm dark:bg-gray-800">
+                <div class="container mx-auto flex flex-col items-center py-12 sm:py-24">
+                    <div class="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col  mb-5 sm:mb-10">
+                        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center text-gray-800 dark:text-white font-black leading-7 md:leading-10">
+                           Un projet demo pour vous présenter l'utilisation de l'api
+                            <span class="text-indigo-700">GalsenApi</span>
+
+                        </h1>
+                        <p class="mt-5 sm:mt-10 lg:w-10/12 dark:text-white font-normal text-center text-sm sm:text-lg">GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package  <a href="https://www.npmjs.com/package/galsenify" class="text-indigo-700">Galsenify</a></p>
+                    </div>
+                    <div class="flex justify-center items-center">
+                        <a href="/docs" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 lg:text-xl lg:font-bold  rounded text-white px-4 sm:px-10 border border-indigo-700 py-2 sm:py-4 text-sm">Documentation</a>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+<!-- Main content -->
+
+            <div class="justify-center   text-center">
+
+                <!-- post view -->
+                <div class="rounded-sm overflow-hidden bg-white  shadow-sm  text-center"">
+                    <div class="">
+                        <img src="{{ data_pays.drapeau }}" class="w-full h-96 object-cover">
+                    </div>
+                    <div class="p-4 pb-5 dark:bg-gray-800">
+                        <h2 class="block text-2xl font-semibold dark:text-white font-roboto">
+                            {{ data_pays.pays }}(<span class="text-green-500">{{ data_pays.devise }}</span>)
+                        </h2>
+                        <div class="mt-2 flex space-x-4">
+                            <div class="flex text-green-500 text-sm items-center">
+                                <span class="mr-2 text-xs text-green-500">
+                                    <i class="far fa-user"></i>
+                                </span>
+                               {{ data_pays.habitants }} habitants
+                            </div>
+                             <div class="flex text-green-500 text-sm items-center">
+                                <span class="mr-2 text-xs text-green-500">
+                                      <i class="fa fa-building"></i>
+                                </span>
+                                capitale {{ data_pays.capital }}
+                            </div>
+                        </div>
+
+                        <p class="dark:text-white text-sm mt-5">
+                            Le Sénégal est un pays de l'Afrique de l'Ouest qui partage ses frontières avec la Mauritanie, le Mali, la Guinée, la Gambie, et la Guinée-Bissau. Sa capitale est <span class="text-green-500">{{ data_pays.capital }}</span>, une ville animée située sur la côte atlantique. La langue officielle du Sénégal est le <span class="text-green-500">{{ data_pays.langueOfficielle }}</span>, bien que plusieurs autres langues locales soient également parlées dans le pays comme le<span class="text-green-500">
+                        <select class="text-green-500">
+                            {% for langue in data_pays.languesNationales %}
+                            <option value="{{ langue}}">{{ langue }}</option>
+                            {% endfor %}
+                        </select>
+                    </span>
+                        </p>
+
+                        <p class="bg-green-50 border dark:text-gray-800 border-green-500 p-3 text-sm  mt-5">
+
+                           La monnaie officielle du Sénégal est le  <span class="text-green-500">{{ data_pays.monnaie}}</span>, qui est utilisée dans plusieurs autres pays africains. Le code ISO du Sénégal est <span class="text-green-500">{{ data_pays.codeIso }}</span>, et l'indicatif téléphonique est <span class="text-green-500">{{ data_pays.indicatif }}</span>.
+
+                        </p>
+
+                        <p class="dark:text-white  text-sm mt-5">
+                           Le Sénégal est un pays peuplé d'environ <span class="text-green-500">{{ data_pays.habitants }}</span> habitants, avec une superficie d'environ <span class="text-green-500">{{ data_pays.surface }}</span> km². Il est divisé en <span class="text-green-500">{{ data_pays.regions }}</span> régions, et <span class="text-green-500">{{ data_pays.departments }} </span> départements.
+                        </p>
+                        <p class="dark:text-white text-sm mt-5 text-left text-justify">
+                         Un taux d’accroissement moyen annuel intercensitaire resté constant entre 2013 et 2023
+
+La population résidente au Sénégal, recensée en 2023 est de 18 032 473 habitants, dont 8 900 614 femmes (49,4%) et 9 131 859 hommes (50,6%).
+Elle s’établissait à 13 508 715 habitants en 2013, soit un taux d’accroissement moyen annuel intercensitaire de 2,9% qui est resté constant entre les deux périodes. Avec une population de 4 958 085 en 1976 et 6 881 919 en 1988, les taux d’accroissement intercensitaires étaient respectivement de 2,7 % et 2,5 % pour 1976-1988 et 1988-2002.</p>
+<p class="dark:text-white text-sm mt-5 text-left text-justify">
+Une population très jeune marquée par une prédominance de l’effectif des hommes par rapport aux femmes
+
+La population sénégalaise se caractérise par sa grande jeunesse : la moitié de la population est âgée de moins de 19 ans (18 ans chez les hommes contre 20 ans chez les femmes) et
+Les enfants âgés de moins de 15 ans constituent 39,2% de la population globale. Cette catégorie est plus importante chez les garçons (40,6%) que chez les filles (37,6%). En outre, 3,8% de la population est âgée de 65 ans et plus.</p>
+<p class="dark:text-white text-sm mt-5 text-left text-justify">
+En considérant les grands groupes d’âges, on observe un avantage numérique des hommes sur les femmes aux âges jeunes, moins de 15 ans avec 110,8 garçons pour 100 filles. Pour les tranches d’âges 15-34 ans et 60 ans ou plus, la tendance s’inverse en faveur des femmes avec respectivement 98,1 et 93,5 hommes pour 100 femmes.</p>
+<p class="dark:text-white text-sm mt-5 text-left text-justify">
+Une population concentrée sur l’axe Dakar-Thiès-Diourbel (46,8%).La population du Sénégal est répartie de façon inégale dans l’espace. Les plus fortes concentrations humaines s’observent à l’Ouest du pays, au Centre et vers le Nord-Ouest, tandis que l’Est et le Nord-Est demeurent faiblement peuplés.</p>
+<p class="dark:text-white text-sm mt-5 text-left text-justify">
+La densité de la population initialement à 65 habitants au km² en 2013, est passée à 92 habitants au km² en 2023. La région de Dakar se démarque des autres avec une densité de  7 277 habitants au km². La région de Kédougou est la moins peuplée avec une densité de 15 habitants au km².</p>
+<p class="dark:text-white text-sm mt-5 text-left text-justify">
+En outre, le département de Mbacké est le plus peuplé au Sénégal suivi de celui de Dakar avec respectivement 1 359 757 et 1 182 416 habitants. Par ailleurs, Mbour (937 189) devient le troisième département, suivi du département de Thiès (880 266 habitants) et Rufisque (822 105 habitants) qui a connu une forte augmentation de sa population entre 2013 et 2023 (68%). A l’opposé, les départements les moins habités sont Salémata (28 111 habitants) ; Oussouye (52 883 habitants); Saraya (92 912 habitants) et Ranérou (103 283 habitants).</p>
+<p class="dark:text-white text-sm mt-5 text-left text-justify">
+La taille moyenne des ménages est estimée à 9 individus par ménage en 2023. Elle est moins importante à Dakar avec 6 personnes. Par contre, dans les régions de Tambacounda, Sédhiou, Matam, Kaolack et Kaffrine, on trouve des tailles moyennes de 12 individus par ménage.
+
+45,6% des ménages pratiquent une activité agricole
+
+En 2023, on a dénombré 908 628 ménages qui ont une activité  agricole[1], soit 45,6% des ménages du Sénégal. La pratique d’une activité agricole est plus fréquente dans les régions de Thiès, Dakar, Louga et Saint-Louis, suivie de Diourbel et Kaolack dans une moindre mesure. L’activité agricole au sens large est moins pratiquée dans les régions de Kédougou, Sédhiou et Ziguinchor.
+                        </p>
+                         <footer class="dark:bg-gray-500">
+    <div class="container mx-auto">
+      <div class="text-center">
+        <h3 class="text-xl font-semibold mb-4 dark:text-white ">Sources Consultées</h3>
+        <ul class="list-disc pl-6">
+          <li><a href="https://www.npmjs.com/package/galsenify" class="text-blue-500 hover:underline">Galsenify</a></li>
+          <li><a href="https://www.ansd.sn/taxonomy/term/56" class="text-blue-500 hover:underline">Ansd</a></li>
+
+          <!-- Ajoutez plus de sources consultées ici -->
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</div>
+</div>
 
  {% endblock %}

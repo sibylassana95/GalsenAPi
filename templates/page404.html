@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<div class="container mt-5 pt-5 mb-5">
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="flex items-center justify-center h-screen">
+        <div class="text-center row">
+          <div class="col-md-6">
+            <img src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg" alt="" class="w-full h-auto">
+          </div>
+          <div class="col-md-6 mt-5">
+            <p class="text-3xl font-bold text-red-500">Opps!</p>
+            <p class="text-xl leading-7">
+              Page non trouvée.
+            </p>
+            <a href="{% url 'home' %}" class="inline-block px-6 py-3 mt-5 text-lg font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600">Retour</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

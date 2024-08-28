@@ -1,17 +1,13 @@
 from django.urls import path
 
 from . import views
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter()
-urlpatterns = router.urls
 urlpatterns = [
 
-    path('paysapi/', views.pays_view, name='paysapi'),
-    path('departementapi/', views.departement_view, name='departementapi'),
-    path('regionapi/', views.region_view, name='regionapi'),
-    path('villageapi/', views.village_view, name='villageapi'),
+    path('', views.pays_view, name='home'),
+    path('departement/', views.departement_view, name='departement'),
+    path('region/', views.region_view, name='region'),
+    path('village/', views.village_view, name='village'),
 
 
     path('api/pays/', views.PaysList.as_view(), name='pays_list'),

@@ -1,14 +1,13 @@
 import json
 
 import requests
-from django.core.paginator import Paginator
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.filters import SearchFilter
 
-from .models import Pays, Departements, Regions, Village
-from .serializers import PaysSerializer, DepartementsSerializer, RegionsSerializer, VillagesSerializer
-
+from .models import Pays, Departements, Regions,Village
+from .serializers import PaysSerializer, DepartementsSerializer, RegionsSerializer,VillagesSerializer
+from django.core.paginator import Paginator
 
 def pays_view(request):
     url_pays = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/senegal.json"
@@ -43,51 +42,73 @@ def departement_view(request):
     return render(request, 'departement.html', {'data': donne_db})
 
 
+
 def region_view(request):
     url_region = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/regions.json"
     response = requests.get(url_region)
     data_region = json.loads(response.text)
+    
     query = request.GET.get('q')
-    donnedb = Regions.objects.all()
-    if query:
-        donnedb = donnedb.filter(nom__icontains=query)
+    
+    # Pré-charger les noms des régions existantes
+    existing_region_names = set(Regions.objects.values_list('nom', flat=True))
+    
+    new_regions = []
+    
     for region in data_region:
-        if not Regions.objects.filter(nom=region['nom']).exists():
-            region_obj = Regions.objects.create(
+        if region['nom'] not in existing_region_names:
+            new_regions.append(Regions(
                 nom=region['nom'],
                 code=region['code'],
                 population=region['population'],
                 superficie=region['superficie'],
                 departments=region['departments']
-            )
-
+            ))
+            existing_region_names.add(region['nom'])  # Ajouter au set pour éviter les doublons
+    
+    # Créer les nouvelles régions en une seule opération
+    if new_regions:
+        Regions.objects.bulk_create(new_regions)
+    
+    # Appliquer le filtre de recherche
+    donnedb = Regions.objects.all()
+    if query:
+        donnedb = donnedb.filter(nom__icontains=query)
+    
     return render(request, 'region.html', {'data': donnedb})
-
 
 def village_view(request):
     url_village = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/village.json"
+    # Charger les données depuis le cache ou directement si non disponible
+    # Pour ce faire, vous pouvez utiliser un mécanisme de cache (pas montré ici)
     response = requests.get(url_village)
     data_village = json.loads(response.text)
+    
     query = request.GET.get('q')
+    
+    # Pré-charger les noms des villages existants pour une vérification rapide
+    existing_village_names = set(Village.objects.values_list('nom', flat=True))
+    
+    new_villages = []
+    
+    for village in data_village:
+        if village['nom'] not in existing_village_names:
+            new_villages.append(Village(
+                nom=village['nom'],
+                region=village['region']
+            ))
+            existing_village_names.add(village['nom'])  # Ajouter au set pour éviter les doublons
+    
+    # Créer les nouveaux villages en une seule opération
+    if new_villages:
+        Village.objects.bulk_create(new_villages)
+    
+    # Appliquer le filtre de recherche
     donne_db = Village.objects.all()
     if query:
         donne_db = donne_db.filter(nom__icontains=query)
-
-    for village in data_village:
-        if Village.objects.filter(nom=village['nom']).exists():
-            continue
-
-        village_obj = Village.objects.create(
-            nom=village['nom'],
-            region=village['region']
-        )
-
-    paginator = Paginator(donne_db, 10)  # 10 éléments par page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    return render(request, 'village.html', {'page_obj': page_obj, 'query': query})
-
+    
+    return render(request, 'village.html', {'data': donne_db})
 
 class PaysList(generics.ListAPIView):
     queryset = Pays.objects.all()
@@ -119,14 +140,15 @@ class RegionsDetail(generics.RetrieveAPIView):
     queryset = Regions.objects.all()
     serializer_class = RegionsSerializer
 
-
 class VillageList(generics.ListAPIView):
     queryset = Village.objects.all()
     serializer_class = VillagesSerializer
     filter_backends = [SearchFilter]
     search_fields = ['nom', 'region']
 
-
 class VillageDetail(generics.RetrieveAPIView):
     queryset = Village.objects.all()
     serializer_class = VillagesSerializer
+
+def error_404(request,exception):
+    return render(request, 'page404.html')

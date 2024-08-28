@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',               # Django rest framework
     'drf_yasg',                     # Yet Another Swagger generator
     'corsheaders',
-    'demo'
+    
 ]
 
 MIDDLEWARE = [
@@ -140,8 +140,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",  # Pour le développement local
-    "https://galsenapi.vercel.app/",
-    "https://galseninfo.vercel.app/"  # Votre domaine en production
+    "https://galsenapi.vercel.app",  # Votre domaine en production
+    "https://galseninfo.vercel.app",  # Autre domaine en production
     # Ajoutez d'autres origines si nécessaire
 ]
 

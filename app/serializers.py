@@ -23,4 +23,4 @@ class RegionsSerializer(serializers.ModelSerializer):
 class VillagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Village
-        fields = '__all__'        
+        fields = '__all__'

@@ -23,7 +23,7 @@ class DepartementAdmin(admin.ModelAdmin):
 class VillageAdmin(admin.ModelAdmin):
     list_display = ('nom', 'region')
     search_fields = ('nom',)
-    list_filter = ('region',)    
+    list_filter = ('region',)
 
 
 admin.site.register(Pays, PaysAdmin)
