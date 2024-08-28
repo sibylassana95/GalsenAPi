@@ -9,7 +9,7 @@ pip install --upgrade setuptools
 
 # Installez toutes les dépendances dans l'environnement virtuel
 pip install -r requirements.txt
-
+python manage.py collectstatic --noinput
 # Installez django-cors-headers si ce n'est pas déjà fait
 pip install django-cors-headers
 
