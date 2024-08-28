@@ -1,19 +1,23 @@
-
 echo "BUILD START"
 
-# create a virtual environment named 'venv' if it doesn't already exist
+# Créez un environnement virtuel s'il n'existe pas déjà
 python3.9 -m venv venv
 
-# activate the virtual environment
+# Activez l'environnement virtuel
 source venv/bin/activate
 pip install --upgrade setuptools
-# install all deps in the venv
+
+# Installez toutes les dépendances dans l'environnement virtuel
 pip install -r requirements.txt
+
+# Installez django-cors-headers si ce n'est pas déjà fait
 pip install django-cors-headers
-# collect static files using the Python interpreter from venv
-python3.9 manage.py collectstatic --noinput 
+
+# Supprimez les anciens fichiers collectés
+rm -rf staticfiles_build/static/
+
+# Collectez les fichiers statiques
+python3.9 manage.py collectstatic --noinput
 
 echo "BUILD END"
 
-# [optional] Start the application here 
-# python manage.py runserver
