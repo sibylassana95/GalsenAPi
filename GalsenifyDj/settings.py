@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'app',
     'rest_framework_swagger',       # Swagger 
@@ -125,12 +126,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Additional locations of static files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+
+if DEBUG:
+        STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static')]
+else:
+        STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Media files
 MEDIA_URL = '/media/'
