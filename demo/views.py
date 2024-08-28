@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 
 def pays_view(request):
-    response = requests.get('https://galsenapi.pythonanywhere.com/api/pays/')
+    response = requests.get('https://galsenapi.vercel.app/api/pays/')
     data = response.json()
     data_pays = data
     context = {'data': data_pays}
@@ -13,7 +13,7 @@ def pays_view(request):
 
 def regions_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/regions/'
+    url = 'https://galsenapi.vercel.app/api/regions/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -24,7 +24,7 @@ def regions_view(request):
 
 def departments_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/departements/'
+    url = 'https://galsenapi.vercel.app/api/departements/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -34,7 +34,7 @@ def departments_view(request):
 
 def villages_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/villages/'
+    url = 'https://galsenapi.vercel.app/api/villages/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
