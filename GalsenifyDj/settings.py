@@ -140,8 +140,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",  # Pour le développement local
-    "https://galsenapi.vercel.app",
-    "https://galseninfo.vercel.app"  # Votre domaine en production
+    "https://galsenapi.vercel.app/",
+    "https://galseninfo.vercel.app/"  # Votre domaine en production
     # Ajoutez d'autres origines si nécessaire
 ]
 
