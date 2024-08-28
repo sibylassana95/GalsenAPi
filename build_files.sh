@@ -17,7 +17,7 @@ pip install django-cors-headers
 rm -rf staticfiles_build/static/
 
 # Collectez les fichiers statiques
-python3.9 manage.py collectstatic --noinput
+python manage.py collectstatic --noinput
 
 echo "BUILD END"
 
