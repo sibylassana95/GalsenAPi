@@ -13,8 +13,7 @@ pip install -r requirements.txt
 # Installez django-cors-headers si ce n'est pas déjà fait
 pip install django-cors-headers
 
-# Supprimez les anciens fichiers collectés
-rm -rf staticfiles_build/static/
+
 
 # Collectez les fichiers statiques
 python manage.py collectstatic --noinput
