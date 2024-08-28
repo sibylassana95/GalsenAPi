@@ -1,17 +1,28 @@
+#!/bin/bash
+
 echo "BUILD START"
 
-# create a virtual environment named 'venv' if it doesn't already exist
-python3.9 -m venv venv
+# Créer un environnement virtuel nommé 'venv' si ce n'est pas déjà fait
+python3.12 -m venv venv
 
-# activate the virtual environment
+# Activer l'environnement virtuel
 source venv/bin/activate
-pip install --upgrade setuptools
-python3.9 -m pip install PyMySQL
-# install all deps in the venv
+
+# Mettre à jour pip et setuptools
+pip install --upgrade pip setuptools
+
+# Installer les dépendances
+pip install PyMySQL
 pip install -r requirements.txt
 pip install django-cors-headers
 
-# collect static files using the Python interpreter from venv
-python3.9 manage.py collectstatic --noinput
+# Collecter les fichiers statiques
+python3.12 manage.py collectstatic --noinput
+
+# Créer le répertoire 'public/static' s'il n'existe pas
+mkdir -p public/static
+
+# Copier les fichiers statiques collectés dans 'public/static'
+cp -r staticfiles/* public/static/
 
 echo "BUILD END"
