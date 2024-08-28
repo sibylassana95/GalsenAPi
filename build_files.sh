@@ -10,10 +10,8 @@ python3.9 -m pip install PyMySQL
 # install all deps in the venv
 pip install -r requirements.txt
 pip install django-cors-headers
+
 # collect static files using the Python interpreter from venv
-python3.9 manage.py collectstatic 
+python3.9 manage.py collectstatic --noinput
 
 echo "BUILD END"
-
-# [optional] Start the application here 
-# python manage.py runserver
