@@ -70,73 +70,8 @@
   GET /api/pays/
 ```
 
-## Usage
-To get all regions, use a GET request:
-https://galsenapi.pythonanywhere.com/api/regions/
-
-Example Result
-```json
-  [
-    {
-        "id": 1,
-        "nom": "Dakar",
-        "code": "DK",
-        "population": 4042225,
-        "superficie": 547,
-        "departments": [
-            "Dakar",
-            "Pikine",
-            "Guédiawaye",
-            "Rufisque",
-            "Keur Massar"
-        ]
-    },
-    {
-        "id": 2,
-        "nom": "Diourbel",
-        "code": "DB",
-        "population": 1980821,
-        "superficie": 4824,
-        "departments": [
-            "Diourbel",
-            "Bambey",
-            "Mbacké"
-        ]
-    }]
-```
-To get a single region, use a GET request:
-https://galsenapi.pythonanywhere.com/api/regions/1/
-
-Example Result
-```json
-
-    {
-    "id": 1,
-    "nom": "Dakar",
-    "code": "DK",
-    "population": 4042225,
-    "superficie": 547,
-    "departments": [
-        "Dakar",
-        "Pikine",
-        "Guédiawaye",
-        "Rufisque",
-        "Keur Massar"
-    ]
-}
-```
-## Capture
-### Retrieval of information about the country
-![CAPTURE](capture/pays.png)
-
-### Retrieval of all Departments
-![CAPTURE](capture/alldepartement.png)
-### Retrieval of a single department
-![CAPTURE](capture/singledepartement.png)
-### Retrieval of all Regions
-![CAPTURE](capture/allregion.png)
-### Retrieval off a single Region
-![CAPTURE](capture/singleregion.png)
+## For more information, consult the documentation
+# **[Documentation 🚀](https://galsenapi.vercel.app/docs)**
 
 
 
@@ -157,14 +92,14 @@ Created by **[Lassana SIBY](https://github.com/sibylassana95)**
 ### Thank you to [Daouda BA](https://github.com/daoodaba975) for the data..
 [![Daouda BA](https://avatars.githubusercontent.com/daoodaba975?s=64)](https://github.com/daoodaba975)
 
-## **[Demo 🚀](https://galsenapi.pythonanywhere.com/)**
+## **[Demo 🚀](https://galsenapi.vercel.app/)**
 
 ### Example of using the API
 Views for regions and departments.
 ```python
 def regions_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/regions/'
+    url = 'https://galsenapi.vercel.app/api/regions/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -175,7 +110,7 @@ def regions_view(request):
 
 def departments_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/departements/'
+    url = 'https://galsenapi.vercel.app/api/departements/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -185,7 +120,7 @@ def departments_view(request):
 
 def villages_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/villages/'
+    url = 'https://galsenapi.vercel.app/api/villages/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()

@@ -76,83 +76,8 @@ Créez un fichier .env dans le projet Django pour stocker la clé secrète.
   GET /api/pays/
 ```
 
-## Utilisation
-Pour récupérer toutes les régions :
-GET  https://galsenapi.pythonanywhere.com/api/regions/
-
-Exemple de résultat :
-```json
-
-    [
-    {
-        "id": 1,
-        "nom": "Dakar",
-        "code": "DK",
-        "population": 4042225,
-        "superficie": 547,
-        "departments": [
-            "Dakar",
-            "Pikine",
-            "Guédiawaye",
-            "Rufisque",
-            "Keur Massar"
-        ]
-    },
-    {
-        "id": 2,
-        "nom": "Diourbel",
-        "code": "DB",
-        "population": 1980821,
-        "superficie": 4824,
-        "departments": [
-            "Diourbel",
-            "Bambey",
-            "Mbacké"
-       	]
-	}
-]
-```
-Pour récupérer une seule région :
-https://galsenapi.pythonanywhere.com/api/regions/1/
-
-Exemple de résultat :
-```json
-
-    {
-    "id": 1,
-    "nom": "Dakar",
-    "code": "DK",
-    "population": 4042225,
-    "superficie": 547,
-    "departments": [
-        "Dakar",
-        "Pikine",
-        "Guédiawaye",
-        "Rufisque",
-        "Keur Massar"
-    ]
-}
-
-```
-## Captures d'écran
-### Voici quelques captures d'écran pour illustrer les résultats de l'API :
-### Récuperations des infos sur le pays
-![CAPTURE](capture/pays.png)
-
-### Récuperations de tout les Départements
-![CAPTURE](capture/alldepartement.png)
-### Récuperations d'un seul departement
-![CAPTURE](capture/singledepartement.png)
-### Récuperations de tout les Régions
-![CAPTURE](capture/allregion.png)
-### Récuperations d'une seul région
-![CAPTURE](capture/singleregion.png)
-### Récuperations de tout les villages
-![CAPTURE](capture/allvillages.png)
-### Récuperations d'un seul village
-![CAPTURE](capture/singleVillage.png)
-
-
+## Pour plus d'information consulter la documentation 
+# **[Documentation 🚀](https://galsenapi.vercel.app/docs)**
 
 
 ## 👤 Author 
@@ -180,7 +105,7 @@ Views region et departement
 ```python
 def regions_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/regions/'
+    url = 'https://galsenapi.vercel.app/api/regions/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -191,7 +116,7 @@ def regions_view(request):
 
 def departments_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/departements/'
+    url = 'https://galsenapi.vercel.app/api/departements/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -201,7 +126,7 @@ def departments_view(request):
 
 def villages_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.pythonanywhere.com/api/villages/'
+    url = 'https://galsenapi.vercel.app/api/villages/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
