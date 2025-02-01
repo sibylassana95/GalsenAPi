@@ -4,10 +4,8 @@ import requests
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.filters import SearchFilter
-
 from .models import Pays, Departements, Regions,Village
 from .serializers import PaysSerializer, DepartementsSerializer, RegionsSerializer,VillagesSerializer
-from django.core.paginator import Paginator
 
 def pays_view(request):
     url_pays = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/senegal.json"
@@ -150,5 +148,3 @@ class VillageDetail(generics.RetrieveAPIView):
     queryset = Village.objects.all()
     serializer_class = VillagesSerializer
 
-def error_404(request,exception):
-    return render(request, 'page404.html')

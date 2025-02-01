@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GalsenApi</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+</head>
+<body>
+<div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+            <div class="animated-element">
+                <svg class="img-fluid" width="400" height="400" viewBox="0 0 400 400">
+                    <circle cx="200" cy="200" r="180" fill="#fff3cd"/>
+                    <rect x="100" y="150" width="200" height="140" rx="20" fill="#ffc107"/>
+                    <circle cx="160" cy="220" r="20" fill="white"/>
+                    <circle cx="240" cy="220" r="20" fill="white"/>
+                    <path d="M180 260 Q200 280 220 260" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+        <div class="col-md-6 text-center text-md-start">
+            <h1 class="display-1 fw-bold text-warning mb-2">400</h1>
+            <h2 class="display-6 mb-3">Requête incorrecte</h2>
+            <p class="lead text-muted mb-4">Votre navigateur a envoyé une requête invalide.</p>
+            <a href="{% url 'home' %}" class="btn btn-warning btn-lg px-4 gap-3">
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</div>
+ <!-- Scripts -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Bootstrap JavaScript et dépendance Popper -->
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GalsenApi</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+</head>
+<body>
+<div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <div class="row justify-content-center">
+        <!-- Colonne illustration -->
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+            <div class="position-relative d-inline-block">
+                <!-- Image principale -->
+                <div class="animated-element">
+                    <svg class="img-fluid" width="400" height="400" viewBox="0 0 400 400">
+                        <!-- Cercle de fond -->
+                        <circle cx="200" cy="200" r="180" fill="#f8f9fa"/>
+                        <!-- Robot stylisé -->
+                        <rect x="100" y="150" width="200" height="140" rx="20" fill="#0d6efd"/>
+                        <circle cx="160" cy="220" r="20" fill="white"/>
+                        <circle cx="240" cy="220" r="20" fill="white"/>
+                        <path d="M180 260 Q200 280 220 260" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                        <!-- Antennes -->
+                        <path d="M160 150 L140 110" stroke="#0d6efd" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M240 150 L260 110" stroke="#0d6efd" stroke-width="8" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <!-- Cercle décoratif -->
+                <div class="position-absolute top-0 start-0 w-100 h-100 rounded-circle" style="background-color: rgba(13, 110, 253, 0.1); z-index: -1;"></div>
+            </div>
+        </div>
+
+        <!-- Colonne texte -->
+        <div class="col-md-6 text-center text-md-start">
+            <div class="mb-4">
+                <h1 class="display-1 fw-bold text-primary mb-2">Oops!</h1>
+                <h2 class="display-6 mb-3">Page non trouvée</h2>
+                <p class="lead text-muted mb-4">
+                    La page que vous recherchez semble avoir disparu dans le cyberespace...
+                </p>
+            </div>
+
+            <!-- Boutons -->
+            <div class="d-grid gap-3 d-sm-flex justify-content-center justify-content-md-start">
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-4 gap-3">
+                    <i class="bi bi-house-door me-2"></i>
+                    Retour à l'accueil
+                </a>
+                <button onclick="window.history.back()" class="btn btn-outline-secondary btn-lg px-4">
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Page précédente
+                </button>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+<!-- Styles pour l'animation -->
+<style>
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+.animated-element {
+    animation: float 6s ease-in-out infinite;
+}
+</style>
+
+ <!-- Scripts -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Bootstrap JavaScript et dépendance Popper -->
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+</body>
+</html>
