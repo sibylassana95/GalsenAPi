@@ -8,7 +8,7 @@ from .models import Pays, Departements, Regions,Village
 from .serializers import PaysSerializer, DepartementsSerializer, RegionsSerializer,VillagesSerializer
 
 def pays_view(request):
-    url_pays = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/senegal.json"
+    url_pays = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/senegal.json"
     response = requests.get(url_pays)
     data_pays = json.loads(response.text)
 
@@ -16,7 +16,7 @@ def pays_view(request):
 
 
 def departement_view(request):
-    url_departement = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/departments.json"
+    url_departement = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/departments.json"
     response = requests.get(url_departement)
     data_departement = json.loads(response.text)
     query = request.GET.get('q')
@@ -42,7 +42,7 @@ def departement_view(request):
 
 
 def region_view(request):
-    url_region = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/regions.json"
+    url_region = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/regions.json"
     response = requests.get(url_region)
     data_region = json.loads(response.text)
     
@@ -76,7 +76,7 @@ def region_view(request):
     return render(request, 'region.html', {'data': donnedb})
 
 def village_view(request):
-    url_village = "https://raw.githubusercontent.com/sibylassana95/galsenify/main/dataset/village.json"
+    url_village = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/village.json"
     # Charger les données depuis le cache ou directement si non disponible
     # Pour ce faire, vous pouvez utiliser un mécanisme de cache (pas montré ici)
     response = requests.get(url_village)
