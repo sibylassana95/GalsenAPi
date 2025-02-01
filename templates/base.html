@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="/docs/" class="btn-primary hidden md:flex items-center link">
+                    <a href="{% url 'docs' %}" class="btn-primary hidden md:flex items-center link">
                         <i class="fas fa-book mr-2"></i>Documentation
                     </a>
                     <button type="button" class="md:hidden bg-gray-700 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-colors duration-200" aria-controls="mobile-menu" aria-expanded="false" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
@@ -139,7 +139,7 @@
                 <a href="{% url 'village' %}" class="nav-link link block {% if 'village' in request.path %}active{% endif %}">
                     <i class="fas fa-home mr-2"></i>Villages
                 </a>
-                <a href="/docs/" class="nav-link link block">
+                <a href="{% url 'docs' %}" class="nav-link link block">
                     <i class="fas fa-book mr-2"></i>Documentation
                 </a>
             </div>
@@ -163,7 +163,7 @@
                     <h3 class="text-lg font-semibold mb-4">Liens Utiles</h3>
                     <ul class="space-y-2">
                         <li>
-                            <a href="/docs/" class="hover:text-white transition-colors duration-200 flex items-center">
+                            <a href="{% url 'docs' %}" class="hover:text-white transition-colors duration-200 flex items-center">
                                 <i class="fas fa-book mr-2"></i>Documentation
                             </a>
                         </li>
