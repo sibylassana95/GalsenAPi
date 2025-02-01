@@ -5,106 +5,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}GalsenApi{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <style>
-     ul li a {
-        color: white !important;
+        .link  {
+            color:rgb(255, 255, 255) !important;
+          }
+          .active{
+            color: #00FF00 !important;
+          }
+      .search-input {
+        @apply w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-500 focus:outline-none focus:ring;
       }
-      .active{
-        color: #00FF00 !important;
+      .btn-primary {
+        @apply px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200;
       }
     </style>
 </head>
-<body class="bg-gray-700">
-
-  <nav class="bg-blue-500 border-gray-200 dark:bg-gray-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="/" class="flex items-center">
-
-              <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">GalsenApi</span>
-          </a>
-          <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-          </button>
-          <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-blue-500 md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              {% url 'home' as url %}
-              <li>
-                <a href="{{url }}" class="block py-2 pl-3 pr-4  text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 {% if request.path == url %}active{% endif %}" >Home</a>
-              </li>
-              {% url 'departement' as url %}
-              <li>
-                <a href="{{url }}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if request.path == url %}active{% endif %}">Departements</a>
-              </li>
-              {% url 'region' as url %}
-              <li>
-                <a href="{{url }}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if request.path == url %}active{% endif %}">Régions</a>
-              </li>
-              {% url 'village' as url %}
-              <li>
-                <a href="{{url }}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent {% if request.path == url %}active{% endif %}">Villages</a>
-              </li>
-
-
-            </ul>
-          </div>
+<body class="min-h-screen bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <img src="{% static 'logo.png' %}" alt="GalsenApi" class="h-8 w-auto">
+                        <span class="ml-2 text-white text-lg font-semibold">GalsenApi</span>
+                    </a>
+                    <div class="hidden md:block ml-10">
+                        <div class="flex items-baseline space-x-4">
+                            <a href="{% url 'home' %}" class="nav-link link {% if request.path == '/' %}active{% endif %}">
+                                <i class="fas fa-home mr-2"></i>Accueil
+                            </a>
+                            <a href="{% url 'departement' %}" class="nav-link link {% if 'departement' in request.path %}active{% endif %}">
+                                <i class="fas fa-building mr-2"></i>Départements
+                            </a>
+                            <a href="{% url 'region' %}" class="nav-link link {% if 'region' in request.path %}active{% endif %}">
+                                <i class="fas fa-map-marked-alt mr-2"></i>Régions
+                            </a>
+                            <a href="{% url 'village' %}" class="nav-link link {% if 'village' in request.path %}active{% endif %}">
+                                <i class="fas fa-home mr-2"></i>Villages
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="/docs" class="btn-primary hidden md:block link">
+                        <i class="fas fa-book mr-2"></i>Documentation
+                    </a>
+                    <!-- Mobile menu button -->
+                    <button type="button" class="md:hidden bg-gray-700 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-      </nav>
-    <main class="container mx-auto py-4 px-4">
-        {% block content %}
-        {% endblock %}
+
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="{% url 'home' %}" class="nav-link link block {% if request.path == '/' %}active{% endif %}">
+                    <i class="fas fa-home mr-2"></i>Accueil
+                </a>
+                <a href="{% url 'departement' %}" class="nav-link link block {% if 'departement' in request.path %}active{% endif %}">
+                    <i class="fas fa-building mr-2"></i>Départements
+                </a>
+                <a href="{% url 'region' %}" class="nav-link link block {% if 'region' in request.path %}active{% endif %}">
+                    <i class="fas fa-map-marked-alt mr-2"></i>Régions
+                </a>
+                <a href="{% url 'village' %}" class="nav-link link block {% if 'village' in request.path %}active{% endif %}">
+                    <i class="fas fa-home mr-2"></i>Villages
+                </a>
+                <a href="/docs" class="nav-link link block">
+                    <i class="fas fa-book mr-2"></i>Documentation
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        {% block content %}{% endblock %}
     </main>
 
-
-
-<footer class="footer items-center p-4 bg-blue-500  text-neutral-content">
-  <div class="items-center grid-flow-col">
-    GalsenApi
-    <p>Copyright © 2023 - All right reserved</p>
-  </div>
-<div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-  <a href="https://paypal.me/sibylassana"target="_blank"><img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt=""></a>
-
-  <a href="https://www.buymeacoffee.com/sibyamara9M"target="_blank"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt=""></a>
-  <a href="https://www.linkedin.com/in/sibylassana" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
-  <a href="https://github.com/sibylassana95" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-  <a href="https://twitter.com/sibyog13" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
-</div>
-
-
-</footer>
-
-
-
-
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">GalsenApi</h3>
+                    <p class="text-sm">Une API moderne pour accéder aux données du Sénégal</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liens Utiles</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/docs" class="hover:text-white transition-colors duration-200">Documentation</a></li>
+                        <li><a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200">GitHub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://twitter.com/sibyog13" class="hover:text-white transition-colors duration-200">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/sibylassana" class="hover:text-white transition-colors duration-200">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+                <p class="text-sm">&copy; {% now "Y" %} GalsenApi. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script>
-    {% for message in messages %}
-
-    swal('{{ message }}');
-
-    {% endfor %}
-    {% if form.errors %}
-
-        {% for field_errors in form.errors.values %}
-          {% for error in field_errors %}
-
-            swal('{{ error }}');
-          {% endfor %}
+    <script>
+        {% for message in messages %}
+            swal('{{ message }}');
         {% endfor %}
-
-  {% endif %}
-
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+        {% if form.errors %}
+            {% for field_errors in form.errors.values %}
+                {% for error in field_errors %}
+                    swal('{{ error }}');
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </script>
 </body>
 </html>
