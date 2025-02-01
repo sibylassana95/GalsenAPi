@@ -1,111 +1,153 @@
-<a name="readme-top"></a>
-
 <div align="center">
-  <img src="capture/logo.png" alt="logo" width="250"  height="auto" />
+  <img src="capture/logo.png" alt="logo" width="140" height="auto" />
+  <h1>GalsenApi</h1>
+  <p>
+    Une API moderne pour accéder facilement aux données du Sénégal 🇸🇳
+  </p>
+
+  <p>
+    <a href="./Licence.md">
+      <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="mit" />
+    </a>
+    <a href="https://github.com/GalsenDev221/made.in.senegal">
+      <img src="https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg" alt="made in senegal" />
+    </a>
+    <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version" />
+  </p>
+
+  <h4>
+    <a href="https://galsenapi.pythonanywhere.com/">Démo</a>
+    <span> · </span>
+    <a href="https://galsenapi.pythonanywhere.com/docs">Documentation</a>
+    <span> · </span>
+    <a href="EN.md">English version</a>
+  </h4>
 </div>
 
+<br />
 
-**GalsenApi**  est une API qui vous permet de manipuler facilement des données sur le Sénégal. Ce projet s'inspire du package  **[Galsenify](https://www.npmjs.com/package/galsenify)**
+## 📋 Table des matières
 
-***Read in [English](EN.md)***
-## Installation 💻 
+- [Aperçu](#-aperçu)
+- [Installation](#-installation)
+- [Utilisation](#-utilisation)
+- [Fonctionnalités](#-fonctionnalités)
+- [Technologies](#-technologies)
+- [Auteur](#-auteur)
+- [Remerciements](#-remerciements)
 
-- Créez un environnement virtuel :
+## 🚀 Aperçu
 
+**GalsenApi** est une API REST qui vous permet d'accéder facilement aux données du Sénégal. Ce projet s'inspire du package [Galsenify](https://www.npmjs.com/package/galsenify) et fournit des informations détaillées sur :
+
+- Les régions du Sénégal
+- Les départements
+- Les villages
+- Les données démographiques
+- Et plus encore...
+
+## ⚙️ Installation
+
+1. Créez un environnement virtuel :
 ```bash
-  python -m venv .venv
+python -m venv .venv
 ```
-- Activez l'environnement virtuel :
 
+2. Activez l'environnement virtuel :
 ```bash
-  source .venv/bin/activate
-```  
-- Installez les dépendances :
+source .venv/bin/activate
+```
 
+3. Installez les dépendances :
 ```bash
-  pip install requirements.txt
+pip install requirements.txt
 ```
-- Effectuez les migrations :
 
+4. Effectuez les migrations :
 ```bash
-  python manage.py makemigrations
-  python manage.py migrate
-```    
-- Créez un super utilisateur :
+python manage.py makemigrations
+python manage.py migrate
+```
 
+5. Créez un super utilisateur :
 ```bash
-  python manage.py createsuperuser
-  
+python manage.py createsuperuser
 ```
-- Lancez le serveur :
 
-```bash
-  python manage.py runserver
-  
-```
-Créez un fichier .env dans le projet Django pour stocker la clé secrète.
+6. Créez un fichier `.env` dans le projet Django pour stocker la clé secrète.
 
-## API Reference
-#### Voici les différentes méthodes d'API disponibles :
-#### Récupérer toutes les régions :
+## 🎯 Utilisation
+
+### Points d'accès de l'API
+
+#### Récupérer toutes les régions
 ```http
-  GET /api/regions/
+GET /api/regions/
 ```
-#### Récupérer une seule région :
+
+#### Récupérer une seule région
 ```http
-  GET /api/regions/1/
+GET /api/regions/1/
 ```
-#### Récupérer tous les départements :
+
+#### Récupérer tous les départements
 ```http
-  GET /api/departements
+GET /api/departements
 ```
-#### Récupérer un seul département :
+
+#### Récupérer un seul département
 ```http
-  GET /api/departements/1/
+GET /api/departements/1/
 ```
-#### Récupérer tous les villages :
+
+#### Récupérer tous les villages
 ```http
-  GET api/villages
+GET api/villages
 ```
-#### Récupérer un seul département :
+
+#### Récupérer un seul village
 ```http
-  GET /api/villages/1
+GET /api/villages/1
 ```
-#### Récupérer les informations sur le pays :
+
+#### Récupérer les informations sur le pays
 ```http
-  GET /api/pays/
+GET /api/pays/
 ```
 
-## Pour plus d'information consulter la documentation 
-# **[Documentation 🚀](https://galsenapi.vercel.app/docs)**
+## 💫 Fonctionnalités
 
+- ✨ Interface utilisateur moderne et responsive
+- 📱 Compatible mobile
+- 🔍 Recherche avancée
+- 📊 Données détaillées et à jour
+- 🔒 Sécurisé et fiable
 
-## 👤 Author 
+## 🛠 Technologies
 
-[![LASSANA SIBY](https://avatars.githubusercontent.com/u/103085452?u=13ace4d88a52056741734e0f802ca7c0053e1e80&v=4&s=40)](https://github.com/sibylassana95)  
-Created by **[Lassana SIBY](https://github.com/sibylassana95)**
+- ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+- ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+- ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
+- ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-  [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/sibyamara9M)
-  [![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/sibylassana) 
+## 👤 Auteur
 
+**Lassana SIBY**
 
+[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sibylassana95)
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sibylassana)
+[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/sibyog13)
 
-## 🔗 Links
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://sibylassana.vercel.app/)
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sibylassana/)
-[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/sibyog13)
+## 💝 Remerciements
 
-### Merci à [Daouda BA](https://github.com/daoodaba975) pour les donées.
-[![Daouda BA](https://avatars.githubusercontent.com/daoodaba975?s=64)](https://github.com/daoodaba975)
-
-## **[Demo 🚀](https://galsenapi.pythonanywhere.com/)**
+Un grand merci à [Daouda BA](https://github.com/daoodaba975) pour les données.
 
 ### Exemple d'utilisation de l'api 
 Views region et departement
 ```python
 def regions_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.vercel.app/api/regions/'
+    url = 'https://galsenapi.pythonanywhere.com/api/regions/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -116,7 +158,7 @@ def regions_view(request):
 
 def departments_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.vercel.app/api/departements/'
+    url = 'https://galsenapi.pythonanywhere.com/api/departements/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -126,7 +168,7 @@ def departments_view(request):
 
 def villages_view(request):
     query = request.GET.get('q')
-    url = 'https://galsenapi.vercel.app/api/villages/'
+    url = 'https://galsenapi.pythonanywhere.com/api/villages/'
     params = {'search': query} if query else {}
     response = requests.get(url, params=params)
     data = response.json()
@@ -145,3 +187,13 @@ def villages_view(request):
 [![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)](https://github.com/GalsenDev221/made.in.senegal)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<div align="center">
+  <a href="https://www.buymeacoffee.com/sibyamara9M">
+    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />
+  </a>
+  <a href="https://paypal.me/sibylassana">
+    <img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal" />
+  </a>
+</div>
