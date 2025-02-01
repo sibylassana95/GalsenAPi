@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,29 +8,91 @@
     <title>{% block title %}GalsenApi{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
         .link  {
             color:rgb(255, 255, 255) !important;
           }
           .active{
             color: #00FF00 !important;
           }
-      .search-input {
-        @apply w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-blue-500 focus:outline-none focus:ring;
-      }
-      .btn-primary {
-        @apply px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200;
-      }
+        .link {
+            @apply text-white transition-all duration-200 hover:text-green-400 !;
+        }
+        
+        .active {
+            @apply text-green-400 font-medium;
+        }
+        
+        .nav-link {
+            @apply px-3 py-2 rounded-md text-sm font-medium transition-all duration-200;
+        }
+        
+        .search-input {
+            @apply w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-green-500 focus:outline-none focus:ring focus:ring-green-200 transition-all duration-200;
+        }
+        
+        .btn-primary {
+            @apply px-4 py-2 font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105;
+        }
+        
+        .table-header {
+            @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50;
+        }
+        
+        .table-cell {
+            @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+        }
+        
+        /* Animation pour le menu mobile */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            transform-origin: top;
+        }
+        
+        #mobile-menu.hidden {
+            transform: scaleY(0);
+            opacity: 0;
+        }
+        
+        #mobile-menu:not(.hidden) {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        
+        /* Scrollbar personnalisée */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
-<body class="min-h-screen bg-gray-100">
+<body class="min-h-screen bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-gray-800 shadow-lg">
+    <nav class="bg-gray-800 shadow-lg fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="{% url 'home' %}" class="flex items-center">
-                        <img src="{% static 'images/logo.png' %}" alt="GalsenApi" class="h-8 w-auto">
+                    <a href="{% url 'home' %}" class="flex items-center transform hover:scale-105 transition-transform duration-200">
+                        <img src="{% static 'images/logo.png' %}" alt="GalsenApi" class="h-10 w-auto">
                         <span class="ml-2 text-white text-lg font-semibold">GalsenApi</span>
                     </a>
                     <div class="hidden md:block ml-10">
@@ -50,20 +112,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center">
-                    <a href="/docs" class="btn-primary hidden md:block link">
+                <div class="flex items-center space-x-4">
+                    <a href="/docs/" class="btn-primary hidden md:flex items-center link">
                         <i class="fas fa-book mr-2"></i>Documentation
                     </a>
-                    <!-- Mobile menu button -->
-                    <button type="button" class="md:hidden bg-gray-700 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                        <span class="sr-only">Open main menu</span>
+                    <button type="button" class="md:hidden bg-gray-700 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-colors duration-200" aria-controls="mobile-menu" aria-expanded="false" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <span class="sr-only">Menu principal</span>
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile menu -->
+        <!-- Menu mobile -->
         <div class="hidden md:hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="{% url 'home' %}" class="nav-link link block {% if request.path == '/' %}active{% endif %}">
@@ -85,36 +146,44 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Main Content avec padding-top pour compenser la navbar fixe -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mt-16">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300">
+    <footer class="bg-gray-800 text-gray-300 mt-12">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
+                <div data-aos="fade-right">
                     <h3 class="text-lg font-semibold mb-4">GalsenApi</h3>
                     <p class="text-sm">Une API moderne pour accéder aux données du Sénégal</p>
                 </div>
-                <div>
+                <div data-aos="fade-up">
                     <h3 class="text-lg font-semibold mb-4">Liens Utiles</h3>
                     <ul class="space-y-2">
-                        <li><a href="/docs/" class="hover:text-white transition-colors duration-200">Documentation</a></li>
-                        <li><a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200">GitHub</a></li>
+                        <li>
+                            <a href="/docs/" class="hover:text-white transition-colors duration-200 flex items-center">
+                                <i class="fas fa-book mr-2"></i>Documentation
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 flex items-center">
+                                <i class="fab fa-github mr-2"></i>GitHub
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div>
+                <div data-aos="fade-left">
                     <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
                     <div class="flex space-x-4">
-                        <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200">
+                        <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
                             <i class="fab fa-github text-2xl"></i>
                         </a>
-                        <a href="https://twitter.com/sibyog13" class="hover:text-white transition-colors duration-200">
+                        <a href="https://twitter.com/sibyog13" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
                             <i class="fab fa-twitter text-2xl"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/sibylassana" class="hover:text-white transition-colors duration-200">
+                        <a href="https://www.linkedin.com/in/sibylassana" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
                             <i class="fab fa-linkedin text-2xl"></i>
                         </a>
                     </div>
@@ -126,15 +195,32 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        // Initialisation des animations AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Gestion des messages d'alerte avec SweetAlert
         {% for message in messages %}
-            swal('{{ message }}');
+            swal({
+                title: "Information",
+                text: "{{ message }}",
+                icon: "info",
+                button: "OK",
+            });
         {% endfor %}
+        
         {% if form.errors %}
             {% for field_errors in form.errors.values %}
                 {% for error in field_errors %}
-                    swal('{{ error }}');
+                    swal({
+                        title: "Erreur",
+                        text: "{{ error }}",
+                        icon: "error",
+                        button: "OK",
+                    });
                 {% endfor %}
             {% endfor %}
         {% endif %}

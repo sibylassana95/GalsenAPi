@@ -13,7 +13,7 @@
     <a href="https://github.com/GalsenDev221/made.in.senegal">
       <img src="https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg" alt="made in senegal" />
     </a>
-    <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version" />
+    <img src="https://img.shields.io/badge/version-2.0.0-blue" alt="version" />
   </p>
 
   <h4>
