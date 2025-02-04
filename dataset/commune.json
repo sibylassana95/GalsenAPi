@@ -1,0 +1,2475 @@
+[
+
+    {
+        "nom": "Orefonde",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Baba Garage",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Dinguiraye",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Keur Samba Kane",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Bakel",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Bamba-Ndiayene",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Kahene",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Bambey",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Bandafassi",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Bandafassi",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Tombroconto",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Bargny",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Barkedji",
+        "region": "Louga"
+    },
+    {
+        "nom": "Gassane",
+        "region": "Louga"
+    },
+    {
+        "nom": "Thiargny",
+        "region": "Louga"
+    },
+    {
+        "nom": "Thiel",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sinthiou Fissa",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Medina Baffe",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Bignona",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Birkelane",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Birkelane",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Birkelane (sub)",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Ndiamacouta",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Bona",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Diattacounda",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Bonconto",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Linkering",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Medina Gounass",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Sinthiang Koundara",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Bounkiling",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Bounkiling (sub)",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Bounkiling (sub)",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Dougue",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Djembering",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Santhiaba Manjack",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Haere Lao",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Mboumba",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Medina Ndiatbe",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Coki",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ndiagne",
+        "region": "Louga"
+    },
+    {
+        "nom": "Pete OUARACK",
+        "region": "Louga"
+    },
+    {
+        "nom": "Thiamene Cayor",
+        "region": "Louga"
+    },
+    {
+        "nom": "Thiamene Cayor",
+        "region": "Louga"
+    },
+    {
+        "nom": "Colobane",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Mbar",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Dabo",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Dabo (sub)",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Dagana",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Dahra",
+        "region": "Louga"
+    },
+    {
+        "nom": "Dakar",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Dakateli",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Salemata",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Darou Miname 2",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Darou Miname 2",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Ndioum Nguainte",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Darou Marnane",
+        "region": "Louga"
+    },
+    {
+        "nom": "Darou Mousty",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mbadiane",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ndoyene",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sam Yabal",
+        "region": "Louga"
+    },
+    {
+        "nom": "Touba Merina",
+        "region": "Louga"
+    },
+    {
+        "nom": "Demette",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Diaoule",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Mbellacadiao",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Mbellacadiao",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Ndiob",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Diamniadio",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Diana Malari (sub)",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Bani Israel",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Diaroume",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Diawara",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Diende",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Sakar",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Diofior",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Dioulacolon",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Dioulacolon",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Medina El Hadj",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Tankanto Escale",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Diouloulou",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Diourbel",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Bemet Bidjini",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Djibabouya",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Sansamba",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Djibanar",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Diossong",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Djilor",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Djilor",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Bambali",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Djiredji",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Dodji",
+        "region": "Louga"
+    },
+    {
+        "nom": "Labgar",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ouarkhokh",
+        "region": "Louga"
+    },
+    {
+        "nom": "Fafacourou",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Fatick",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Djilasse",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Fimela",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Loul Sessene",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Loul Sessene",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Palmarin Facao",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Fissel",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Ndiaganiao",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Dimboli",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Fongolimbi",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Foundiougne",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Dodel",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Gamadji Sarre",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Guede Village",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Gandiaye",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Gandiaye",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Boulel Goumack",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Gniby",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Kahi",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Gollere",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Gossas",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Goudiry",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Goudiry (sub)",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Goudomp",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Guede Chantier",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Guediawaye",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Guediawaye",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Hamady Ounare",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Ida Mouride",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Sali Escale",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Joal Fadiouth",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Dandeye",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Darou Salam Typ",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Kael",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Madina",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ndioumane",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Touba Mboul",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Touba Mboul",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Kaffrine",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Kahone",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Kanel",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Kaolack",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Karang Poste",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Karantaba",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Kolibantang",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Djinaki",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Kafountine",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Diokoul Mbelbouc",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Diokoul Mbelbouc",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Kathiotte",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Medinatou Salam 2",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Kayar",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Kebemer",
+        "region": "Louga"
+    },
+    {
+        "nom": "Kedougou",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Gathiary",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Madina Foulbe",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Sadatou",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Gande",
+        "region": "Louga"
+    },
+    {
+        "nom": "K. Momar Sarr",
+        "region": "Louga"
+    },
+    {
+        "nom": "K. Momar Sarr",
+        "region": "Louga"
+    },
+    {
+        "nom": "Nguer Malal",
+        "region": "Louga"
+    },
+    {
+        "nom": "Syer",
+        "region": "Louga"
+    },
+    {
+        "nom": "Diender Guedj",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Fandene",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Keur Moussa",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Khombole",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Kidira",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Kolda",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Kothiary",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Kothiary (sub)",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Kothiary (sub)",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Koulor",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Keur Baka",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Latmingue",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Thiare",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Koumpentoum",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Koumpentoum (sub)",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Koussanar",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Sinthiou Malem",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Kouthiaba",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Gawane",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Gawane",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Lambaye",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ngogom",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Refane",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Linguere",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mlomp (Oussouye)",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Oukout",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Louga",
+        "region": "Louga"
+    },
+    {
+        "nom": "Lour Escale",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Ribot Escale",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Mabo",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Mabo",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Ndiognick",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Maka Coulibantang",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Ndoga Babacar",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Malem Hodar (sub)",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Malem Niani",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Malem Niani (sub)",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Bagadadji",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Coumbacara",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Mampatim",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Marsassoum",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Marsassoum",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Matam",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Touba Mosquée",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Mbadakhoune",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndiago",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ngathie Naoude",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Gae",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Mbane",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Kelle-Gueye",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mbediene",
+        "region": "Louga"
+    },
+    {
+        "nom": "Nguidile",
+        "region": "Louga"
+    },
+    {
+        "nom": "Nguidile",
+        "region": "Louga"
+    },
+    {
+        "nom": "Niomre",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mdina Yoro Foulah (sub)",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Kayemor",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Medina Sabakh",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ngayene",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Darou Khoudoss",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Meouane",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Taiba Ndiaye",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Koul",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Merina Dakhar",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Merina Dakhar",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Pekesse",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Dialakoto",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Missirah (TAMBA)",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Neteboulou",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Maka Yop",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Ngainte Pathe",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Balou",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Gabou",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Moudery",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Dalla Ngabou",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Dalla Ngabou",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Missira",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ngahe",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Touba Fall",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Touba Villages",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Bandegne Ouolof",
+        "region": "Louga"
+    },
+    {
+        "nom": "Diokoul Ndiawerigne",
+        "region": "Louga"
+    },
+    {
+        "nom": "Kab Gaye",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ndande",
+        "region": "Louga"
+    },
+    {
+        "nom": "Thieppe",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ndiaffate",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndiaffate",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndidieng",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Gade Escale",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Keur Ngalgou",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ndankh-Sene",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ndindy",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Taiba Moutoupha",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ndioum",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ndoffane",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndorna",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Ndoulo",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ndoulo",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ngohe",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Pattar",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Tocky Gare",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Toure Mbonde",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Nganda",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Nganda (sub)",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Ngaparou",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Ndagalma",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ndondol",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ngoye",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Ngoye",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Thiakhar",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Gagnick",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Mboss",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ourour",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Adéane",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Boutoupa Camaracound",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Niaguis",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Ngayokheme",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Mbayene",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Ngandiouf",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Ngandiouf",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Niakhene",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Thilmakha",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Bassoul",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Dionewar",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Ndjirnda",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Noto",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Tassette",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Enampor",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Niassya",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Bokidiawe",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Bokidiawe",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Nabadji Civol",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Ogo",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Aoure",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Bokiladji",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Orkadiere",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Ndiene Lagane",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Ouadiour",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Patar Lia",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Ourossogui",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Oussouye",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Oussouye",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Ouassadou",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Paroumba",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Cherif Lo",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Mont Roland",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Noto G. Diama",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Pire Goureye",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Gainte Kaye",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Paos Koto",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Prokhane",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Taiba Niassene",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Taiba Niassene",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Passy",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Pata",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Pata (sub)",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Pikine (sub)",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Podor",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Popenguine",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Pout",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Ranerou",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Gandon",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Mpal",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Mpal",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Richard Toll",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ross Bethio (sub)",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ross-Bethio",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Rosso Sénégal",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Rufisque Est",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Khossanto",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Missirah Simana",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Boulal",
+        "region": "Louga"
+    },
+    {
+        "nom": "Dealy",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sagatta Diolof",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sagatta Diolof",
+        "region": "Louga"
+    },
+    {
+        "nom": "Thiamene Pass",
+        "region": "Louga"
+    },
+    {
+        "nom": "Gueoul",
+        "region": "Louga"
+    },
+    {
+        "nom": "Kanene Ndiob",
+        "region": "Louga"
+    },
+    {
+        "nom": "Loro",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sagatta GUETH",
+        "region": "Louga"
+    },
+    {
+        "nom": "Thiolom Fall",
+        "region": "Louga"
+    },
+    {
+        "nom": "Dianke Souf",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Saint Louis",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Leona",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ngeune Sarr",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ngeune Sarr",
+        "region": "Louga"
+    },
+    {
+        "nom": "Sakal",
+        "region": "Louga"
+    },
+    {
+        "nom": "Galoya Toucouleur",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Salikégne (sub)",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Samine (sub)",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Bambylor",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Sangalkam",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Tivaouane Peulh-Niaga",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Yenne",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Saraya",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Saraya (sub)",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Saraya (sub)",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Sare Bidji",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Kandia",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Kounkane",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Nemataba",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Sare Coly Sale",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Sare Yoba Diega",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Sebikotane",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Sedhiou",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Semme",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Ngueniene",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Ngueniene",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Sandiara",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Séssène",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Dya",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndibel",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Thiomby",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Diouboudou",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Niagha",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Simbandi Brassou",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Malicounda",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "diass",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "diass",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Sindia",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Djibidione",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Oulampane",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Sindian",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Suelle",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Sokone",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Somone",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Sadio",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Taif",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Tambacounda",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Tambacounda",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Tanaff",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Tanaff (sub)",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Diouroup",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Tattaguine",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Balingore",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Diegoune",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Mangagoulack",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Coubalane",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Niamone",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Ouonck",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Ouonck",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Tenghory",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Dieyene Sirakh",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Ngoudiane",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Touba Toul",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Thies",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Fanaye",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ndiayene-Pendao",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Thilogne",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Thionck Essyl",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Tivaouane",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Tivaouane",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Keur Saloum Diane",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Keur Samba Gueye",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Nioro Alassane Tall",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Toubacouta",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Lougre Thioly",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Oudalaye",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Velingara Ranérou",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Keur Maba Diakhou",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Keur Madiabel",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndrame Escale",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Ndrame Escale",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Wack Ngouna",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Walalde",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ouro Sidy",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Sinthiou Bamambe",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Kamb",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mbeuleukhe",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mboula",
+        "region": "Louga"
+    },
+    {
+        "nom": "Tessekre Forage",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ziguinchor",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Affe Djoloff",
+        "region": "Louga"
+    },
+    {
+        "nom": "Affe Djoloff",
+        "region": "Louga"
+    },
+    {
+        "nom": "Badion",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Baghere",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Bala",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Bèlè",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Bembou",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Bignaraby",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Biscuiterie",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Bode Lao",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Cambérène",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Dieuppeul-Derklé",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Dieuppeul-Derklé",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Fann Point E Amitié",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Goree",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Grand Yoff",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Gueule Tapee Fass Colobane",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "HLM",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Hann Bel-Air",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Medina",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Mermoz Sacre Coeur",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Ngor",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Ouakam",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Ouakam",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Parcelles Assainies",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Patte d Oie",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Dakar Plateau",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Sicap Liberté",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Yoff",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Golf Sud",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Medina Gounass",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Ndiarème",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Sam",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Wakhinane Nimzatt",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Wakhinane Nimzatt",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Dalifort",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Diamaguène Sicap Mbao",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Djidah-Thiaroye Kaw",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Guinaw Rail Nord",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Guinaw Rail Sud",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Pikine Est",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Pikine Nord",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Pikine Ouest",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Keur Massar",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Malika",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Malika",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Yeumbeul Nord",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Yeumbeul Sud",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Mbao",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Thiaroye Gare",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Thiaroye Sur Mer",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Tivaouane Diaksao",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Jaxaay Parcelles Niakoul Rab",
+        "region": "DAKAR"
+    },
+    {
+        "nom": "Niakhar",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Patar",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Thiaré Ndialgui",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Thiaré Ndialgui",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Diagane Barka",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Diossong",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Djirnda",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Mbam",
+        "region": "FATICK"
+    },
+    {
+        "nom": "NIASSENE",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Soum",
+        "region": "FATICK"
+    },
+    {
+        "nom": "Keur Mbouki",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Diamal",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Mbeuleup",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Segre Gatta",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Segre Gatta",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Touba Mbella",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Diamagadio",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Fass Thiekene",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Koungheul",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Missirah Wadene",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Khelcom",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Ndiobene Samba Lamo",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Sagna",
+        "region": "KAFFRINE"
+    },
+    {
+        "nom": "Dara Mboss",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Fass",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Fass",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Guinguino",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Khelcom Birame",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Nguelou",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Panal Wolof",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Keur Soce",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Sibassor",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Dabali",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Keur Madongo",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Nioro Du Rip",
+        "region": "Kaolack"
+    },
+    {
+        "nom": "Dindefelo",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Dindefelo",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Ninefecha",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Dar Salam",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Ethiolo",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Kevoye",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Oubadji",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Sabodola",
+        "region": "KÉDOUGOU"
+    },
+    {
+        "nom": "Dialambere",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Guiro Yero Bocar",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Medina Cherif",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Thietty",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Thietty",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Dinguiraye Kolda",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Bourouco",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Kerewane",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Koulinto",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Niaming",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Diaobé Kabendou",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Kandiaye",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Pakour",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Velingara",
+        "region": "KOLDA"
+    },
+    {
+        "nom": "Mbacke Cajor",
+        "region": "Louga"
+    },
+    {
+        "nom": "Mbacke Cajor",
+        "region": "Louga"
+    },
+    {
+        "nom": "Ngourane Ouolof",
+        "region": "Louga"
+    },
+    {
+        "nom": "Yang Yang",
+        "region": "Louga"
+    },
+    {
+        "nom": "Guet Ardo",
+        "region": "Louga"
+    },
+    {
+        "nom": "Dembancane",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Ndendory",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Odobere",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Ouaounde",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Nguidjilone",
+        "region": "MATAM"
+    },
+    {
+        "nom": "Bokhol",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Diama",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Diama",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Gnith",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ndombo Sandjiry",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ronkh",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Boke Dialloube",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Doumga Lao",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Mbolo Birane",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Meri",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Niandane",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Pete",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ndiebene Gandiole",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Ndiebene Gandiole",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Fass Ngom",
+        "region": "SAINT-LOUIS"
+    },
+    {
+        "nom": "Tankon",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Ndiamalathiel",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Madina Wandifa",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Kandion Mangana",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Inor",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Faoune",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Djinany",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Diambaty",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Boghal",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Boghal",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Yarang Balante",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Simbandi Balante",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Mangaroungou Santo",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Kaour",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Diattacounda",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Koussy",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Oudoucar",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Same Kanta Peulh",
+        "region": "SÉDHIOU"
+    },
+    {
+        "nom": "Toumboura",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Boutoucoufara",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Boutoucoufara",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Boynguel Bamba",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Dianke Makha",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Goumbayel",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Koar",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Koussan",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Sinthiou Bocar Aly",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Sinthiou Mamadou Boubou",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Bamba Thialne",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Kouthia Gaydi",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Mereto",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Mereto",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Ndam",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Pass Koto",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Payar",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Niani Toucouleur",
+        "region": "TAMBACOUNDA"
+    },
+    {
+        "nom": "Thiadiaye",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Saly Portudal",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Nguekhokhe",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Mbour",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Diass",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Thiénaba",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Thiénaba",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Thies Ouest",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Thies Est",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Pambal",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Meckhe",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "Mboro",
+        "region": "THIÉS"
+    },
+    {
+        "nom": "KARTIACK",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Kataba I",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Mlomp",
+        "region": "ZIGUINCHOR"
+    },
+    {
+        "nom": "Mbacké",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Taiba Tiékène",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Taiba Tiékène",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Touba Lappé",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Touba Lappé",
+        "region": "DIOURBEL"
+    },
+    {
+        "nom": "Darou Nahim",
+        "region": "DIOURBEL"
+    }
+]
