@@ -65,5 +65,29 @@ class Village(models.Model):
 
     def __str__(self):
         return self.nom
+    
+class Arrondissement(models.Model):
+    nom = models.CharField(max_length=255)
+    region = models.CharField(max_length=255)
+
+
+    class Meta:
+        verbose_name = 'Arrondissement'
+        verbose_name_plural = 'Arrondissements'
+
+    def __str__(self):
+        return self.nom    
+
+class Commune(models.Model):
+    nom = models.CharField(max_length=255)
+    region = models.CharField(max_length=255)
+
+
+    class Meta:
+        verbose_name = 'Commune'
+        verbose_name_plural = 'Communes'
+
+    def __str__(self):
+        return self.nom   
 
 

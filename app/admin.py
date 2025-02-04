@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Pays, Regions, Departements,Village
+from .models import Pays, Regions, Departements,Village,Arrondissement,Commune
 
 
 class PaysAdmin(admin.ModelAdmin):
@@ -25,8 +25,22 @@ class VillageAdmin(admin.ModelAdmin):
     search_fields = ('nom',)
     list_filter = ('region',)
 
-
+class ArrondissementAdmin(admin.ModelAdmin):
+    list_display = ('nom', 'region')
+    search_fields = ('nom',)
+    list_filter = ('region',)
+    
+class CommuneAdmin(admin.ModelAdmin):
+    list_display = ('nom', 'region')
+    search_fields = ('nom',)
+    list_filter = ('region',)
+    
+        
 admin.site.register(Pays, PaysAdmin)
 admin.site.register(Regions, RegionAdmin)
 admin.site.register(Departements, DepartementAdmin)
 admin.site.register(Village, VillageAdmin)
+admin.site.register(Arrondissement, ArrondissementAdmin)
+admin.site.register(Commune, CommuneAdmin)
+
+
