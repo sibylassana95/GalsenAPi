@@ -106,9 +106,16 @@
                             <a href="{% url 'region' %}" class="nav-link link {% if 'region' in request.path %}active{% endif %}">
                                 <i class="fas fa-map-marked-alt mr-2"></i>Régions
                             </a>
+                            <a href="{% url 'arrondissement' %}" class="nav-link link block {% if 'arrondissement' in request.path %}active{% endif %}">
+                                <i class="fa-solid fa-warehouse mr-2"></i>Arrondissements
+                            </a>
+                            <a href="{% url 'commune' %}" class="nav-link link block {% if 'commune' in request.path %}active{% endif %}">
+                                <i class="fa-solid fa-people-roof mr-2"></i>Communes
+                            </a>
                             <a href="{% url 'village' %}" class="nav-link link {% if 'village' in request.path %}active{% endif %}">
                                 <i class="fas fa-home mr-2"></i>Villages
                             </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -135,6 +142,12 @@
                 </a>
                 <a href="{% url 'region' %}" class="nav-link link block {% if 'region' in request.path %}active{% endif %}">
                     <i class="fas fa-map-marked-alt mr-2"></i>Régions
+                </a>
+                <a href="{% url 'arrondissement' %}" class="nav-link link block {% if 'arrondissement' in request.path %}active{% endif %}">
+                    <i class="fas fa-map-marked-alt mr-2"></i>Arrondissements
+                </a>
+                <a href="{% url 'commune' %}" class="nav-link link block {% if 'commune' in request.path %}active{% endif %}">
+                    <i class="fas fa-map-marked-alt mr-2"></i>Communes
                 </a>
                 <a href="{% url 'village' %}" class="nav-link link block {% if 'village' in request.path %}active{% endif %}">
                     <i class="fas fa-home mr-2"></i>Villages

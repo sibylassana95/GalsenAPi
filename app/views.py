@@ -4,8 +4,8 @@ import requests
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.filters import SearchFilter
-from .models import Pays, Departements, Regions,Village
-from .serializers import PaysSerializer, DepartementsSerializer, RegionsSerializer,VillagesSerializer
+from .models import Arrondissement, Pays, Departements, Regions,Village,Commune
+from .serializers import ArrondissementsSerializer, CommunesSerializer, PaysSerializer, DepartementsSerializer, RegionsSerializer,VillagesSerializer
 
 def pays_view(request):
     url_pays = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/senegal.json"
@@ -78,7 +78,7 @@ def region_view(request):
 def village_view(request):
     url_village = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/village.json"
     # Charger les données depuis le cache ou directement si non disponible
-    # Pour ce faire, vous pouvez utiliser un mécanisme de cache (pas montré ici)
+    # Pour ce faire, vous pouvez utiliser un mécanisme de cache 
     response = requests.get(url_village)
     data_village = json.loads(response.text)
     
@@ -107,6 +107,73 @@ def village_view(request):
         donne_db = donne_db.filter(nom__icontains=query)
     
     return render(request, 'village.html', {'data': donne_db})
+
+def arrondissement_view(request):
+    url_arrondissement = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/arrondissement.json"
+    # Charger les données depuis le cache ou directement si non disponible
+    # Pour ce faire, vous pouvez utiliser un mécanisme de cache 
+    response = requests.get(url_arrondissement)
+    data_arrondissement = json.loads(response.text)
+    
+    query = request.GET.get('q')
+    
+    # Pré-charger les noms des arrondissements existants pour une vérification rapide
+    existing_arrondissement_names = set(Arrondissement.objects.values_list('nom', flat=True))
+    
+    new_arrondissements = []
+    
+    for arrondissement in data_arrondissement:
+        if arrondissement['nom'] not in existing_arrondissement_names:
+            new_arrondissements.append(Arrondissement(
+                nom=arrondissement['nom'],
+                region=arrondissement['region']
+            ))
+            existing_arrondissement_names.add(arrondissement['nom'])  # Ajouter au set pour éviter les doublons
+    
+    # Créer les nouveaux arrondissements en une seule opération
+    if new_arrondissements:
+        Arrondissement.objects.bulk_create(new_arrondissements)
+    
+    # Appliquer le filtre de recherche
+    donne_db = Arrondissement.objects.all()
+    if query:
+        donne_db = donne_db.filter(nom__icontains=query)
+    
+    return render(request, 'arrondissement.html', {'data': donne_db})
+
+def commune_view(request):
+    url_commune = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/commune.json"
+    # Charger les données depuis le cache ou directement si non disponible
+    # Pour ce faire, vous pouvez utiliser un mécanisme de cache 
+    response = requests.get(url_commune)
+    data_commune = json.loads(response.text)
+    
+    query = request.GET.get('q')
+    
+    # Pré-charger les noms des communes existants pour une vérification rapide
+    existing_commune_names = set(Commune.objects.values_list('nom', flat=True))
+    
+    new_communes = []
+    
+    for commune in data_commune:
+        if commune['nom'] not in existing_commune_names:
+            new_communes.append(Commune(
+                nom=commune['nom'],
+                region=commune['region']
+            ))
+            existing_commune_names.add(commune['nom'])  # Ajouter au set pour éviter les doublons
+    
+    # Créer les nouveaux communes en une seule opération
+    if new_communes:
+        Commune.objects.bulk_create(new_communes)
+    
+    # Appliquer le filtre de recherche
+    donne_db = Commune.objects.all()
+    if query:
+        donne_db = donne_db.filter(nom__icontains=query)
+    
+    return render(request, 'commune.html', {'data': donne_db})
+
 
 class PaysList(generics.ListAPIView):
     queryset = Pays.objects.all()
@@ -148,3 +215,22 @@ class VillageDetail(generics.RetrieveAPIView):
     queryset = Village.objects.all()
     serializer_class = VillagesSerializer
 
+class ArrondissementList(generics.ListAPIView):
+    queryset = Arrondissement.objects.all()
+    serializer_class = ArrondissementsSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['nom', 'region']
+
+class ArrondissementDetail(generics.RetrieveAPIView):
+    queryset = Arrondissement.objects.all()
+    serializer_class = ArrondissementsSerializer
+    
+class CommuneList(generics.ListAPIView):
+    queryset = Commune.objects.all()
+    serializer_class = CommunesSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['nom', 'region']
+
+class CommuneDetail(generics.RetrieveAPIView):
+    queryset = Commune.objects.all()
+    serializer_class = CommunesSerializer    

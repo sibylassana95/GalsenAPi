@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-up">
+    <div class="mb-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">les Arrondissements du Sénégal</h1>
+                <p class="text-gray-600">Nombre total d'arrondissement : <span class="font-semibold text-green-600" id="total-count">{{ data|length }}</span></p>
+            </div>
+            <div class="w-full md:w-64">
+                <div class="relative">
+                    <input type="search" id="search-input" placeholder="Rechercher un arrondissement" 
+                           class="search-input pl-10" autocomplete="off">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto" data-aos="fade-up" data-aos-delay="200">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr class="bg-gradient-to-r from-green-50 to-blue-50">
+                    <th class="table-header">
+                        <div class="flex items-center">
+                           <i class="fa-solid fa-warehouse text-green-500 mr-2"></i>Nom
+                        </div>
+                    </th>
+                    <th class="table-header">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2 text-green-500"></i>Région
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200" id="Arrondissement-table">
+                {% for arrondissement in data %}
+                <tr class="hover:bg-gray-50 transition-all duration-200 arrondissement-row">
+                    <td class="table-cell font-medium">{{ arrondissement.nom }}</td>
+                    <td class="table-cell">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                            {{ arrondissement.region }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div id="no-results" class="hidden py-8 text-center">
+            <div class="inline-flex items-center px-4 py-2 rounded-md bg-yellow-50 text-yellow-800">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                Aucun arrondissement trouvé
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const ArrondissementTable = document.getElementById('Arrondissement-table');
+    const noResults = document.getElementById('no-results');
+    const totalCount = document.getElementById('total-count');
+    const rows = document.querySelectorAll('.arrondissement-row');
+
+    function filterArrondissement(searchTerm) {
+        let visibleCount = 0;
+        searchTerm = searchTerm.toLowerCase();
+        
+        rows.forEach(row => {
+            const arrondissementName = row.querySelector('td:first-child').textContent.toLowerCase();
+            const regionName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            
+            if (arrondissementName.includes(searchTerm) || regionName.includes(searchTerm)) {
+                row.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                row.classList.add('hidden');
+            }
+        });
+
+        totalCount.textContent = visibleCount;
+        noResults.classList.toggle('hidden', visibleCount > 0);
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        filterArrondissement(e.target.value);
+    });
+
+    // Animation des lignes au chargement
+    rows.forEach((row, index) => {
+        row.style.animation = `fadeIn 0.5s ease-out ${index * 0.0}s forwards`;
+    });
+});
+</script>
+
+<style>
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.arrondissement-row {
+    opacity: 0;
+}
+</style>
+{% endblock %}

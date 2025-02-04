@@ -8,6 +8,8 @@ urlpatterns = [
     path('departement/', views.departement_view, name='departement'),
     path('region/', views.region_view, name='region'),
     path('village/', views.village_view, name='village'),
+    path('arrondissement/', views.arrondissement_view, name='arrondissement'),
+    path('commune/', views.commune_view, name='commune'),
 
 
     path('api/pays/', views.PaysList.as_view(), name='pays_list'),
@@ -17,4 +19,8 @@ urlpatterns = [
     path('api/regions/<int:pk>/', views.RegionsDetail.as_view(), name='regions_detail'),
     path('api/villages/', views.VillageList.as_view(), name='villages_list'),
     path('api/villages/<int:pk>/', views.VillageDetail.as_view(), name='villages_detail'),
+    path('api/arrondissements/', views.ArrondissementList.as_view(), name='arrondissements_list'),
+    path('api/arrondissements/<int:pk>/', views.ArrondissementDetail.as_view(), name='arrondissements_detail'),
+    path('api/communes/', views.CommuneList.as_view(), name='communes_list'),
+    path('api/communes/<int:pk>/', views.CommuneDetail.as_view(), name='communes_detail'),
 ]

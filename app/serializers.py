@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Pays, Departements, Regions,Village
+from .models import Pays, Departements, Regions,Village,Arrondissement,Commune
 
 
 class PaysSerializer(serializers.ModelSerializer):
@@ -24,3 +24,15 @@ class VillagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Village
         fields = '__all__'
+
+
+class ArrondissementsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Arrondissement
+        fields = '__all__'
+        
+
+class CommunesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Commune
+        fields = '__all__'        
