@@ -3,7 +3,7 @@
   <img src="capture/logo.png" alt="logo" width="140" height="auto" />
   <h1>GalsenApi</h1>
   <p>
-    Une API moderne pour accéder facilement aux données du Sénégal 🇸🇳
+    A modern API to easily access Senegal's data 🇸🇳
   </p>
 
   <p>
@@ -17,121 +17,143 @@
   </p>
 
   <h4>
-    <a href="https://galsenapi.vercel.app/">Démo</a>
+    <a href="https://galsenapi.vercel.app/">Demo</a>
     <span> · </span>
     <a href="https://galsenapi.vercel.app/docs/">Documentation</a>
     <span> · </span>
-    <a href="EN.md">English version</a>
+    <a href="README.md">Version française</a>
   </h4>
 </div>
 
 <br />
 
-## 📋 Table des matières
+## 📋 Table of Contents
 
-- [Aperçu](#-aperçu)
+- [Overview](#-overview)
 - [Installation](#-installation)
-- [Utilisation](#-utilisation)
-- [Fonctionnalités](#-fonctionnalités)
-- [Technologies](#-technologies)
-- [Auteur](#-auteur)
-- [Remerciements](#-remerciements)
+- [Usage](#-usage)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Author](#-author)
+- [Acknowledgements](#-acknowledgements)
 
-## 🚀 Aperçu
+## 🚀 Overview
 
-**GalsenApi** est une API REST qui vous permet d'accéder facilement aux données du Sénégal. Ce projet s'inspire du package [Galsenify](https://www.npmjs.com/package/galsenify) et fournit des informations détaillées sur :
+**GalsenApi** is a REST API that allows you to easily access data about Senegal. This project is inspired by the [Galsenify](https://www.npmjs.com/package/galsenify) package and provides detailed information about:
 
-- Les régions du Sénégal
-- Les départements
-- Les villages
-- Les données démographiques
-- Et plus encore...
+- Regions of Senegal
+- Departments
+- Districts (Arrondissements)
+- Communes
+- Villages
+- Demographic data
+- And more...
 
 ## ⚙️ Installation
 
-1. Créez un environnement virtuel :
+1. Create a virtual environment:
 ```bash
 python -m venv .venv
 ```
 
-2. Activez l'environnement virtuel :
+2. Activate the virtual environment:
 ```bash
 source .venv/bin/activate
 ```
 
-3. Installez les dépendances :
+3. Install dependencies:
 ```bash
 pip install requirements.txt
 ```
 
-4. Effectuez les migrations :
+4. Run migrations:
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-5. Créez un super utilisateur :
+5. Create a superuser:
 ```bash
 python manage.py createsuperuser
 ```
 
-6. Créez un fichier `.env` dans le projet Django pour stocker la clé secrète.
+6. Create a `.env` file in the Django project to store the secret key.
 
-## 🎯 Utilisation
+## 🎯 Usage
 
-### Points d'accès de l'API
+### API Endpoints
 
-#### Récupérer toutes les régions
+#### Get all regions
 ```http
 GET /api/regions/
 ```
 
-#### Récupérer une seule région
+#### Get a single region
 ```http
 GET /api/regions/1/
 ```
 
-#### Récupérer tous les départements
+#### Get all departments
 ```http
 GET /api/departements
 ```
 
-#### Récupérer un seul département
+#### Get a single department
 ```http
 GET /api/departements/1/
 ```
 
-#### Récupérer tous les villages
+#### Get all districts (arrondissements)
+```http
+GET /api/arrondissements/
+```
+
+#### Get a single district
+```http
+GET /api/arrondissements/1/
+```
+
+#### Get all communes
+```http
+GET /api/communes/
+```
+
+#### Get a single commune
+```http
+GET /api/communes/1/
+```
+
+#### Get all villages
 ```http
 GET api/villages
 ```
 
-#### Récupérer un seul village
+#### Get a single village
 ```http
 GET /api/villages/1
 ```
 
-#### Récupérer les informations sur le pays
+#### Get country information
 ```http
 GET /api/pays/
 ```
 
-## 💫 Fonctionnalités
+## 💫 Features
 
-- ✨ Interface utilisateur moderne et responsive
-- 📱 Compatible mobile
-- 🔍 Recherche avancée
-- 📊 Données détaillées et à jour
-- 🔒 Sécurisé et fiable
+- ✨ Modern and responsive UI
+- 📱 Mobile compatible
+- 🔍 Advanced search
+- 📊 Detailed and up-to-date data
+- 🔒 Secure and reliable
 
-## 🛠 Technologies
+## 🛠 Tech Stack
 
 - ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 - ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 - ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
 - ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## 👤 Auteur
+## 👤 Author
 
 **Lassana SIBY**
 
@@ -139,12 +161,12 @@ GET /api/pays/
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sibylassana)
 [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/sibyog13)
 
-## 💝 Remerciements
+## 💝 Acknowledgements
 
-Un grand merci à [Daouda BA](https://github.com/daoodaba975) pour les données.
+Special thanks to [Daouda BA](https://github.com/daoodaba975) for the data.
 
-### Exemple d'utilisation de l'api 
-Views region et departement
+### Example of using the API
+Views for regions and departments.
 ```python
 def regions_view(request):
     query = request.GET.get('q')
@@ -187,10 +209,6 @@ def villages_view(request):
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](./Licence.md)
 
 [![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)](https://github.com/GalsenDev221/made.in.senegal)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 <div align="center">
   <a href="https://www.buymeacoffee.com/sibyamara9M">
     <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />
@@ -199,3 +217,4 @@ def villages_view(request):
     <img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal" />
   </a>
 </div>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
