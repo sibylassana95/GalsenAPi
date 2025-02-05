@@ -141,7 +141,8 @@ GET /api/pays/
 
 ## 💝 Acknowledgements
 
-Special thanks to [Daouda BA](https://github.com/daoodaba975) for the data.
+### Thank you to [Daouda BA](https://github.com/daoodaba975) for the data..
+[![Daouda BA](https://avatars.githubusercontent.com/daoodaba975?s=64)](https://github.com/daoodaba975)
 
 
 

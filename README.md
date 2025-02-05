@@ -3,7 +3,7 @@
   <img src="capture/logo.png" alt="logo" width="140" height="auto" />
   <h1>GalsenApi</h1>
   <p>
-    A modern API to easily access Senegal's data 🇸🇳
+    Une API moderne pour accéder facilement aux données du Sénégal 🇸🇳
   </p>
 
   <p>
@@ -17,143 +17,143 @@
   </p>
 
   <h4>
-    <a href="https://galsenapi.vercel.app/">Demo</a>
+    <a href="https://galsenapi.vercel.app/">Démo</a>
     <span> · </span>
     <a href="https://galsenapi.vercel.app/docs/">Documentation</a>
     <span> · </span>
-    <a href="README.md">Version française</a>
+    <a href="EN.md">English version</a>
   </h4>
 </div>
 
 <br />
 
-## 📋 Table of Contents
+## 📋 Table des matières
 
-- [Overview](#-overview)
+- [Aperçu](#-aperçu)
 - [Installation](#-installation)
-- [Usage](#-usage)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Author](#-author)
-- [Acknowledgements](#-acknowledgements)
+- [Utilisation](#-utilisation)
+- [Fonctionnalités](#-fonctionnalités)
+- [Technologies](#-technologies)
+- [Auteur](#-auteur)
+- [Remerciements](#-remerciements)
 
-## 🚀 Overview
+## 🚀 Aperçu
 
-**GalsenApi** is a REST API that allows you to easily access data about Senegal. This project is inspired by the [Galsenify](https://www.npmjs.com/package/galsenify) package and provides detailed information about:
+**GalsenApi** est une API REST qui vous permet d'accéder facilement aux données du Sénégal. Ce projet s'inspire du package [Galsenify](https://www.npmjs.com/package/galsenify) et fournit des informations détaillées sur :
 
-- Regions of Senegal
-- Departments
-- Districts (Arrondissements)
-- Communes
-- Villages
-- Demographic data
-- And more...
+- Les régions du Sénégal
+- Les départements
+- Les arrondissements
+- Les communes
+- Les villages
+- Les données démographiques
+- Et plus encore...
 
 ## ⚙️ Installation
 
-1. Create a virtual environment:
+1. Créez un environnement virtuel :
 ```bash
 python -m venv .venv
 ```
 
-2. Activate the virtual environment:
+2. Activez l'environnement virtuel :
 ```bash
 source .venv/bin/activate
 ```
 
-3. Install dependencies:
+3. Installez les dépendances :
 ```bash
 pip install requirements.txt
 ```
 
-4. Run migrations:
+4. Effectuez les migrations :
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-5. Create a superuser:
+5. Créez un super utilisateur :
 ```bash
 python manage.py createsuperuser
 ```
 
-6. Create a `.env` file in the Django project to store the secret key.
+6. Créez un fichier `.env` dans le projet Django pour stocker la clé secrète.
 
-## 🎯 Usage
+## 🎯 Utilisation
 
-### API Endpoints
+### Points d'accès de l'API
 
-#### Get all regions
+#### Récupérer toutes les régions
 ```http
 GET /api/regions/
 ```
 
-#### Get a single region
+#### Récupérer une seule région
 ```http
 GET /api/regions/1/
 ```
 
-#### Get all departments
+#### Récupérer tous les départements
 ```http
 GET /api/departements
 ```
 
-#### Get a single department
+#### Récupérer un seul département
 ```http
 GET /api/departements/1/
 ```
 
-#### Get all districts (arrondissements)
+#### Récupérer tous les arrondissements
 ```http
 GET /api/arrondissements/
 ```
 
-#### Get a single district
+#### Récupérer un seul arrondissement
 ```http
 GET /api/arrondissements/1/
 ```
 
-#### Get all communes
+#### Récupérer toutes les communes
 ```http
 GET /api/communes/
 ```
 
-#### Get a single commune
+#### Récupérer une seule commune
 ```http
 GET /api/communes/1/
 ```
 
-#### Get all villages
+#### Récupérer tous les villages
 ```http
 GET api/villages
 ```
 
-#### Get a single village
+#### Récupérer un seul village
 ```http
 GET /api/villages/1
 ```
 
-#### Get country information
+#### Récupérer les informations sur le pays
 ```http
 GET /api/pays/
 ```
 
-## 💫 Features
+## 💫 Fonctionnalités
 
-- ✨ Modern and responsive UI
-- 📱 Mobile compatible
-- 🔍 Advanced search
-- 📊 Detailed and up-to-date data
-- 🔒 Secure and reliable
+- ✨ Interface utilisateur moderne et responsive
+- 📱 Compatible mobile
+- 🔍 Recherche avancée
+- 📊 Données détaillées et à jour
+- 🔒 Sécurisé et fiable
 
-## 🛠 Tech Stack
+## 🛠 Technologies
 
 - ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 - ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 - ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
 - ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## 👤 Author
+## 👤 Auteur
 
 **Lassana SIBY**
 
@@ -161,12 +161,13 @@ GET /api/pays/
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sibylassana)
 [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/sibyog13)
 
-## 💝 Acknowledgements
+## 💝 Remerciements
 
-Special thanks to [Daouda BA](https://github.com/daoodaba975) for the data.
+### Merci à [Daouda BA](https://github.com/daoodaba975) pour les donées.
+[![Daouda BA](https://avatars.githubusercontent.com/daoodaba975?s=64)](https://github.com/daoodaba975)
 
-### Example of using the API
-Views for regions and departments.
+### Exemple d'utilisation de l'api 
+Views region et departement
 ```python
 def regions_view(request):
     query = request.GET.get('q')
@@ -209,6 +210,10 @@ def villages_view(request):
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](./Licence.md)
 
 [![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)](https://github.com/GalsenDev221/made.in.senegal)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 <div align="center">
   <a href="https://www.buymeacoffee.com/sibyamara9M">
     <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />
@@ -217,4 +222,3 @@ def villages_view(request):
     <img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal" />
   </a>
 </div>
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
