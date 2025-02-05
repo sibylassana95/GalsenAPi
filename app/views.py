@@ -235,7 +235,7 @@ class DepartementsList(generics.ListAPIView):
     queryset = Departements.objects.all()
     serializer_class = DepartementsSerializer
     filter_backends = [SearchFilter]
-    search_fields = ['nom', 'region']
+    search_fields = ['nom']
 
 class DepartementsDetail(generics.RetrieveAPIView):
     queryset = Departements.objects.all()
@@ -255,7 +255,7 @@ class VillageList(generics.ListAPIView):
     queryset = Village.objects.all()
     serializer_class = VillagesSerializer
     filter_backends = [SearchFilter]
-    search_fields = ['nom', 'region']
+    search_fields = ['nom']
 
 class VillageDetail(generics.RetrieveAPIView):
     queryset = Village.objects.all()
@@ -265,7 +265,7 @@ class ArrondissementList(generics.ListAPIView):
     queryset = Arrondissement.objects.all()
     serializer_class = ArrondissementsSerializer
     filter_backends = [SearchFilter]
-    search_fields = ['nom', 'region']
+    search_fields = ['nom']
 
 class ArrondissementDetail(generics.RetrieveAPIView):
     queryset = Arrondissement.objects.all()
@@ -275,7 +275,7 @@ class CommuneList(generics.ListAPIView):
     queryset = Commune.objects.all()
     serializer_class = CommunesSerializer
     filter_backends = [SearchFilter]
-    search_fields = ['nom', 'region']
+    search_fields = ['nom']
 
 class CommuneDetail(generics.RetrieveAPIView):
     queryset = Commune.objects.all()
