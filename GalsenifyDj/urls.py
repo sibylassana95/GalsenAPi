@@ -10,7 +10,7 @@ from rest_framework import permissions
 schema_view = get_schema_view(
     openapi.Info(
         title="GalsenApi",
-        default_version='v1',
+        default_version='v2',
         description="GalsenApi est une API qui vous permet de manipuler facilement des données sur le Sénégal.",
         terms_of_service="https://github.com/sibylassana95/GalsenAPi/blob/main/Licence.md",
         contact=openapi.Contact(email="sibyamara95@gmail.com"),
@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('app.urls')),
     path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='docs'),
-    path('redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('redoc', schema_view.with_ui('redoc', cache_timeout=0), name='redoc'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
