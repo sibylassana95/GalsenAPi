@@ -11,5 +11,8 @@
     "habitants": 18032473,
     "surface": 196712,
     "regions": 14,
-    "departments": 46
+    "departments": 46,
+    "arrondissements": 123,
+    "commune": 558,
+    "village":8136
 }

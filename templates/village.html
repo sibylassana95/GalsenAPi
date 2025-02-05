@@ -7,13 +7,15 @@
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Villages du Sénégal</h1>
                 <p class="text-gray-600">Nombre total de villages : <span class="font-semibold text-green-600" id="total-count">{{ data|length }}</span></p>
             </div>
-            <div class="w-full md:w-64">
+            <form method="get" class="w-full md:w-64">
                 <div class="relative">
-                    <input type="search" id="search-input" placeholder="Rechercher un village" 
+                    <input type="search" name="q" id="search-input" 
+                           placeholder="Rechercher un département..." 
+                           value="{{ query|default:'' }}"
                            class="search-input pl-10" autocomplete="off">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -54,7 +56,7 @@
         </div>
     </div>
 </div>
-
+{% include 'pagination.html' %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
@@ -83,10 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         noResults.classList.toggle('hidden', visibleCount > 0);
     }
 
-    searchInput.addEventListener('input', (e) => {
-        filterVillages(e.target.value);
-    });
-
+    
     // Animation des lignes au chargement
     rows.forEach((row, index) => {
         row.style.animation = `fadeIn 0.5s ease-out ${index * 0.0}s forwards`;
