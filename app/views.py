@@ -103,7 +103,7 @@ def region_view(request):
         donnedb = donnedb.filter(nom__icontains=query) | donnedb.filter(code__icontains=query)
     
     # Pagination
-    paginator = Paginator(donnedb, 10)
+    paginator = Paginator(donnedb, 50)
     page = request.GET.get('page')
     data = paginator.get_page(page)
     
