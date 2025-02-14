@@ -100,11 +100,11 @@
                             <a href="{% url 'home' %}" class="nav-link link {% if request.path == '/' %}active{% endif %}">
                                 <i class="fas fa-home mr-2"></i>Accueil
                             </a>
-                            <a href="{% url 'departement' %}" class="nav-link link {% if 'departement' in request.path %}active{% endif %}">
-                                <i class="fas fa-building mr-2"></i>Départements
-                            </a>
                             <a href="{% url 'region' %}" class="nav-link link {% if 'region' in request.path %}active{% endif %}">
                                 <i class="fas fa-map-marked-alt mr-2"></i>Régions
+                            </a>
+                            <a href="{% url 'departement' %}" class="nav-link link {% if 'departement' in request.path %}active{% endif %}">
+                                <i class="fas fa-building mr-2"></i>Départements
                             </a>
                             <a href="{% url 'arrondissement' %}" class="nav-link link block {% if 'arrondissement' in request.path %}active{% endif %}">
                                 <i class="fa-solid fa-warehouse mr-2"></i>Arrondissements
@@ -137,11 +137,11 @@
                 <a href="{% url 'home' %}" class="nav-link link block {% if request.path == '/' %}active{% endif %}">
                     <i class="fas fa-home mr-2"></i>Accueil
                 </a>
-                <a href="{% url 'departement' %}" class="nav-link link block {% if 'departement' in request.path %}active{% endif %}">
-                    <i class="fas fa-building mr-2"></i>Départements
-                </a>
                 <a href="{% url 'region' %}" class="nav-link link block {% if 'region' in request.path %}active{% endif %}">
                     <i class="fas fa-map-marked-alt mr-2"></i>Régions
+                </a>
+                <a href="{% url 'departement' %}" class="nav-link link block {% if 'departement' in request.path %}active{% endif %}">
+                    <i class="fas fa-building mr-2"></i>Départements
                 </a>
                 <a href="{% url 'arrondissement' %}" class="nav-link link block {% if 'arrondissement' in request.path %}active{% endif %}">
                     <i class="fas fa-map-marked-alt mr-2"></i>Arrondissements
