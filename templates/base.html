@@ -15,15 +15,33 @@
         
         body {
             font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 100%;
+            padding: 1rem;
+        }
+
+        .container-custom {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
         .link  {
             color:rgb(255, 255, 255) !important;
-          }
-          .active{
+        }
+        .active{
             color: #00FF00 !important;
-          }
+        }
         .link {
-            @apply text-white transition-all duration-200 hover:text-green-400 !;
+            @apply text-white transition-all duration-200 hover:text-green-400;
         }
         
         .active {
@@ -50,7 +68,6 @@
             @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
         }
         
-        /* Animation pour le menu mobile */
         #mobile-menu {
             transition: all 0.3s ease-in-out;
             transform-origin: top;
@@ -66,7 +83,6 @@
             opacity: 1;
         }
         
-        /* Scrollbar personnalisée */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -85,10 +101,10 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body>
     <!-- Navigation -->
-    <nav class="bg-gray-800 shadow-lg fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="bg-gray-800 shadow-lg w-full">
+        <div class="container-custom">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="{% url 'home' %}" class="flex items-center transform hover:scale-105 transition-transform duration-200">
@@ -116,9 +132,8 @@
                                 <i class="fas fa-home mr-2"></i>Villages
                             </a>
                             <a href="{% url 'universite' %}" class="nav-link link {% if 'universite' in request.path %}active{% endif %}">
-                                <i class="fas fa-university  mr-2"></i>Universités et Ecole de formations
+                                <i class="fas fa-university mr-2"></i>Universités
                             </a>
-                            
                         </div>
                     </div>
                 </div>
@@ -156,7 +171,7 @@
                     <i class="fas fa-home mr-2"></i>Villages
                 </a>
                 <a href="{% url 'universite' %}" class="nav-link link block {% if 'universite' in request.path %}active{% endif %}">
-                    <i class="fas fa-university  mr-2"></i>Universités et Ecole de formations
+                    <i class="fas fa-university mr-2"></i>Universités
                 </a>
                 <a href="{% url 'redoc' %}" class="nav-link link block">
                     <i class="fas fa-book mr-2"></i>Documentation
@@ -165,14 +180,16 @@
         </div>
     </nav>
 
-    <!-- Main Content avec padding-top pour compenser la navbar fixe -->
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mt-16">
-        {% block content %}{% endblock %}
+    <!-- Main Content -->
+    <main>
+        <div class="container-custom">
+            {% block content %}{% endblock %}
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 mt-12">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <footer class="bg-gray-800 text-gray-300 mt-8">
+        <div class="container-custom py-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div data-aos="fade-right">
                     <h3 class="text-lg font-semibold mb-4">GalsenApi</h3>
@@ -215,13 +232,11 @@
     </footer>
 
     <script>
-        // Initialisation des animations AOS
         AOS.init({
             duration: 300,
             once: true
         });
 
-        // Gestion des messages d'alerte avec SweetAlert
         {% for message in messages %}
             swal({
                 title: "Information",

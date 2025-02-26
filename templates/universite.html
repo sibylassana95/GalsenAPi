@@ -1,7 +1,153 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-up">
+    <div class="mb-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Universités et Écoles de Formation</h1>
+                <p class="text-gray-600">Nombre total d'établissements : <span class="font-semibold text-green-600" id="total-count">{{ data|length }}</span></p>
+            </div>
+            <form method="get" class="w-full md:w-64">
+                <div class="relative">
+                    <input type="search" name="q" id="search-input" 
+                           placeholder="Rechercher un établissement..." 
+                           value="{{ query|default:'' }}"
+                           class="search-input pl-10" autocomplete="off">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </form>
+        </div>
+    </div>
 
-<p>Page pour les Universités et Ecole de formations</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="universities-grid">
+        {% for universite in data %}
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 university-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter}}">
+            <div class="relative h-48 overflow-hidden">
+                {% if universite.logo %}
+                <img src="{{ universite.logo }}" alt="{{ universite.nom }}" class="w-full h-full object-cover">
+                {% else %}
+                <div class="w-full h-full bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center">
+                    <i class="fas fa-university text-white text-5xl"></i>
+                </div>
+                {% endif %}
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <h3 class="text-white font-bold text-xl truncate">{{ universite.nom }}</h3>
+                </div>
+            </div>
+            <div class="p-4">
+                <div class="flex items-center space-x-2 mb-3">
+                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                        <i class="fas fa-graduation-cap mr-1"></i>
+                        Établissement
+                    </span>
+                </div>
+                <p class="text-gray-600 text-sm line-clamp-2">{{ universite.nom }}</p>
+                <div class="mt-4 flex justify-between items-center">
+                    <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-200">
+                        <span class="text-sm font-medium">Plus d'informations</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12">
+            <div class="inline-flex flex-col items-center">
+                <i class="fas fa-school text-gray-400 text-5xl mb-4"></i>
+                <p class="text-gray-500 text-lg">Aucun établissement trouvé</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
+{% include 'pagination.html' %}
 
+<style>
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.university-card {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Animation de survol pour les cartes */
+.university-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Animation du gradient de fond pour les cartes sans image */
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.university-card .bg-gradient-to-r {
+    background-size: 200% 200%;
+    animation: gradientFlow 3s ease infinite;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const universitiesGrid = document.getElementById('universities-grid');
+    const noResults = document.getElementById('no-results');
+    const totalCount = document.getElementById('total-count');
+    const cards = document.querySelectorAll('.university-card');
+
+    function filterUniversities(searchTerm) {
+        let visibleCount = 0;
+        searchTerm = searchTerm.toLowerCase();
+        
+        cards.forEach(card => {
+            const universityName = card.querySelector('h3').textContent.toLowerCase();
+            
+            if (universityName.includes(searchTerm)) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        totalCount.textContent = visibleCount;
+        
+        // Afficher/masquer le message "Aucun résultat"
+        const emptyMessage = universitiesGrid.querySelector('.col-span-full');
+        if (emptyMessage) {
+            emptyMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            filterUniversities(e.target.value);
+        });
+    }
+
+    // Animation des cartes au chargement
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+});
+</script>
 {% endblock %}
