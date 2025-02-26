@@ -46,33 +46,39 @@
 - Les arrondissements
 - Les communes
 - Les villages
+- Les Universités et Ecole de formations
 - Les données démographiques
 - Et plus encore...
 
 ## ⚙️ Installation
 
 1. Créez un environnement virtuel :
+
 ```bash
 python -m venv .venv
 ```
 
 2. Activez l'environnement virtuel :
+
 ```bash
 source .venv/bin/activate
 ```
 
 3. Installez les dépendances :
+
 ```bash
 pip install requirements.txt
 ```
 
 4. Effectuez les migrations :
+
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
 5. Créez un super utilisateur :
+
 ```bash
 python manage.py createsuperuser
 ```
@@ -84,56 +90,79 @@ python manage.py createsuperuser
 ### Points d'accès de l'API
 
 #### Récupérer toutes les régions
+
 ```http
 GET /api/regions/
 ```
 
 #### Récupérer une seule région
+
 ```http
 GET /api/regions/1/
 ```
 
 #### Récupérer tous les départements
+
 ```http
 GET /api/departements
 ```
 
 #### Récupérer un seul département
+
 ```http
 GET /api/departements/1/
 ```
 
 #### Récupérer tous les arrondissements
+
 ```http
 GET /api/arrondissements/
 ```
 
 #### Récupérer un seul arrondissement
+
 ```http
 GET /api/arrondissements/1/
 ```
 
 #### Récupérer toutes les communes
+
 ```http
 GET /api/communes/
 ```
 
 #### Récupérer une seule commune
+
 ```http
 GET /api/communes/1/
 ```
 
 #### Récupérer tous les villages
+
 ```http
 GET api/villages
 ```
 
 #### Récupérer un seul village
+
 ```http
 GET /api/villages/1
 ```
 
+#### Récupérer tous les Universités et Ecole de formations
+
+```http
+GET /api/universites/
+```
+
+#### Récupérer une universite ou ecole de formation
+
+```http
+GET /api/universites/1
+```
+
 #### Récupérer les informations sur le pays
+
 ```http
 GET /api/pays/
 ```
