@@ -115,6 +115,9 @@
                             <a href="{% url 'village' %}" class="nav-link link {% if 'village' in request.path %}active{% endif %}">
                                 <i class="fas fa-home mr-2"></i>Villages
                             </a>
+                            <a href="{% url 'universite' %}" class="nav-link link {% if 'universite' in request.path %}active{% endif %}">
+                                <i class="fas fa-university  mr-2"></i>Universités et Ecole de formations
+                            </a>
                             
                         </div>
                     </div>
@@ -151,6 +154,9 @@
                 </a>
                 <a href="{% url 'village' %}" class="nav-link link block {% if 'village' in request.path %}active{% endif %}">
                     <i class="fas fa-home mr-2"></i>Villages
+                </a>
+                <a href="{% url 'universite' %}" class="nav-link link block {% if 'universite' in request.path %}active{% endif %}">
+                    <i class="fas fa-university  mr-2"></i>Universités et Ecole de formations
                 </a>
                 <a href="{% url 'redoc' %}" class="nav-link link block">
                     <i class="fas fa-book mr-2"></i>Documentation
