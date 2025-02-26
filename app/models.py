@@ -88,6 +88,20 @@ class Commune(models.Model):
         verbose_name_plural = 'Communes'
 
     def __str__(self):
+        return self.nom
+    
+    
+class Universites(models.Model):
+    nom = models.CharField(max_length=255)
+    logo = models.CharField(max_length=255)
+
+
+    class Meta:
+        verbose_name = 'Universite'
+        verbose_name_plural = 'Universites'
+
+    def __str__(self):
         return self.nom   
+       
 
 

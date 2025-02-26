@@ -4,8 +4,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.filters import SearchFilter
 from django.core.paginator import Paginator
-from .models import Arrondissement, Pays, Departements, Regions, Village, Commune
-from .serializers import ArrondissementsSerializer, CommunesSerializer, PaysSerializer, DepartementsSerializer, RegionsSerializer, VillagesSerializer
+from .models import Arrondissement, Pays, Departements, Regions, Village, Commune, Universites
+from .serializers import ArrondissementsSerializer, CommunesSerializer, PaysSerializer, DepartementsSerializer, RegionsSerializer, VillagesSerializer,UniversitesSerializer
 
 def pays_view(request):
     url_pays = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/senegal.json"
@@ -223,6 +223,45 @@ def commune_view(request):
         'total_count': donne_db.count(),
         'query': query
     })
+    
+    
+    
+def universite_view(request):
+    url_universite = "https://raw.githubusercontent.com/sibylassana95/GalsenAPi/refs/heads/main/dataset/universite_ecole_formation.json"
+    response = requests.get(url_universite)
+    data_universite = json.loads(response.text)
+    query = request.GET.get('q')
+    
+    # Synchroniser les données
+    existing_universite_names = set(Universites.objects.values_list('nom', flat=True))
+    new_universites = []
+    
+    for universite in data_universite:
+        if universite['nom'] not in existing_universite_names:
+            new_universites.append(Universites(
+                nom=universite['nom'],
+                logo=universite['logo'],
+            ))
+            existing_universite_names.add(universite['nom'])
+    
+    if new_universites:
+        Universites.objects.bulk_create(new_universites)
+    
+    # Requête avec recherche
+    donne_db = Universites.objects.all()
+    if query:
+        donne_db = donne_db.filter(nom__icontains=query)
+    
+    # Pagination
+    paginator = Paginator(donne_db, 50)
+    page = request.GET.get('page')
+    data = paginator.get_page(page)
+    
+    return render(request, 'universite.html', {
+        'data': data,
+        'total_count': donne_db.count(),
+        'query': query
+    })    
 
 # API Views remain unchanged
 class PaysList(generics.ListAPIView):
@@ -280,3 +319,15 @@ class CommuneList(generics.ListAPIView):
 class CommuneDetail(generics.RetrieveAPIView):
     queryset = Commune.objects.all()
     serializer_class = CommunesSerializer
+    
+
+class UniversitesList(generics.ListAPIView):
+    queryset = Universites.objects.all()
+    serializer_class = UniversitesSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['nom']    
+
+class UniversitesDetail(generics.RetrieveAPIView):
+    queryset = Universites.objects.all()
+    serializer_class = UniversitesSerializer
+    
