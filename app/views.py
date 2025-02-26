@@ -253,7 +253,7 @@ def universite_view(request):
         donne_db = donne_db.filter(nom__icontains=query)
     
     # Pagination
-    paginator = Paginator(donne_db, 50)
+    paginator = Paginator(donne_db, 20)
     page = request.GET.get('page')
     data = paginator.get_page(page)
     
