@@ -59,6 +59,7 @@ def departement_view(request):
     
     # Requête avec recherche
     donne_db = Departements.objects.all()
+    total_count = donne_db.count()
     if query:
         donne_db = donne_db.filter(nom__icontains=query) | donne_db.filter(region__icontains=query)
     
@@ -69,7 +70,7 @@ def departement_view(request):
     
     return render(request, 'departement.html', {
         'data': data,
-        'total_count': donne_db.count(),
+        'total_count': total_count,
         'query': query
     })
 
@@ -99,6 +100,7 @@ def region_view(request):
     
     # Requête avec recherche
     donnedb = Regions.objects.all()
+    total_count = donnedb.count()
     if query:
         donnedb = donnedb.filter(nom__icontains=query) | donnedb.filter(code__icontains=query)
     
@@ -109,7 +111,7 @@ def region_view(request):
     
     return render(request, 'region.html', {
         'data': data,
-        'total_count': donnedb.count(),
+        'total_count': total_count,
         'query': query
     })
 
@@ -136,6 +138,7 @@ def village_view(request):
     
     # Requête avec recherche
     donne_db = Village.objects.all()
+    total_count = donne_db.count()
     if query:
         donne_db = donne_db.filter(nom__icontains=query) | donne_db.filter(region__icontains=query)
     
@@ -146,7 +149,7 @@ def village_view(request):
     
     return render(request, 'village.html', {
         'data': data,
-        'total_count': donne_db.count(),
+        'total_count': total_count,
         'query': query
     })
 
@@ -173,6 +176,7 @@ def arrondissement_view(request):
     
     # Requête avec recherche
     donne_db = Arrondissement.objects.all()
+    total_count = donne_db.count()
     if query:
         donne_db = donne_db.filter(nom__icontains=query) | donne_db.filter(region__icontains=query)
     
@@ -183,7 +187,7 @@ def arrondissement_view(request):
     
     return render(request, 'arrondissement.html', {
         'data': data,
-        'total_count': donne_db.count(),
+        'total_count': total_count,
         'query': query
     })
 
@@ -210,6 +214,8 @@ def commune_view(request):
     
     # Requête avec recherche
     donne_db = Commune.objects.all()
+    total_count = donne_db.count()
+    
     if query:
         donne_db = donne_db.filter(nom__icontains=query) | donne_db.filter(region__icontains=query)
     
@@ -220,7 +226,7 @@ def commune_view(request):
     
     return render(request, 'commune.html', {
         'data': data,
-        'total_count': donne_db.count(),
+        'total_count': total_count,
         'query': query
     })
     
@@ -249,17 +255,19 @@ def universite_view(request):
     
     # Requête avec recherche
     donne_db = Universites.objects.all()
+    # Total universités
+    total_count = donne_db.count()
     if query:
         donne_db = donne_db.filter(nom__icontains=query)
     
     # Pagination
-    paginator = Paginator(donne_db, 20)
+    paginator = Paginator(donne_db, 21)
     page = request.GET.get('page')
     data = paginator.get_page(page)
     
     return render(request, 'universite.html', {
         'data': data,
-        'total_count': donne_db.count(),
+        'total_count': total_count,
         'query': query
     })    
 

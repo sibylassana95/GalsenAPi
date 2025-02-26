@@ -5,8 +5,7 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <div>
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Universités et Écoles de Formation</h1>
-                <p class="text-gray-600">Nombre total d'établissements : <span class="font-semibold text-green-600" id="total-count">{{ data|length }}</span></p>
-            </div>
+                <p class="text-gray-600">Nombre total d'établissements : <span class="font-semibold text-green-600" id="total-count">{{ total_count }}</span></p>            </div>
             <form method="get" class="w-full md:w-64">
                 <div class="relative">
                     <input type="search" name="q" id="search-input" 
@@ -130,19 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         totalCount.textContent = visibleCount;
+        noResults.classList.toggle('hidden', visibleCount > 0);
         
-        // Afficher/masquer le message "Aucun résultat"
-        const emptyMessage = universitiesGrid.querySelector('.col-span-full');
-        if (emptyMessage) {
-            emptyMessage.style.display = visibleCount === 0 ? 'block' : 'none';
-        }
     }
 
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            filterUniversities(e.target.value);
-        });
-    }
 
     // Animation des cartes au chargement
     cards.forEach((card, index) => {
