@@ -5,20 +5,22 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <div>
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Universités et Écoles de Formation</h1>
-                <p class="text-gray-600">Nombre total d'établissements : <span class="font-semibold text-green-600" id="total-count">{{ total_count }}</span></p>            </div>
+                <p class="text-gray-600">Nombre total d'établissements : <span class="font-semibold text-green-600" id="total-count">{{ total_count }}</span></p>
+            </div>
             <form method="get" class="w-full md:w-64">
                 <div class="relative">
                     <input type="search" name="q" id="search-input" 
                            placeholder="Rechercher un établissement..." 
                            value="{{ query|default:'' }}"
-                           class="search-input pl-10" autocomplete="off">
+                           class="search-input pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
+                           autocomplete="off">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="universities-grid">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {% for universite in data %}
         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 university-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter}}">
             <div class="relative h-48 overflow-hidden">
@@ -37,16 +39,10 @@
                 <div class="flex items-center space-x-2 mb-3">
                     <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
                         <i class="fas fa-graduation-cap mr-1"></i>
-                        Établissement
+                        Établissement d'enseignement
                     </span>
                 </div>
                 <p class="text-gray-600 text-sm line-clamp-2">{{ universite.nom }}</p>
-                {% comment %} <div class="mt-4 flex justify-between items-center">
-                    <a href="#" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                        <span class="text-sm font-medium">Plus d'informations</span>
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div> {% endcomment %}
             </div>
         </div>
         {% empty %}
@@ -57,6 +53,13 @@
             </div>
         </div>
         {% endfor %}
+    </div>
+
+    <div id="no-results" class="hidden py-8 text-center">
+        <div class="inline-flex items-center px-4 py-2 rounded-md bg-yellow-50 text-yellow-800">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            Aucun établissement trouvé
+        </div>
     </div>
 </div>
 
@@ -86,13 +89,11 @@
     overflow: hidden;
 }
 
-/* Animation de survol pour les cartes */
 .university-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Animation du gradient de fond pour les cartes sans image */
 @keyframes gradientFlow {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -108,10 +109,9 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
-    const universitiesGrid = document.getElementById('universities-grid');
+    const cards = document.querySelectorAll('.university-card');
     const noResults = document.getElementById('no-results');
     const totalCount = document.getElementById('total-count');
-    const cards = document.querySelectorAll('.university-card');
 
     function filterUniversities(searchTerm) {
         let visibleCount = 0;
@@ -130,9 +130,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         totalCount.textContent = visibleCount;
         noResults.classList.toggle('hidden', visibleCount > 0);
-        
     }
 
+    searchInput.addEventListener('input', (e) => {
+        filterUniversities(e.target.value);
+    });
 
     // Animation des cartes au chargement
     cards.forEach((card, index) => {

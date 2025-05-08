@@ -30,6 +30,8 @@
             top: 0;
             z-index: 50;
             box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar.collapsed {
@@ -43,6 +45,24 @@
             color: rgba(255, 255, 255, 0.8);
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .sidebar-link:hover::before {
+            transform: translateX(100%);
         }
 
         .sidebar-link:hover {
@@ -76,6 +96,25 @@
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4caf50, #2196f3);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .stats-card:hover::before {
+            transform: scaleX(1);
         }
 
         .stats-card:hover {
@@ -91,10 +130,17 @@
             position: sticky;
             top: 0;
             z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .search-input {
-            @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500;
+            @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300;
+        }
+
+        .search-input:focus {
+            @apply transform scale-105;
         }
 
         .table-container {
@@ -107,31 +153,6 @@
 
         .table-cell {
             @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
-        }
-
-        .footer {
-            background: linear-gradient(180deg, #1a237e 0%, #283593 100%);
-            color: rgba(255, 255, 255, 0.8);
-            padding: 2rem;
-            margin-top: auto;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .main-content.expanded {
-                margin-left: 0;
-            }
         }
 
         .hamburger {
@@ -152,24 +173,50 @@
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
             z-index: 45;
+            backdrop-filter: blur(4px);
+            transition: opacity 0.3s ease;
         }
 
         @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+            }
+
             .sidebar-overlay.active {
                 display: block;
             }
         }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
     </style>
 </head>
 <body>
-    <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="p-4 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <img src="{% static 'images/logo.png' %}" alt="Logo" class="w-8 h-8">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" class="w-8 h-8 animate-pulse">
                 <h1 class="text-white text-xl font-bold sidebar-text">GalsenApi</h1>
             </div>
             <button class="text-white hover:text-gray-300 lg:block hidden" onclick="toggleSidebarCollapse()">
@@ -177,7 +224,7 @@
             </button>
         </div>
 
-        <nav class="mt-8">
+        <nav class="mt-8 flex-1">
             <a href="{% url 'home' %}" class="sidebar-link {% if request.path == '/' %}active{% endif %}">
                 <i class="fas fa-home w-6"></i>
                 <span class="ml-3 sidebar-text">Accueil</span>
@@ -208,11 +255,10 @@
             </a>
             <a href="{% url 'docs' %}" class="sidebar-link">
                 <i class="fas fa-book w-6"></i>
-                <span class="ml-3 sidebar-text">Documentation</span>
+                <span class="ml-3 sidebar-text">Explorer les Endpoints</span>
             </a>
         </nav>
 
-        <!-- Footer -->
         <div class="mt-auto p-4 text-white">
             <div data-aos="fade-up">
                 <h3 class="text-lg font-semibold mb-4">Liens Utiles</h3>
@@ -223,14 +269,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/sibylassana95/GalsenAPi" class="hover:text-white transition-colors duration-200 flex items-center">
+                        <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 flex items-center">
                             <i class="fab fa-github mr-2"></i>GitHub
                         </a>
                     </li>
                 </ul>
             </div>
             <div data-aos="fade-left" class="mt-6">
-                <h3 class="text-lg font-semibold mb-4">Suivez-moi/h3>
+                <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
                 <div class="flex space-x-4">
                     <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
                         <i class="fab fa-github text-2xl"></i>
@@ -246,15 +292,22 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <div class="main-content" id="main-content">
-        <!-- Top Navigation -->
         <nav class="navbar flex items-center justify-between mb-8">
             <div class="flex items-center">
                 <button class="hamburger mr-4" onclick="toggleSidebar()">
                     <i class="fas fa-bars text-gray-600 text-xl"></i>
                 </button>
                 <h1 class="text-2xl font-bold text-gray-800">{% block page_title %}{% endblock %}</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'docs' %}" class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
+                    <i class="fas fa-book text-xl"></i>
+                </a>
+                <a href="https://github.com/sibylassana95" target="_blank" rel="noopener noreferrer" 
+                   class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
             </div>
         </nav>
 
@@ -264,7 +317,8 @@
     <script>
         AOS.init({
             duration: 800,
-            once: true
+            once: true,
+            mirror: true
         });
 
         function toggleSidebar() {
@@ -287,7 +341,6 @@
             });
         }
 
-        // Fermer la sidebar en mode mobile lors du clic sur un lien
         document.querySelectorAll('.sidebar-link').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
@@ -296,7 +349,6 @@
             });
         });
 
-        // Gérer le redimensionnement de la fenêtre
         window.addEventListener('resize', () => {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.querySelector('.sidebar-overlay');

@@ -10,125 +10,70 @@
             <form method="get" class="w-full md:w-64">
                 <div class="relative">
                     <input type="search" name="q" id="search-input" 
-                           placeholder="Rechercher une region..." 
+                           placeholder="Rechercher une région..." 
                            value="{{ query|default:'' }}"
-                           class="search-input pl-10" autocomplete="off">
+                           class="search-input pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
+                           autocomplete="off">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="overflow-x-auto" data-aos="fade-up" data-aos-delay="200">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead>
-                <tr class="bg-gradient-to-r from-green-50 to-blue-50">
-                    <th class="table-header">
-                        <div class="flex items-center">
-                            <i class="fas fa-map mr-2 text-green-500"></i>Nom
-                        </div>
-                    </th>
-                    <th class="table-header">
-                        <div class="flex items-center">
-                            <i class="fas fa-tag mr-2 text-green-500"></i>Code
-                        </div>
-                    </th>
-                    <th class="table-header">
-                        <div class="flex items-center">
-                            <i class="fas fa-users mr-2 text-green-500"></i>Population
-                        </div>
-                    </th>
-                    <th class="table-header">
-                        <div class="flex items-center">
-                            <i class="fas fa-vector-square mr-2 text-green-500"></i>Superficie
-                        </div>
-                    </th>
-                    <th class="table-header">
-                        <div class="flex items-center">
-                            <i class="fas fa-building mr-2 text-green-500"></i>Départements
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200" id="regions-table">
-                {% for region in data %}
-                <tr class="hover:bg-gray-50 transition-all duration-200 region-row">
-                    <td class="table-cell font-medium">{{ region.nom }}</td>
-                    <td class="table-cell">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            {{ region.code }}
-                        </span>
-                    </td>
-                    <td class="table-cell">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {% for region in data %}
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 region-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter}}">
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">{{ region.nom }}</h3>
+                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                        {{ region.code }}
+                    </span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-users mr-2 text-blue-500"></i>
                         <span class="font-medium">{{ region.population|stringformat:"d" }}</span>
-                        <span class="text-gray-500 text-sm ml-1">hab.</span>
-                    </td>
-                    <td class="table-cell">
+                        <span class="text-sm ml-1">habitants</span>
+                    </div>
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-vector-square mr-2 text-green-500"></i>
                         <span class="font-medium">{{ region.superficie }}</span>
-                        <span class="text-gray-500 text-sm ml-1">km²</span>
-                    </td>
-                    <td class="table-cell">
-                        <select class="form-select rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 text-sm">
-                            {% for department in region.departments %}
-                            <option value="{{ department }}">{{ department }}</option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div id="no-results" class="hidden py-8 text-center">
-            <div class="inline-flex items-center px-4 py-2 rounded-md bg-yellow-50 text-yellow-800">
-                <i class="fas fa-exclamation-circle mr-2"></i>
-                Aucune région trouvée
+                        <span class="text-sm ml-1">km²</span>
+                    </div>
+                </div>
             </div>
+            <div class="bg-gray-50 p-4">
+                <div class="flex flex-col">
+                    <h4 class="text-sm font-medium text-gray-600 mb-2">Départements</h4>
+                    <div class="flex flex-wrap gap-2">
+                        {% for department in region.departments %}
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-sm">
+                            {{ department }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="no-results" class="hidden py-8 text-center">
+        <div class="inline-flex items-center px-4 py-2 rounded-md bg-yellow-50 text-yellow-800">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            Aucune région trouvée
         </div>
     </div>
 </div>
+
 {% include 'pagination.html' %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const regionsTable = document.getElementById('regions-table');
-    const noResults = document.getElementById('no-results');
-    const totalCount = document.getElementById('total-count');
-    const rows = document.querySelectorAll('.region-row');
-
-    function filterRegions(searchTerm) {
-        let visibleCount = 0;
-        searchTerm = searchTerm.toLowerCase();
-        
-        rows.forEach(row => {
-            const regionName = row.querySelector('td:first-child').textContent.toLowerCase();
-            const regionCode = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-            
-            if (regionName.includes(searchTerm) || regionCode.includes(searchTerm)) {
-                row.classList.remove('hidden');
-                visibleCount++;
-            } else {
-                row.classList.add('hidden');
-            }
-        });
-
-        totalCount.textContent = visibleCount;
-        noResults.classList.toggle('hidden', visibleCount > 0);
-    }
-
-  
-
-    // Animation des lignes au chargement
-    rows.forEach((row, index) => {
-        row.style.animation = `fadeIn 0.5s ease-out ${index * 0.0}s forwards`;
-    });
-});
-</script>
 
 <style>
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -136,8 +81,74 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 }
 
-.region-row {
+.region-card {
     opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.region-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.region-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+    pointer-events: none;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const cards = document.querySelectorAll('.region-card');
+    const noResults = document.getElementById('no-results');
+    const totalCount = document.getElementById('total-count');
+
+    function filterRegions(searchTerm) {
+        let visibleCount = 0;
+        searchTerm = searchTerm.toLowerCase();
+        
+        cards.forEach(card => {
+            const regionName = card.querySelector('h3').textContent.toLowerCase();
+            const regionCode = card.querySelector('.bg-green-100').textContent.toLowerCase();
+            
+            if (regionName.includes(searchTerm) || regionCode.includes(searchTerm)) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        totalCount.textContent = visibleCount;
+        noResults.classList.toggle('hidden', visibleCount > 0);
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        filterRegions(e.target.value);
+    });
+
+    // Animation des cartes au chargement
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+});
+</script>
 {% endblock %}
