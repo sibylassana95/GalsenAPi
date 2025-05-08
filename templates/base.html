@@ -258,38 +258,6 @@
                 <span class="ml-3 sidebar-text">Explorer les Endpoints</span>
             </a>
         </nav>
-
-        <div class="mt-auto p-4 text-white">
-            <div data-aos="fade-up">
-                <h3 class="text-lg font-semibold mb-4">Liens Utiles</h3>
-                <ul class="space-y-2">
-                    <li>
-                        <a href="{% url 'redoc' %}" class="hover:text-white transition-colors duration-200 flex items-center">
-                            <i class="fas fa-book mr-2"></i>Documentation
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/sibylassana95/GalsenAPi" class="hover:text-white transition-colors duration-200 flex items-center">
-                            <i class="fab fa-github mr-2"></i>GitHub
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div data-aos="fade-left" class="mt-6">
-                <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
-                <div class="flex space-x-4">
-                    <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
-                        <i class="fab fa-github text-2xl"></i>
-                    </a>
-                    <a href="https://twitter.com/sibyog13" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
-                        <i class="fab fa-twitter text-2xl"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/sibylassana" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
-                        <i class="fab fa-linkedin text-2xl"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
     </aside>
 
     <div class="main-content" id="main-content">
@@ -313,6 +281,8 @@
 
         {% block content %}{% endblock %}
     </div>
+
+    {% include 'footer.html' %}
 
     <script>
         AOS.init({
