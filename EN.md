@@ -186,6 +186,8 @@ def villages_view(request):
 
 ![CAPTURE](capture/galsenApi.png)
 
+![CAPTURE](capture/galsenapi-vercel-app-region.png)
+
 ## 📝 License
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](./Licence.md)

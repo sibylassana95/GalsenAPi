@@ -3,7 +3,7 @@
 {% block page_title %}Vue d'ensemble{% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <!-- Régions -->
     <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
         <div class="flex items-center justify-between">
@@ -42,8 +42,48 @@
         </div>
     </div>
 
-    <!-- Villages -->
+    <!-- Arrondissements -->
     <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm">Arrondissements</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.arrondissements }}</h3>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+                <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'arrondissement' %}" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                Voir détails
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <!-- Communes -->
+    <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm">Communes</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.commune }}</h3>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+                <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'commune' %}" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                Voir détails
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Villages -->
+    <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-gray-500 text-sm">Villages</p>
@@ -55,6 +95,25 @@
         </div>
         <div class="mt-4">
             <a href="{% url 'village' %}" class="text-yellow-600 hover:text-yellow-800 text-sm font-medium flex items-center">
+                Voir détails
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Universités -->
+    <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm">Universités</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.universite }}</h3>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+                <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'universite' %}" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
                 Voir détails
                 <i class="fas fa-arrow-right ml-2"></i>
             </a>

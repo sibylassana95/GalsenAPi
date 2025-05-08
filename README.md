@@ -233,6 +233,7 @@ def villages_view(request):
 
 ![CAPTURE](capture/galsenApi.png)
 
+![CAPTURE](capture/galsenapi-vercel-app-region.png)
 
 ## 📝 License
 
