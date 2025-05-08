@@ -15,226 +15,348 @@
         
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 280px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #1a237e 0%, #283593 100%);
+            transition: all 0.3s ease;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 50;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .sidebar-link:hover::before {
+            transform: translateX(100%);
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .sidebar-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-left-color: #4caf50;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+            transition: all 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        main {
-            flex: 1;
-            width: 100%;
-            max-width: 100%;
-            padding: 1rem;
+        .main-content.expanded {
+            margin-left: 80px;
         }
 
-        .container-custom {
+        .stats-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 1rem;
+            height: 4px;
+            background: linear-gradient(90deg, #4caf50, #2196f3);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
         }
-        
-        .link  {
-            color:rgb(255, 255, 255) !important;
+
+        .stats-card:hover::before {
+            transform: scaleX(1);
         }
-        .active{
-            color: #00FF00 !important;
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
-        .link {
-            @apply text-white transition-all duration-200 hover:text-green-400;
+
+        .navbar {
+            background: white;
+            height: 70px;
+            padding: 0 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        
-        .active {
-            @apply text-green-400 font-medium;
-        }
-        
-        .nav-link {
-            @apply px-3 py-2 rounded-md text-sm font-medium transition-all duration-200;
-        }
-        
+
         .search-input {
-            @apply w-full px-4 py-2 text-gray-700 bg-white border rounded-lg focus:border-green-500 focus:outline-none focus:ring focus:ring-green-200 transition-all duration-200;
+            @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300;
         }
-        
-        .btn-primary {
-            @apply px-4 py-2 font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105;
+
+        .search-input:focus {
+            @apply transform scale-105;
         }
-        
+
+        .table-container {
+            @apply bg-white rounded-lg shadow-md overflow-hidden;
+        }
+
         .table-header {
-            @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50;
+            @apply px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
         }
-        
+
         .table-cell {
             @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
         }
-        
-        #mobile-menu {
-            transition: all 0.3s ease-in-out;
-            transform-origin: top;
+
+        .hamburger {
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        
-        #mobile-menu.hidden {
-            transform: scaleY(0);
-            opacity: 0;
+
+        .hamburger:hover {
+            transform: scale(1.1);
         }
-        
-        #mobile-menu:not(.hidden) {
-            transform: scaleY(1);
-            opacity: 1;
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 45;
+            backdrop-filter: blur(4px);
+            transition: opacity 0.3s ease;
         }
-        
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
         }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="bg-gray-800 shadow-lg w-full">
-        <div class="container-custom">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <a href="{% url 'home' %}" class="flex items-center transform hover:scale-105 transition-transform duration-200">
-                        <img src="{% static 'images/logo.png' %}" alt="GalsenApi" class="h-10 w-auto">
-                        <span class="ml-2 text-white text-lg font-semibold">GalsenApi</span>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="p-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" class="w-8 h-8 animate-pulse">
+                <h1 class="text-white text-xl font-bold sidebar-text">GalsenApi</h1>
+            </div>
+            <button class="text-white hover:text-gray-300 lg:block hidden" onclick="toggleSidebarCollapse()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="mt-8 flex-1">
+            <a href="{% url 'home' %}" class="sidebar-link {% if request.path == '/' %}active{% endif %}">
+                <i class="fas fa-home w-6"></i>
+                <span class="ml-3 sidebar-text">Accueil</span>
+            </a>
+            <a href="{% url 'region' %}" class="sidebar-link {% if 'region' in request.path %}active{% endif %}">
+                <i class="fas fa-map-marked-alt w-6"></i>
+                <span class="ml-3 sidebar-text">Régions</span>
+            </a>
+            <a href="{% url 'departement' %}" class="sidebar-link {% if 'departement' in request.path %}active{% endif %}">
+                <i class="fas fa-building w-6"></i>
+                <span class="ml-3 sidebar-text">Départements</span>
+            </a>
+            <a href="{% url 'arrondissement' %}" class="sidebar-link {% if 'arrondissement' in request.path %}active{% endif %}">
+                <i class="fa-solid fa-warehouse w-6"></i>
+                <span class="ml-3 sidebar-text">Arrondissements</span>
+            </a>
+            <a href="{% url 'commune' %}" class="sidebar-link {% if 'commune' in request.path %}active{% endif %}">
+                <i class="fa-solid fa-people-roof w-6"></i>
+                <span class="ml-3 sidebar-text">Communes</span>
+            </a>
+            <a href="{% url 'village' %}" class="sidebar-link {% if 'village' in request.path %}active{% endif %}">
+                <i class="fas fa-home w-6"></i>
+                <span class="ml-3 sidebar-text">Villages</span>
+            </a>
+            <a href="{% url 'universite' %}" class="sidebar-link {% if 'universite' in request.path %}active{% endif %}">
+                <i class="fas fa-university w-6"></i>
+                <span class="ml-3 sidebar-text">Universités</span>
+            </a>
+            <a href="{% url 'docs' %}" class="sidebar-link">
+                <i class="fas fa-book w-6"></i>
+                <span class="ml-3 sidebar-text">Explorer les Endpoints</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto p-4 text-white">
+            <div data-aos="fade-up">
+                <h3 class="text-lg font-semibold mb-4">Liens Utiles</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{% url 'redoc' %}" class="hover:text-white transition-colors duration-200 flex items-center">
+                            <i class="fas fa-book mr-2"></i>Documentation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 flex items-center">
+                            <i class="fab fa-github mr-2"></i>GitHub
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div data-aos="fade-left" class="mt-6">
+                <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
+                        <i class="fab fa-github text-2xl"></i>
                     </a>
-                    <div class="hidden md:block ml-10">
-                        <div class="flex items-baseline space-x-4">
-                            <a href="{% url 'home' %}" class="nav-link link {% if request.path == '/' %}active{% endif %}">
-                                <i class="fas fa-home mr-2"></i>Accueil
-                            </a>
-                            <a href="{% url 'region' %}" class="nav-link link {% if 'region' in request.path %}active{% endif %}">
-                                <i class="fas fa-map-marked-alt mr-2"></i>Régions
-                            </a>
-                            <a href="{% url 'departement' %}" class="nav-link link {% if 'departement' in request.path %}active{% endif %}">
-                                <i class="fas fa-building mr-2"></i>Départements
-                            </a>
-                            <a href="{% url 'arrondissement' %}" class="nav-link link block {% if 'arrondissement' in request.path %}active{% endif %}">
-                                <i class="fa-solid fa-warehouse mr-2"></i>Arrondissements
-                            </a>
-                            <a href="{% url 'commune' %}" class="nav-link link block {% if 'commune' in request.path %}active{% endif %}">
-                                <i class="fa-solid fa-people-roof mr-2"></i>Communes
-                            </a>
-                            <a href="{% url 'village' %}" class="nav-link link {% if 'village' in request.path %}active{% endif %}">
-                                <i class="fas fa-home mr-2"></i>Villages
-                            </a>
-                            <a href="{% url 'universite' %}" class="nav-link link {% if 'universite' in request.path %}active{% endif %}">
-                                <i class="fas fa-university mr-2"></i>Universités
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="{% url 'redoc' %}" class="btn-primary hidden md:flex items-center link">
-                        <i class="fas fa-book mr-2"></i>Documentation
+                    <a href="https://twitter.com/sibyog13" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
+                        <i class="fab fa-twitter text-2xl"></i>
                     </a>
-                    <button type="button" class="md:hidden bg-gray-700 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-colors duration-200" aria-controls="mobile-menu" aria-expanded="false" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                        <span class="sr-only">Menu principal</span>
-                        <i class="fas fa-bars"></i>
-                    </button>
+                    <a href="https://www.linkedin.com/in/sibylassana" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
                 </div>
             </div>
         </div>
+    </aside>
 
-        <!-- Menu mobile -->
-        <div class="hidden md:hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="{% url 'home' %}" class="nav-link link block {% if request.path == '/' %}active{% endif %}">
-                    <i class="fas fa-home mr-2"></i>Accueil
+    <div class="main-content" id="main-content">
+        <nav class="navbar flex items-center justify-between mb-8">
+            <div class="flex items-center">
+                <button class="hamburger mr-4" onclick="toggleSidebar()">
+                    <i class="fas fa-bars text-gray-600 text-xl"></i>
+                </button>
+                <h1 class="text-2xl font-bold text-gray-800">{% block page_title %}{% endblock %}</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'docs' %}" class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
+                    <i class="fas fa-book text-xl"></i>
                 </a>
-                <a href="{% url 'region' %}" class="nav-link link block {% if 'region' in request.path %}active{% endif %}">
-                    <i class="fas fa-map-marked-alt mr-2"></i>Régions
-                </a>
-                <a href="{% url 'departement' %}" class="nav-link link block {% if 'departement' in request.path %}active{% endif %}">
-                    <i class="fas fa-building mr-2"></i>Départements
-                </a>
-                <a href="{% url 'arrondissement' %}" class="nav-link link block {% if 'arrondissement' in request.path %}active{% endif %}">
-                    <i class="fas fa-map-marked-alt mr-2"></i>Arrondissements
-                </a>
-                <a href="{% url 'commune' %}" class="nav-link link block {% if 'commune' in request.path %}active{% endif %}">
-                    <i class="fas fa-map-marked-alt mr-2"></i>Communes
-                </a>
-                <a href="{% url 'village' %}" class="nav-link link block {% if 'village' in request.path %}active{% endif %}">
-                    <i class="fas fa-home mr-2"></i>Villages
-                </a>
-                <a href="{% url 'universite' %}" class="nav-link link block {% if 'universite' in request.path %}active{% endif %}">
-                    <i class="fas fa-university mr-2"></i>Universités
-                </a>
-                <a href="{% url 'redoc' %}" class="nav-link link block">
-                    <i class="fas fa-book mr-2"></i>Documentation
+                <a href="https://github.com/sibylassana95" target="_blank" rel="noopener noreferrer" 
+                   class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
+                    <i class="fab fa-github text-xl"></i>
                 </a>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Main Content -->
-    <main>
-        <div class="container-custom">
-            {% block content %}{% endblock %}
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 mt-8">
-        <div class="container-custom py-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div data-aos="fade-right">
-                    <h3 class="text-lg font-semibold mb-4">GalsenApi</h3>
-                    <p class="text-sm">Une API moderne pour accéder aux données du Sénégal</p>
-                </div>
-                <div data-aos="fade-up">
-                    <h3 class="text-lg font-semibold mb-4">Liens Utiles</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="{% url 'redoc' %}" class="hover:text-white transition-colors duration-200 flex items-center">
-                                <i class="fas fa-book mr-2"></i>Documentation
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 flex items-center">
-                                <i class="fab fa-github mr-2"></i>GitHub
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div data-aos="fade-left">
-                    <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
-                    <div class="flex space-x-4">
-                        <a href="https://github.com/sibylassana95" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
-                            <i class="fab fa-github text-2xl"></i>
-                        </a>
-                        <a href="https://twitter.com/sibyog13" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
-                            <i class="fab fa-twitter text-2xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/sibylassana" class="hover:text-white transition-colors duration-200 transform hover:scale-110">
-                            <i class="fab fa-linkedin text-2xl"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
-                <p class="text-sm">&copy; {% now "Y" %} GalsenApi. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+        {% block content %}{% endblock %}
+    </div>
 
     <script>
         AOS.init({
-            duration: 300,
-            once: true
+            duration: 800,
+            once: true,
+            mirror: true
+        });
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        function toggleSidebarCollapse() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const sidebarTexts = document.querySelectorAll('.sidebar-text');
+            
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            
+            sidebarTexts.forEach(text => {
+                text.style.display = sidebar.classList.contains('collapsed') ? 'none' : 'block';
+            });
+        }
+
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            if (window.innerWidth > 768) {
+                overlay.classList.remove('active');
+                sidebar.classList.remove('open');
+            }
         });
 
         {% for message in messages %}

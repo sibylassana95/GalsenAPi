@@ -1,184 +1,328 @@
 {% extends 'base.html' %}
+
+{% block page_title %}Vue d'ensemble{% endblock %}
+
 {% block content %}
-<div class="space-y-8">
-    <!-- Hero Section -->
-    <div class="bg-white rounded-lg shadow-lg p-6 md:p-8" data-aos="fade-up">
-        <div class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                Bienvenue sur GalsenApi
-            </h1>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Une API moderne pour accéder facilement aux données du Sénégal. Inspiré du package 
-                <a href="https://www.npmjs.com/package/galsenify" class="text-blue-600 hover:text-blue-800 font-medium underline">
-                    Galsenify
-                </a>
-            </p>
-            <div class="mt-8">
-                <a href="{% url 'docs' %}" class="inline-flex items-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-green-600 to-blue-600 rounded-lg hover:from-green-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 transform hover:scale-105">
-                    <i class="fas fa-book mr-2"></i>
-                    Explorer les Endpoints
-                </a>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Régions -->
+    <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm">Régions</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.regions }}</h3>
+            </div>
+            <div class="bg-blue-100 p-3 rounded-full">
+                <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
             </div>
         </div>
-    </div>
-
-    <!-- Country Info Card -->
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-        <div class="relative h-80 md:h-96">
-            <img src="{{ data_pays.drapeau }}" alt="Drapeau du Sénégal" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black bg-opacity-60 flex items-center justify-center">
-                <div class="text-center">
-                    <h2 class="text-5xl md:text-6xl font-bold text-white mb-4">
-                        {{ data_pays.pays }}
-                    </h2>
-                    <div class="text-2xl md:text-3xl text-white font-light">
-                        "{{ data_pays.devise }}"
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="p-6 md:p-8">
-            <!-- Key Statistics -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-all duration-200" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="text-sm font-medium text-gray-600">Population</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">{{ data_pays.habitants|stringformat:"d" }}</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-all duration-200" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="text-sm font-medium text-gray-600">Superficie</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">{{ data_pays.surface }} km²</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-all duration-200" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="text-sm font-medium text-gray-600">Régions</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">{{ data_pays.regions }}</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-all duration-200" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="text-sm font-medium text-gray-600">Départements</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">{{ data_pays.departments }}</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-all duration-200" data-aos="zoom-in" data-aos-delay="700">
-                    <div class="text-sm font-medium text-gray-600">Arrondissements</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">{{ data_pays.arrondissements }}</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-all duration-200" data-aos="zoom-in" data-aos-delay="800">
-                    <div class="text-sm font-medium text-gray-600">Communes</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">{{ data_pays.commune }}</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-all duration-200" data-aos="zoom-in" data-aos-delay="900">
-                    <div class="text-sm font-medium text-gray-600">Villages</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">{{ data_pays.village }}</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-sm transform hover:scale-105 transition-all duration-200" data-aos="zoom-in" data-aos-delay="900">
-                    <div class="text-sm font-medium text-gray-600">Universités et Ecole de formations</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">{{ data_pays.universite}}</div>
-                </div>
-            </div>
-
-            <!-- Country Details -->
-            <div class="space-y-8">
-                <div class="border-l-4 border-green-500 pl-6 py-4 bg-green-50 rounded-r-lg" data-aos="fade-left">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Informations Générales</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-city text-green-500"></i>
-                            <span class="text-gray-600">Capitale: <span class="font-medium text-gray-900">{{ data_pays.capital }}</span></span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-globe text-green-500"></i>
-                            <span class="text-gray-600">Code ISO: <span class="font-medium text-gray-900">{{ data_pays.codeIso }}</span></span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-phone text-green-500"></i>
-                            <span class="text-gray-600">Indicatif: <span class="font-medium text-gray-900">+{{ data_pays.indicatif }}</span></span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-money-bill-wave text-green-500"></i>
-                            <span class="text-gray-600">Monnaie: <span class="font-medium text-gray-900">{{ data_pays.monnaie }}</span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border-l-4 border-blue-500 pl-6 py-4 bg-blue-50 rounded-r-lg" data-aos="fade-left" data-aos-delay="200">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Langues</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-language text-blue-500"></i>
-                            <span class="text-gray-600">Langue Officielle: <span class="font-medium text-gray-900">{{ data_pays.langueOfficielle }}</span></span>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-medium text-gray-700 mb-2">Langues Nationales:</h4>
-                            <div class="flex flex-wrap gap-2">
-                                {% for langue in data_pays.languesNationales %}
-                                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                                    {{ langue }}
-                                </span>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Demographic Information -->
-            <div class="mt-12 space-y-6" data-aos="fade-up">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-6">Données Démographiques</h3>
-                
-                <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 shadow-sm">
-                    <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
-                        <i class="fas fa-users text-green-500 mr-2"></i>
-                        Structure de la Population
-                    </h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        La population sénégalaise se caractérise par sa grande jeunesse avec 39,2% de la population âgée de moins de 15 ans. Cette proportion est plus élevée chez les garçons (40,6%) que chez les filles (37,6%).
-                    </p>
-                </div>
-
-                <div class="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6 shadow-sm">
-                    <h4 class="font-semibold text-gray-900 mb-3 flex items-center">
-                        <i class="fas fa-map-marked-alt text-blue-500 mr-2"></i>
-                        Répartition Géographique
-                    </h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        La densité de population est passée de 65 habitants au km² en 2013 à 92 habitants au km² en 2023. La région de Dakar se démarque avec une densité de 7 277 habitants au km².
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sources Section -->
-    <div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-up">
-        <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-            <i class="fas fa-link text-green-500 mr-2"></i>
-            Sources Consultées
-        </h3>
-        <ul class="space-y-3">
-            <li>
-                <a href="https://www.npmjs.com/package/galsenify" class="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                    <i class="fab fa-npm"></i>
-                    <span>Galsenify</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.ansd.sn/" class="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Agence Nationale de la Statistique et de la Démographie (ANSD)</span>
-                </a>
-            </li>
-        <li>
-                <a href="https://senego.com/connaissez-vous-loniyan-le-jalunga-ou-encore-le-bayot-voici-les-19-langues-locales-parlees-au-senegal_1721774.html" class="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                    <i class="fas fa-globe-africa"></i>
-                    <span>Senego</span>
+        <div class="mt-4">
+            <a href="{% url 'region' %}" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                Voir détails
+                <i class="fas fa-arrow-right ml-2"></i>
             </a>
-        </li>
-        <li>
-            <a href="https://www.senegel.org/fr/" class="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                <i class="fas fa-globe-africa"></i>
-                <span>Sénégal ORG</span>
-        </a>
-    </li>
-        </ul>
+        </div>
+    </div>
+
+    <!-- Départements -->
+    <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm">Départements</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.departments }}</h3>
+            </div>
+            <div class="bg-green-100 p-3 rounded-full">
+                <i class="fas fa-building text-green-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'departement' %}" class="text-green-600 hover:text-green-800 text-sm font-medium flex items-center">
+                Voir détails
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Villages -->
+    <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm">Villages</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.village }}</h3>
+            </div>
+            <div class="bg-yellow-100 p-3 rounded-full">
+                <i class="fas fa-home text-yellow-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'village' %}" class="text-yellow-600 hover:text-yellow-800 text-sm font-medium flex items-center">
+                Voir détails
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Population -->
+    <div class="stats-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm">Population</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.habitants|stringformat:"d" }}</h3>
+            </div>
+            <div class="bg-purple-100 p-3 rounded-full">
+                <i class="fas fa-users text-purple-600 text-xl"></i>
+            </div>
+        </div>
+        <div class="mt-4">
+            <span class="text-purple-600 text-sm font-medium">Recensement 2023</span>
+        </div>
     </div>
 </div>
+
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Population par Région Chart -->
+    <div class="bg-white rounded-lg shadow-md p-6" data-aos="fade-right">
+        <h2 class="text-xl font-semibold mb-6 flex items-center">
+            <i class="fas fa-chart-bar text-blue-600 mr-2"></i>
+            Population par Région
+        </h2>
+        <canvas id="populationChart" class="w-full"></canvas>
+    </div>
+
+    <!-- Superficie par Région Chart -->
+    <div class="bg-white rounded-lg shadow-md p-6" data-aos="fade-left">
+        <h2 class="text-xl font-semibold mb-6 flex items-center">
+            <i class="fas fa-chart-pie text-green-600 mr-2"></i>
+            Superficie par Région
+        </h2>
+        <canvas id="superficieChart" class="w-full"></canvas>
+    </div>
+</div>
+
+
+
+<!--Info sur le pays -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow-md p-6" data-aos="fade-right">
+        <h2 class="text-xl font-semibold mb-6 flex items-center">
+            <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+            Informations Générales
+        </h2>
+        <div class="space-y-4">
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span class="text-gray-600">Capitale</span>
+                <span class="font-medium">{{ data_pays.capital }}</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span class="text-gray-600">Code ISO</span>
+                <span class="font-medium">{{ data_pays.codeIso }}</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span class="text-gray-600">Monnaie</span>
+                <span class="font-medium">{{ data_pays.monnaie }}</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span class="text-gray-600">Superficie</span>
+                <span class="font-medium">{{ data_pays.surface }} km²</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6" data-aos="fade-left">
+        <h2 class="text-xl font-semibold mb-6 flex items-center">
+            <i class="fas fa-language text-green-600 mr-2"></i>
+            Langues
+        </h2>
+        <div class="space-y-6">
+            <div>
+                <h3 class="text-gray-600 mb-3">Langue Officielle</h3>
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium">
+                    {{ data_pays.langueOfficielle }}
+                </span>
+            </div>
+            <div>
+                <h3 class="text-gray-600 mb-3">Langues Nationales</h3>
+                <div class="flex flex-wrap gap-2">
+                    {% for langue in data_pays.languesNationales %}
+                    <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                        {{ langue }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Données Démographiques Section -->
+<div class="bg-white rounded-lg shadow-md p-6 mb-8" data-aos="fade-up">
+    <h2 class="text-2xl font-semibold mb-6 flex items-center">
+        <i class="fas fa-users text-indigo-600 mr-2"></i>
+        Données Démographiques
+    </h2>
+    
+    <!-- Structure de la Population -->
+    <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Structure de la Population</h3>
+        <div class="bg-gray-50 rounded-lg p-6">
+            <p class="text-gray-700 mb-4">
+                La population sénégalaise se caractérise par sa grande jeunesse avec <span class="font-semibold text-indigo-600">39,2%</span> de la population âgée de moins de 15 ans. Cette proportion est plus élevée chez les garçons (<span class="font-semibold text-blue-600">40,6%</span>) que chez les filles (<span class="font-semibold text-pink-600">37,6%</span>).
+            </p>
+            
+            <!-- Indicateurs visuels -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-indigo-600">39,2%</div>
+                        <div class="text-sm text-gray-600">Population -15 ans</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600">40,6%</div>
+                        <div class="text-sm text-gray-600">Garçons -15 ans</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-pink-600">37,6%</div>
+                        <div class="text-sm text-gray-600">Filles -15 ans</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Répartition Géographique -->
+    <div class="mb-8">
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Répartition Géographique</h3>
+        <div class="bg-gray-50 rounded-lg p-6">
+            <p class="text-gray-700 mb-4">
+                La densité de population est passée de <span class="font-semibold text-green-600">65 habitants au km²</span> en 2013 à <span class="font-semibold text-green-600">92 habitants au km²</span> en 2023. La région de Dakar se démarque avec une densité de <span class="font-semibold text-green-600">7 277 habitants au km²</span>.
+            </p>
+            
+            <!-- Indicateurs de densité -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600">65</div>
+                        <div class="text-sm text-gray-600">hab/km² en 2013</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600">92</div>
+                        <div class="text-sm text-gray-600">hab/km² en 2023</div>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600">7 277</div>
+                        <div class="text-sm text-gray-600">hab/km² à Dakar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sources -->
+    <div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800">Sources Consultées</h3>
+        <div class="bg-gray-50 rounded-lg p-6">
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>Galsenify</li>
+                <li>Agence Nationale de la Statistique et de la Démographie (ANSD)</li>
+                <li>Senego</li>
+                <li>Sénégal ORG</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch data for charts
+    fetch('/api/regions/')
+        .then(response => response.json())
+        .then(data => {
+            const regions = data.map(r => r.nom);
+            const populations = data.map(r => r.population);
+            const superficies = data.map(r => r.superficie);
+
+            // Population Chart
+            new Chart(document.getElementById('populationChart'), {
+                type: 'bar',
+                data: {
+                    labels: regions,
+                    datasets: [{
+                        label: 'Population',
+                        data: populations,
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                        borderColor: 'rgb(59, 130, 246)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Superficie Chart
+            new Chart(document.getElementById('superficieChart'), {
+                type: 'pie',
+                data: {
+                    labels: regions,
+                    datasets: [{
+                        data: superficies,
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.5)',
+                            'rgba(16, 185, 129, 0.5)',
+                            'rgba(245, 158, 11, 0.5)',
+                            'rgba(239, 68, 68, 0.5)',
+                            'rgba(139, 92, 246, 0.5)',
+                            'rgba(236, 72, 153, 0.5)',
+                            'rgba(75, 85, 99, 0.5)',
+                            'rgba(14, 165, 233, 0.5)',
+                            'rgba(168, 85, 247, 0.5)',
+                            'rgba(234, 179, 8, 0.5)',
+                            'rgba(239, 68, 68, 0.5)',
+                            'rgba(34, 197, 94, 0.5)',
+                            'rgba(168, 85, 247, 0.5)',
+                            'rgba(249, 115, 22, 0.5)',
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+        });
+});
+</script>
 {% endblock %}

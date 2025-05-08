@@ -12,72 +12,109 @@
                     <input type="search" name="q" id="search-input" 
                            placeholder="Rechercher un village..." 
                            value="{{ query|default:'' }}"
-                           class="search-input pl-10" autocomplete="off">
+                           class="search-input pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
+                           autocomplete="off">
                     <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="overflow-x-auto" data-aos="fade-up" data-aos-delay="200">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead>
-                <tr class="bg-gradient-to-r from-green-50 to-blue-50">
-                    <th class="table-header">
-                        <div class="flex items-center">
-                            <i class="fas fa-home mr-2 text-green-500"></i>Nom
-                        </div>
-                    </th>
-                    <th class="table-header">
-                        <div class="flex items-center">
-                            <i class="fas fa-map-marker-alt mr-2 text-green-500"></i>Région
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200" id="villages-table">
-                {% for village in data %}
-                <tr class="hover:bg-gray-50 transition-all duration-200 village-row">
-                    <td class="table-cell font-medium">{{ village.nom }}</td>
-                    <td class="table-cell">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {% for village in data %}
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 village-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter}}">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">{{ village.nom }}</h3>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-map-marker-alt mr-2 text-green-500"></i>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
                             {{ village.region }}
                         </span>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div id="no-results" class="hidden py-8 text-center">
-            <div class="inline-flex items-center px-4 py-2 rounded-md bg-yellow-50 text-yellow-800">
-                <i class="fas fa-exclamation-circle mr-2"></i>
-                Aucun village trouvé
+                    </div>
+                </div>
             </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="no-results" class="hidden py-8 text-center">
+        <div class="inline-flex items-center px-4 py-2 rounded-md bg-yellow-50 text-yellow-800">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            Aucun village trouvé
         </div>
     </div>
 </div>
+
 {% include 'pagination.html' %}
+
+<style>
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.village-card {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.village-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.village-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
-    const villagesTable = document.getElementById('villages-table');
+    const cards = document.querySelectorAll('.village-card');
     const noResults = document.getElementById('no-results');
     const totalCount = document.getElementById('total-count');
-    const rows = document.querySelectorAll('.village-row');
 
     function filterVillages(searchTerm) {
         let visibleCount = 0;
         searchTerm = searchTerm.toLowerCase();
         
-        rows.forEach(row => {
-            const villageName = row.querySelector('td:first-child').textContent.toLowerCase();
-            const regionName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        cards.forEach(card => {
+            const villageName = card.querySelector('h3').textContent.toLowerCase();
+            const regionName = card.querySelector('.bg-blue-100').textContent.toLowerCase();
             
             if (villageName.includes(searchTerm) || regionName.includes(searchTerm)) {
-                row.classList.remove('hidden');
+                card.style.display = 'block';
                 visibleCount++;
             } else {
-                row.classList.add('hidden');
+                card.style.display = 'none';
             }
         });
 
@@ -86,27 +123,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     
-    // Animation des lignes au chargement
-    rows.forEach((row, index) => {
-        row.style.animation = `fadeIn 0.5s ease-out ${index * 0.0}s forwards`;
+
+    // Animation des cartes au chargement
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
     });
 });
 </script>
-
-<style>
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.village-row {
-    opacity: 0;
-}
-</style>
 {% endblock %}
