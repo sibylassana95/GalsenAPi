@@ -182,7 +182,7 @@ def villages_view(request):
     context = {'villages': villages, 'query': query}
     return render(request, 'demo/village.html', context)    
 ```
-![CAPTURE](capture/galsenApi1.png)
+![CAPTURE](capture/home.png)
 
 ![CAPTURE](capture/galsenApi.png)
 
