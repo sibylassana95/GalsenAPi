@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-up">
+<div class="bg-[var(--bg-secondary)] rounded-lg shadow-lg p-6" data-aos="fade-up">
     <div class="mb-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <div>
-                <h1 class="text-3xl font-bold text-gray-800 mb-2">Universités et Écoles de Formation</h1>
-                <p class="text-gray-600">Nombre total d'établissements : <span class="font-semibold text-green-600" id="total-count">{{ total_count }}</span></p>
+                <h1 class="text-3xl font-bold text-[var(--text-primary)] mb-2">Universités et Écoles de Formation</h1>
+                <p class="text-[var(--text-secondary)]">Nombre total d'établissements : <span class="font-semibold text-green-600" id="total-count">{{ total_count }}</span></p>
             </div>
             <form method="get" class="w-full md:w-64">
                 <div class="relative">
                     <input type="search" name="q" id="search-input" 
                            placeholder="Rechercher un établissement..." 
                            value="{{ query|default:'' }}"
-                           class="search-input pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
+                           class="search-input pl-10 pr-4 py-2 w-full rounded-lg border border-[var(--border-color)] bg-[var(--bg-secondary)] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
                            autocomplete="off">
-                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--text-secondary)]"></i>
                 </div>
             </form>
         </div>
@@ -22,7 +22,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {% for universite in data %}
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 university-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter}}">
+        <div class="bg-[var(--bg-secondary)] rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 university-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter}}">
             <div class="relative h-48 overflow-hidden">
                 {% if universite.logo %}
                 <img src="{{ universite.logo }}" alt="{{ universite.nom }}" class="w-full h-full object-cover">
@@ -42,14 +42,14 @@
                         Établissement d'enseignement
                     </span>
                 </div>
-                <p class="text-gray-600 text-sm line-clamp-2">{{ universite.nom }}</p>
+                <p class="text-[var(--text-secondary)] text-sm line-clamp-2">{{ universite.nom }}</p>
             </div>
         </div>
         {% empty %}
         <div class="col-span-full text-center py-12">
             <div class="inline-flex flex-col items-center">
-                <i class="fas fa-school text-gray-400 text-5xl mb-4"></i>
-                <p class="text-gray-500 text-lg">Aucun établissement trouvé</p>
+                <i class="fas fa-school text-[var(--text-secondary)] text-5xl mb-4"></i>
+                <p class="text-[var(--text-secondary)] text-lg">Aucun établissement trouvé</p>
             </div>
         </div>
         {% endfor %}
