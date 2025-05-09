@@ -5,11 +5,11 @@
 {% block content %}
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <!-- Régions -->
-    <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
+    <div class="stats-card bg-[var(--bg-secondary)] text-[var(--text-primary)]" data-aos="fade-up" data-aos-delay="100">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-sm">Régions</p>
-                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.regions }}</h3>
+                <p class="text-[var(--text-secondary)] text-sm">Régions</p>
+                <h3 class="text-3xl font-bold">{{ data_pays.regions }}</h3>
             </div>
             <div class="bg-blue-100 p-3 rounded-full">
                 <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
@@ -24,11 +24,11 @@
     </div>
 
     <!-- Départements -->
-    <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
+    <div class="stats-card bg-[var(--bg-secondary)] text-[var(--text-primary)]" data-aos="fade-up" data-aos-delay="200">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-sm">Départements</p>
-                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.departments }}</h3>
+                <p class="text-[var(--text-secondary)] text-sm">Départements</p>
+                <h3 class="text-3xl font-bold">{{ data_pays.departments }}</h3>
             </div>
             <div class="bg-green-100 p-3 rounded-full">
                 <i class="fas fa-building text-green-600 text-xl"></i>
@@ -43,11 +43,11 @@
     </div>
 
     <!-- Arrondissements -->
-    <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
+    <div class="stats-card bg-[var(--bg-secondary)] text-[var(--text-primary)]" data-aos="fade-up" data-aos-delay="300">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-sm">Arrondissements</p>
-                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.arrondissements }}</h3>
+                <p class="text-[var(--text-secondary)] text-sm">Arrondissements</p>
+                <h3 class="text-3xl font-bold">{{ data_pays.arrondissements }}</h3>
             </div>
             <div class="bg-blue-100 p-3 rounded-full">
                 <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
@@ -64,11 +64,11 @@
 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
     <!-- Communes -->
-    <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
+    <div class="stats-card bg-[var(--bg-secondary)] text-[var(--text-primary)]" data-aos="fade-up" data-aos-delay="100">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-sm">Communes</p>
-                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.commune }}</h3>
+                <p class="text-[var(--text-secondary)] text-sm">Communes</p>
+                <h3 class="text-3xl font-bold">{{ data_pays.commune }}</h3>
             </div>
             <div class="bg-blue-100 p-3 rounded-full">
                 <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
@@ -83,11 +83,11 @@
     </div>
 
     <!-- Villages -->
-    <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
+    <div class="stats-card bg-[var(--bg-secondary)] text-[var(--text-primary)]" data-aos="fade-up" data-aos-delay="200">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-sm">Villages</p>
-                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.village }}</h3>
+                <p class="text-[var(--text-secondary)] text-sm">Villages</p>
+                <h3 class="text-3xl font-bold">{{ data_pays.village }}</h3>
             </div>
             <div class="bg-yellow-100 p-3 rounded-full">
                 <i class="fas fa-home text-yellow-600 text-xl"></i>
@@ -102,11 +102,11 @@
     </div>
 
     <!-- Universités -->
-    <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
+    <div class="stats-card bg-[var(--bg-secondary)] text-[var(--text-primary)]" data-aos="fade-up" data-aos-delay="300">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-sm">Universités</p>
-                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.universite }}</h3>
+                <p class="text-[var(--text-secondary)] text-sm">Universités</p>
+                <h3 class="text-3xl font-bold">{{ data_pays.universite }}</h3>
             </div>
             <div class="bg-blue-100 p-3 rounded-full">
                 <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
@@ -121,11 +121,11 @@
     </div>
 
     <!-- Population -->
-    <div class="stats-card" data-aos="fade-up" data-aos-delay="400">
+    <div class="stats-card bg-[var(--bg-secondary)] text-[var(--text-primary)]" data-aos="fade-up" data-aos-delay="400">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-gray-500 text-sm">Population</p>
-                <h3 class="text-3xl font-bold text-gray-900">{{ data_pays.habitants|stringformat:"d" }}</h3>
+                <p class="text-[var(--text-secondary)] text-sm">Population</p>
+                <h3 class="text-3xl font-bold">{{ data_pays.habitants|stringformat:"d" }}</h3>
             </div>
             <div class="bg-purple-100 p-3 rounded-full">
                 <i class="fas fa-users text-purple-600 text-xl"></i>
@@ -140,7 +140,7 @@
 <!-- Charts Section -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
     <!-- Population par Région Chart -->
-    <div class="bg-white rounded-lg shadow-md p-6" data-aos="fade-right">
+    <div class="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-lg shadow-md p-6" data-aos="fade-right">
         <h2 class="text-xl font-semibold mb-6 flex items-center">
             <i class="fas fa-chart-bar text-blue-600 mr-2"></i>
             Population par Région
@@ -149,7 +149,7 @@
     </div>
 
     <!-- Superficie par Région Chart -->
-    <div class="bg-white rounded-lg shadow-md p-6" data-aos="fade-left">
+    <div class="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-lg shadow-md p-6" data-aos="fade-left">
         <h2 class="text-xl font-semibold mb-6 flex items-center">
             <i class="fas fa-chart-pie text-green-600 mr-2"></i>
             Superficie par Région
@@ -158,49 +158,47 @@
     </div>
 </div>
 
-
-
 <!--Info sur le pays -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-    <div class="bg-white rounded-lg shadow-md p-6" data-aos="fade-right">
+    <div class="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-lg shadow-md p-6" data-aos="fade-right">
         <h2 class="text-xl font-semibold mb-6 flex items-center">
             <i class="fas fa-info-circle text-blue-600 mr-2"></i>
             Informations Générales
         </h2>
         <div class="space-y-4">
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span class="text-gray-600">Capitale</span>
+            <div class="flex items-center justify-between p-3 bg-[var(--bg-primary)] rounded-lg">
+                <span class="text-[var(--text-secondary)]">Capitale</span>
                 <span class="font-medium">{{ data_pays.capital }}</span>
             </div>
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span class="text-gray-600">Code ISO</span>
+            <div class="flex items-center justify-between p-3 bg-[var(--bg-primary)] rounded-lg">
+                <span class="text-[var(--text-secondary)]">Code ISO</span>
                 <span class="font-medium">{{ data_pays.codeIso }}</span>
             </div>
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span class="text-gray-600">Monnaie</span>
+            <div class="flex items-center justify-between p-3 bg-[var(--bg-primary)] rounded-lg">
+                <span class="text-[var(--text-secondary)]">Monnaie</span>
                 <span class="font-medium">{{ data_pays.monnaie }}</span>
             </div>
-            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <span class="text-gray-600">Superficie</span>
+            <div class="flex items-center justify-between p-3 bg-[var(--bg-primary)] rounded-lg">
+                <span class="text-[var(--text-secondary)]">Superficie</span>
                 <span class="font-medium">{{ data_pays.surface }} km²</span>
             </div>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6" data-aos="fade-left">
+    <div class="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-lg shadow-md p-6" data-aos="fade-left">
         <h2 class="text-xl font-semibold mb-6 flex items-center">
             <i class="fas fa-language text-green-600 mr-2"></i>
             Langues
         </h2>
         <div class="space-y-6">
             <div>
-                <h3 class="text-gray-600 mb-3">Langue Officielle</h3>
+                <h3 class="text-[var(--text-secondary)] mb-3">Langue Officielle</h3>
                 <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium">
                     {{ data_pays.langueOfficielle }}
                 </span>
             </div>
             <div>
-                <h3 class="text-gray-600 mb-3">Langues Nationales</h3>
+                <h3 class="text-[var(--text-secondary)] mb-3">Langues Nationales</h3>
                 <div class="flex flex-wrap gap-2">
                     {% for langue in data_pays.languesNationales %}
                     <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
@@ -214,7 +212,7 @@
 </div>
 
 <!-- Données Démographiques Section -->
-<div class="bg-white rounded-lg shadow-md p-6 mb-8" data-aos="fade-up">
+<div class="bg-[var(--bg-secondary)] text-[var(--text-primary)] rounded-lg shadow-md p-6 mb-8" data-aos="fade-up">
     <h2 class="text-2xl font-semibold mb-6 flex items-center">
         <i class="fas fa-users text-indigo-600 mr-2"></i>
         Données Démographiques
@@ -222,30 +220,30 @@
     
     <!-- Structure de la Population -->
     <div class="mb-8">
-        <h3 class="text-xl font-semibold mb-4 text-gray-800">Structure de la Population</h3>
-        <div class="bg-gray-50 rounded-lg p-6">
-            <p class="text-gray-700 mb-4">
+        <h3 class="text-xl font-semibold mb-4">Structure de la Population</h3>
+        <div class="bg-[var(--bg-primary)] rounded-lg p-6">
+            <p class="text-[var(--text-secondary)] mb-4">
                 La population sénégalaise se caractérise par sa grande jeunesse avec <span class="font-semibold text-indigo-600">39,2%</span> de la population âgée de moins de 15 ans. Cette proportion est plus élevée chez les garçons (<span class="font-semibold text-blue-600">40,6%</span>) que chez les filles (<span class="font-semibold text-pink-600">37,6%</span>).
             </p>
             
             <!-- Indicateurs visuels -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="bg-[var(--bg-secondary)] p-4 rounded-lg shadow-sm">
                     <div class="text-center">
                         <div class="text-2xl font-bold text-indigo-600">39,2%</div>
-                        <div class="text-sm text-gray-600">Population -15 ans</div>
+                        <div class="text-sm text-[var(--text-secondary)]">Population -15 ans</div>
                     </div>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="bg-[var(--bg-secondary)] p-4 rounded-lg shadow-sm">
                     <div class="text-center">
                         <div class="text-2xl font-bold text-blue-600">40,6%</div>
-                        <div class="text-sm text-gray-600">Garçons -15 ans</div>
+                        <div class="text-sm text-[var(--text-secondary)]">Garçons -15 ans</div>
                     </div>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="bg-[var(--bg-secondary)] p-4 rounded-lg shadow-sm">
                     <div class="text-center">
                         <div class="text-2xl font-bold text-pink-600">37,6%</div>
-                        <div class="text-sm text-gray-600">Filles -15 ans</div>
+                        <div class="text-sm text-[var(--text-secondary)]">Filles -15 ans</div>
                     </div>
                 </div>
             </div>
@@ -254,30 +252,30 @@
 
     <!-- Répartition Géographique -->
     <div class="mb-8">
-        <h3 class="text-xl font-semibold mb-4 text-gray-800">Répartition Géographique</h3>
-        <div class="bg-gray-50 rounded-lg p-6">
-            <p class="text-gray-700 mb-4">
+        <h3 class="text-xl font-semibold mb-4">Répartition Géographique</h3>
+        <div class="bg-[var(--bg-primary)] rounded-lg p-6">
+            <p class="text-[var(--text-secondary)] mb-4">
                 La densité de population est passée de <span class="font-semibold text-green-600">65 habitants au km²</span> en 2013 à <span class="font-semibold text-green-600">92 habitants au km²</span> en 2023. La région de Dakar se démarque avec une densité de <span class="font-semibold text-green-600">7 277 habitants au km²</span>.
             </p>
             
             <!-- Indicateurs de densité -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="bg-[var(--bg-secondary)] p-4 rounded-lg shadow-sm">
                     <div class="text-center">
                         <div class="text-2xl font-bold text-green-600">65</div>
-                        <div class="text-sm text-gray-600">hab/km² en 2013</div>
+                        <div class="text-sm text-[var(--text-secondary)]">hab/km² en 2013</div>
                     </div>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="bg-[var(--bg-secondary)] p-4 rounded-lg shadow-sm">
                     <div class="text-center">
                         <div class="text-2xl font-bold text-green-600">92</div>
-                        <div class="text-sm text-gray-600">hab/km² en 2023</div>
+                        <div class="text-sm text-[var(--text-secondary)]">hab/km² en 2023</div>
                     </div>
                 </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="bg-[var(--bg-secondary)] p-4 rounded-lg shadow-sm">
                     <div class="text-center">
                         <div class="text-2xl font-bold text-green-600">7 277</div>
-                        <div class="text-sm text-gray-600">hab/km² à Dakar</div>
+                        <div class="text-sm text-[var(--text-secondary)]">hab/km² à Dakar</div>
                     </div>
                 </div>
             </div>
@@ -286,9 +284,9 @@
 
     <!-- Sources -->
     <div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-800">Sources Consultées</h3>
-        <div class="bg-gray-50 rounded-lg p-6">
-            <ul class="list-disc list-inside space-y-2 text-gray-700">
+        <h3 class="text-xl font-semibold mb-4">Sources Consultées</h3>
+        <div class="bg-[var(--bg-primary)] rounded-lg p-6">
+            <ul class="list-disc list-inside space-y-2 text-[var(--text-secondary)]">
                 <li>Galsenify</li>
                 <li>Agence Nationale de la Statistique et de la Démographie (ANSD)</li>
                 <li>Senego</li>
@@ -311,6 +309,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const populations = data.map(r => r.population);
             const superficies = data.map(r => r.superficie);
 
+            const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+            const textColor = isDarkMode ? '#f3f4f6' : '#1f2937';
+
             // Population Chart
             new Chart(document.getElementById('populationChart'), {
                 type: 'bar',
@@ -329,6 +330,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     plugins: {
                         legend: {
                             position: 'top',
+                            labels: {
+                                color: textColor
+                            }
                         },
                         title: {
                             display: false
@@ -338,9 +342,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         y: {
                             beginAtZero: true,
                             ticks: {
+                                color: textColor,
                                 callback: function(value) {
                                     return value.toLocaleString();
                                 }
+                            },
+                            grid: {
+                                color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: textColor
+                            },
+                            grid: {
+                                color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
                             }
                         }
                     }
@@ -376,12 +392,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     responsive: true,
                     plugins: {
                         legend: {
-                            position: 'right'
+                            position: 'right',
+                            labels: {
+                                color: textColor
+                            }
                         }
                     }
                 }
             });
         });
+
+    // Update chart colors when theme changes
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        setTimeout(() => {
+            location.reload();
+        }, 100);
+    });
 });
 </script>
 {% endblock %}

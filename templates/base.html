@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="fr">
+<html lang="fr" class="h-full" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,17 +13,38 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
+        :root[data-theme="light"] {
+            --bg-primary: #f3f4f6;
+            --bg-secondary: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+            --sidebar-bg: linear-gradient(180deg, #1a237e 0%, #283593 100%);
+            --sidebar-text: #ffffff;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-primary:rgb(1, 13, 39);
+            --bg-secondary: #1f2937;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --sidebar-bg: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            --sidebar-text: #f3f4f6;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f3f4f6;
+            background-color: var(--bg-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            color: var(--text-primary);
         }
 
         .sidebar {
             width: 280px;
             min-height: 100vh;
-            background: linear-gradient(180deg, #1a237e 0%, #283593 100%);
+            background: var(--sidebar-bg);
             transition: all 0.3s ease;
             position: fixed;
             left: 0;
@@ -42,7 +63,7 @@
             display: flex;
             align-items: center;
             padding: 1rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--sidebar-text);
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
             position: relative;
@@ -84,6 +105,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-color: var(--bg-primary);
         }
 
         .main-content.expanded {
@@ -91,13 +113,14 @@
         }
 
         .stats-card {
-            background: white;
+            background: var(--bg-secondary);
             border-radius: 1rem;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            color: var(--text-primary);
         }
 
         .stats-card::before {
@@ -123,7 +146,7 @@
         }
 
         .navbar {
-            background: white;
+            background: var(--bg-secondary);
             height: 70px;
             padding: 0 2rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -133,6 +156,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            color: var(--text-primary);
         }
 
         .search-input {
@@ -208,6 +232,12 @@
         .animate-pulse {
             animation: pulse 2s infinite;
         }
+        footer {
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 2rem 0;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body>
@@ -266,9 +296,12 @@
                 <button class="hamburger mr-4" onclick="toggleSidebar()">
                     <i class="fas fa-bars text-gray-600 text-xl"></i>
                 </button>
-                <h1 class="text-2xl font-bold text-gray-800">{% block page_title %}{% endblock %}</h1>
+                <h1 class="text-2xl font-bold">{% block page_title %}{% endblock %}</h1>
             </div>
             <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
+                    <i id="theme-icon" class="fas fa-moon text-xl"></i>
+                </button>
                 <a href="{% url 'docs' %}" class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
                     <i class="fas fa-book text-xl"></i>
                 </a>
@@ -285,6 +318,31 @@
     {% include 'footer.html' %}
 
     <script>
+        // Theme toggle functionality
+        function initializeTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            
+            const themeIcon = document.getElementById('theme-icon');
+            themeIcon.className = theme === 'dark' ? 'fas fa-sun text-xl' : 'fas fa-moon text-xl';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                const themeIcon = document.getElementById('theme-icon');
+                themeIcon.className = newTheme === 'dark' ? 'fas fa-sun text-xl' : 'fas fa-moon text-xl';
+            });
+        });
+
         AOS.init({
             duration: 800,
             once: true,
