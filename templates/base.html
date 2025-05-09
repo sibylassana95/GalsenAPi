@@ -294,19 +294,19 @@
         <nav class="navbar flex items-center justify-between mb-8">
             <div class="flex items-center">
                 <button class="hamburger mr-4" onclick="toggleSidebar()">
-                    <i class="fas fa-bars text-gray-600 text-xl"></i>
+                    <i class="fas fa-bars text-[var(--text-secondary)] text-xl"></i>
                 </button>
                 <h1 class="text-2xl font-bold">{% block page_title %}{% endblock %}</h1>
             </div>
             <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
+                <button id="theme-toggle" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-200">
                     <i id="theme-icon" class="fas fa-moon text-xl"></i>
                 </button>
-                <a href="{% url 'docs' %}" class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
+                <a href="{% url 'docs' %}" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-200">
                     <i class="fas fa-book text-xl"></i>
                 </a>
                 <a href="https://github.com/sibylassana95" target="_blank" rel="noopener noreferrer" 
-                   class="text-gray-600 hover:text-gray-800 transition-colors duration-200">
+                   class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors duration-200">
                     <i class="fab fa-github text-xl"></i>
                 </a>
             </div>
