@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte Interactive du Sénégal - Données Administratives</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #00853F;
+            --primary-yellow: #FDEF42;
+            --primary-red: #E31B23;
+            --bg-cream: #FBF8F3;
+            --text-dark: #1a1a1a;
+            --border-light: #E5DFD5;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Karla', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #006B32 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .flag-strip {
+            display: flex;
+            height: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .flag-strip div {
+            flex: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px var(--shadow);
+            border-top: 4px solid var(--primary-green);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 133, 63, 0.15);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .map-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Karla', sans-serif;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #senegalMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        .region-path {
+            fill: #d4e5d8;
+            stroke: white;
+            stroke-width: 2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .region-path:hover {
+            fill: var(--primary-yellow);
+            stroke: var(--primary-green);
+            stroke-width: 3;
+        }
+
+        .region-path.selected {
+            fill: var(--primary-green);
+            stroke: var(--primary-red);
+            stroke-width: 3;
+        }
+
+        .region-label {
+            font-size: 11px;
+            font-weight: 600;
+            fill: var(--text-dark);
+            pointer-events: none;
+            text-anchor: middle;
+        }
+
+        .info-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .info-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .info-panel::-webkit-scrollbar-track {
+            background: var(--bg-cream);
+            border-radius: 10px;
+        }
+
+        .info-panel::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 10px;
+        }
+
+        .info-header {
+            border-bottom: 3px solid var(--primary-green);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-green), #00a84f);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .info-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-stat-item {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .info-stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .info-stat-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 0.3rem;
+        }
+
+        .department-list {
+            margin-top: 2rem;
+        }
+
+        .department-list h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .department-item {
+            background: white;
+            border: 2px solid var(--border-light);
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .department-item:hover {
+            border-color: var(--primary-green);
+            background: #f8fdf9;
+            transform: translateX(5px);
+        }
+
+        .department-name {
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .department-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .department-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .arrondissement-list {
+            margin-top: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        .arrondissement-item {
+            padding: 0.6rem;
+            background: #f8f9fa;
+            margin-bottom: 0.5rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-yellow);
+            font-size: 0.95rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .back-button {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            font-family: 'Karla', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #006B32;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 133, 63, 0.3);
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow);
+            font-size: 0.85rem;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .search-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Karla', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🇸🇳 République du Sénégal</h1>
+        <p>Un Peuple, Un But, Une Foi</p>
+        <div class="flag-strip">
+            <div style="background: var(--primary-green);"></div>
+            <div style="background: var(--primary-yellow);"></div>
+            <div style="background: var(--primary-red);"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card fade-in" style="animation-delay: 0s;">
+                <div class="stat-label">Habitants</div>
+                <div class="stat-value">18,03M</div>
+            </div>
+            <div class="stat-card fade-in" style="animation-delay: 0.1s;">
+                <div class="stat-label">Régions</div>
+                <div class="stat-value">14</div>
+            </div>
+            <div class="stat-card fade-in" style="animation-delay: 0.2s;">
+                <div class="stat-label">Départements</div>
+                <div class="stat-value">46</div>
+            </div>
+            <div class="stat-card fade-in" style="animation-delay: 0.3s;">
+                <div class="stat-label">Communes</div>
+                <div class="stat-value">558</div>
+            </div>
+            <div class="stat-card fade-in" style="animation-delay: 0.4s;">
+                <div class="stat-label">Villages</div>
+                <div class="stat-value">8 136</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="map-section fade-in" style="animation-delay: 0.5s;">
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput" placeholder="🔍 Rechercher une région, département...">
+                </div>
+                
+                <div class="filter-section">
+                    <label for="regionFilter">Filtrer par région</label>
+                    <select class="filter-select" id="regionFilter">
+                        <option value="">Toutes les régions</option>
+                    </select>
+                </div>
+
+                <div class="map-container">
+                    <svg id="senegalMap" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Simplified Senegal regions map -->
+                        <!-- Dakar -->
+                        <path id="region-Dakar" class="region-path" d="M 580 350 L 600 360 L 610 355 L 615 345 L 605 335 L 590 340 Z" />
+                        <text class="region-label" x="600" y="350">Dakar</text>
+                        
+                        <!-- Thiès -->
+                        <path id="region-Thiès" class="region-path" d="M 520 340 L 580 350 L 590 340 L 575 310 L 540 300 L 510 315 Z" />
+                        <text class="region-label" x="545" y="330">Thiès</text>
+                        
+                        <!-- Diourbel -->
+                        <path id="region-Diourbel" class="region-path" d="M 440 310 L 510 315 L 540 300 L 530 270 L 480 260 L 430 280 Z" />
+                        <text class="region-label" x="480" y="295">Diourbel</text>
+                        
+                        <!-- Fatick -->
+                        <path id="region-Fatick" class="region-path" d="M 460 350 L 520 340 L 510 315 L 440 310 L 420 330 Z" />
+                        <text class="region-label" x="470" y="335">Fatick</text>
+                        
+                        <!-- Kaolack -->
+                        <path id="region-Kaolack" class="region-path" d="M 460 350 L 420 330 L 410 360 L 445 390 L 485 380 Z" />
+                        <text class="region-label" x="450" y="365">Kaolack</text>
+                        
+                        <!-- Kaffrine -->
+                        <path id="region-Kaffrine" class="region-path" d="M 485 380 L 445 390 L 450 430 L 510 440 L 540 410 Z" />
+                        <text class="region-label" x="490" y="415">Kaffrine</text>
+                        
+                        <!-- Louga -->
+                        <path id="region-Louga" class="region-path" d="M 430 280 L 480 260 L 490 210 L 460 180 L 410 190 L 390 240 Z" />
+                        <text class="region-label" x="445" y="230">Louga</text>
+                        
+                        <!-- Saint-Louis -->
+                        <path id="region-Saint-Louis" class="region-path" d="M 390 240 L 410 190 L 460 180 L 480 140 L 450 100 L 380 110 L 360 150 Z" />
+                        <text class="region-label" x="420" y="155">Saint-Louis</text>
+                        
+                        <!-- Matam -->
+                        <path id="region-Matam" class="region-path" d="M 480 140 L 460 180 L 490 210 L 550 200 L 590 170 L 570 130 L 520 125 Z" />
+                        <text class="region-label" x="525" y="165">Matam</text>
+                        
+                        <!-- Tambacounda -->
+                        <path id="region-Tambacounda" class="region-path" d="M 540 410 L 510 440 L 530 500 L 610 520 L 680 490 L 700 430 L 670 380 L 600 370 L 560 390 Z" />
+                        <text class="region-label" x="610" y="440">Tambacounda</text>
+                        
+                        <!-- Kédougou -->
+                        <path id="region-Kédougou" class="region-path" d="M 610 520 L 530 500 L 520 540 L 560 570 L 630 560 L 670 530 Z" />
+                        <text class="region-label" x="590" y="540">Kédougou</text>
+                        
+                        <!-- Kolda -->
+                        <path id="region-Kolda" class="region-path" d="M 450 430 L 410 450 L 390 490 L 420 530 L 480 530 L 520 540 L 530 500 L 510 440 Z" />
+                        <text class="region-label" x="460" y="490">Kolda</text>
+                        
+                        <!-- Sédhiou -->
+                        <path id="region-Sédhiou" class="region-path" d="M 390 490 L 350 510 L 340 550 L 370 570 L 420 560 L 420 530 Z" />
+                        <text class="region-label" x="380" y="535">Sédhiou</text>
+                        
+                        <!-- Ziguinchor -->
+                        <path id="region-Ziguinchor" class="region-path" d="M 270 530 L 340 550 L 370 570 L 380 560 L 360 540 L 320 560 L 260 550 Z" />
+                        <text class="region-label" x="320" y="555">Ziguinchor</text>
+                    </svg>
+                    
+                    <div class="legend">
+                        <div class="legend-title">Légende</div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #d4e5d8;"></div>
+                            <span>Région</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--primary-green);"></div>
+                            <span>Sélectionnée</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--primary-yellow);"></div>
+                            <span>Survol</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-panel fade-in" style="animation-delay: 0.6s;" id="infoPanel">
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <h3>Sélectionnez une région</h3>
+                    <p>Cliquez sur une région de la carte pour afficher ses détails</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Données administratives du Sénégal • 2026</p>
+    </div>
+
+    <script>
+        const regions = [
+            {"nom": "Dakar", "code": "DK", "population": 4042225, "superficie": 547, "departments": ["Dakar", "Pikine", "Guédiawaye", "Rufisque", "Keur Massar"]},
+            {"nom": "Diourbel", "code": "DB", "population": 1049954, "superficie": 4824, "departments": ["Diourbel", "Bambey", "Mbacké"]},
+            {"nom": "Fatick", "code": "FK", "population": 613000, "superficie": 6849, "departments": ["Fatick", "Foundiougne", "Gossas"]},
+            {"nom": "Kaffrine", "code": "KA", "population": 655121, "superficie": 11262, "departments": ["Kaffrine", "Birkilane", "Malème-Hodar", "Koungheul"]},
+            {"nom": "Kaolack", "code": "KL", "population": 1066375, "superficie": 5357, "departments": ["Kaolack", "Guinguinéo", "Nioro du Rip"]},
+            {"nom": "Kédougou", "code": "KE", "population": 156351, "superficie": 16800, "departments": ["Kédougou", "Salémata", "Saraya"]},
+            {"nom": "Kolda", "code": "KD", "population": 847243, "superficie": 13771, "departments": ["Kolda", "Médina Yoro Foulah", "Vélingara"]},
+            {"nom": "Louga", "code": "LG", "population": 677533, "superficie": 24889, "departments": ["Louga", "Kébémer", "Linguère"]},
+            {"nom": "Matam", "code": "MT", "population": 423041, "superficie": 29445, "departments": ["Matam", "Kanel", "Ranérou"]},
+            {"nom": "Saint-Louis", "code": "SL", "population": 944550, "superficie": 19241, "departments": ["Saint-Louis", "Dagana", "Podor"]},
+            {"nom": "Sédhiou", "code": "SE", "population": 398615, "superficie": 7341, "departments": ["Sédhiou", "Bounkiling", "Goudomp"]},
+            {"nom": "Tambacounda", "code": "TC", "population": 812075, "superficie": 42364, "departments": ["Tambacounda", "Goudiry", "Bakel", "Koumpentoum"]},
+            {"nom": "Thiès", "code": "TH", "population": 1442338, "superficie": 6670, "departments": ["Thiès", "Tivaouane", "Mbour"]},
+            {"nom": "Ziguinchor", "code": "ZG", "population": 437986, "superficie": 7352, "departments": ["Ziguinchor", "Bignona", "Oussouye"]}
+        ];
+
+        const departments = [
+            {"nom": "Dakar", "region": "Dakar", "population": 1182417, "superficie": 79, "arrondissements": ["Almadies", "Dakar Plateau", "Grand Dakar", "Parcelles Assainies"]},
+            {"nom": "Pikine", "region": "Dakar", "population": 758554, "superficie": 87, "arrondissements": ["Dagoudane", "Thiaroye"]},
+            {"nom": "Guediawaye", "region": "Dakar", "population": 373638, "superficie": 13, "arrondissements": ["Golf Sud", "Médina Gounass", "Ndiarème Limamoulay", "Sam Notaire", "Wakhinane Nimzatt"]},
+            {"nom": "Rufisque", "region": "Dakar", "population": 822105, "superficie": 372, "arrondissements": ["Rufisque", "Sangalkam", "Bambylor"]},
+            {"nom": "Keur Massar", "region": "Dakar", "population": 759849, "superficie": 45, "arrondissements": ["Yeumbeul Nord", "Yeumbeul Sud", "Malika", "Keur Massar Nord", "Keur Massar Sud", "Jaxaay-Parcelles"]},
+            {"nom": "Bignona", "region": "Ziguinchor", "population": 284897, "superficie": 5295, "arrondissements": ["Katab 1", "Sindian", "Tendouck", "Tenghory"]},
+            {"nom": "Oussouye", "region": "Ziguinchor", "population": 52883, "superficie": 891, "arrondissements": ["Kabrousse", "Loudia Ouoloff"]},
+            {"nom": "Ziguinchor", "region": "Ziguinchor", "population": 274563, "superficie": 1153, "arrondissements": ["Adéane", "Boutoupa Camaracounda", "Enampore", "Niaguis", "Nyassia", "Ziguinchor"]},
+            {"nom": "Bambey", "region": "Diourbel", "population": 344108, "superficie": 1351, "arrondissements": ["Baba Garage", "Lambaye", "Ngoye"]},
+            {"nom": "Diourbel", "region": "Diourbel", "population": 220221, "superficie": 4824, "arrondissements": ["Ndindy", "Ndoulo"]},
+            {"nom": "Mbacké", "region": "Diourbel", "population": 1359757, "superficie": 2243, "arrondissements": ["Kael", "Ndame", "Taïf"]},
+            {"nom": "Dagana", "region": "Saint-Louis", "population": 330130, "superficie": 6087, "arrondissements": ["Mbane", "Ndiaye"]},
+            {"nom": "Podor", "region": "Saint-Louis", "population": 487220, "superficie": 12947, "arrondissements": ["Cas-Cas", "Gamadji Saré", "Saldé", "Thillé Boubacar"]},
+            {"nom": "Saint-Louis", "region": "Saint-Louis", "population": 387513, "superficie": 19, "arrondissements": ["Rao"]},
+            {"nom": "Bakel", "region": "Tambacounda", "population": 190501, "superficie": 6290, "arrondissements": ["Bélé", "Kéniaba", "Moudéry"]},
+            {"nom": "Tambacounda", "region": "Tambacounda", "population": 427419, "superficie": 13372, "arrondissements": ["Koussanar", "Makacolibantang", "Missirah"]},
+            {"nom": "Goudiry", "region": "Tambacounda", "population": 170816, "superficie": 16090, "arrondissements": ["Bala", "Boynguel Bamba", "Dianké Makha", "Koulor"]},
+            {"nom": "Koumpentoum", "region": "Tambacounda", "population": 199457, "superficie": 75000, "arrondissements": ["Bamba Thialène", "Kouthiaba Wolof"]},
+            {"nom": "Kaolack", "region": "Kaolack", "population": 665008, "superficie": 1189, "arrondissements": ["Koumbal", "Ndiédieng", "Sibassor"]},
+            {"nom": "Nioro-du-Rip", "region": "Kaolack", "population": 513181, "superficie": 2302, "arrondissements": ["Wack Ngouna", "Médina Sabakh", "Paoskoto"]},
+            {"nom": "Guinguinéo", "region": "Kaolack", "population": 160483, "superficie": 1250, "arrondissements": ["Mbadakhoune", "Nguélou"]},
+            {"nom": "M'bour", "region": "Thiès", "population": 937189, "superficie": 1607, "arrondissements": ["Fissel", "Sindia", "Séssène"]},
+            {"nom": "Thiès", "region": "Thiès", "population": 880266, "superficie": 1873, "arrondissements": ["Keur Moussa", "Notto", "Thiénaba", "Thiès Nord", "Thiès Sud"]},
+            {"nom": "Tivaouane", "region": "Thiès", "population": 650067, "superficie": 3121, "arrondissements": ["Mérina Dakhar", "Méouane", "Niakhène", "Pambal"]},
+            {"nom": "Kébémer", "region": "Louga", "population": 336401, "superficie": 3823, "arrondissements": ["Darou Mousty", "Ndande", "Sagatta Gueth"]},
+            {"nom": "Linguère", "region": "Louga", "population": 312831, "superficie": 19716, "arrondissements": ["Barkédji", "Dodji", "Sagatta Dioloff", "Yang-Yang"]},
+            {"nom": "Louga", "region": "Louga", "population": 477887, "superficie": 5649, "arrondissements": ["Coki", "Mbédiène", "Sakal", "Keur Momar Sarr"]},
+            {"nom": "Fatick", "region": "Fatick", "population": 409283, "superficie": 2646, "arrondissements": ["Diakhao", "Fimela", "Niakhar", "Tattaguine"]},
+            {"nom": "Foundiougne", "region": "Fatick", "population": 376408, "superficie": 2959, "arrondissements": ["Djilor", "Niodior", "Toubacouta"]},
+            {"nom": "Gossas", "region": "Fatick", "population": 123167, "superficie": 2959, "arrondissements": ["Colobane", "Ouadiour"]},
+            {"nom": "Kolda", "region": "Kolda", "population": 324434, "superficie": 8284, "arrondissements": ["Djoulacolon", "Mampatim", "Saré Bidji"]},
+            {"nom": "Vélingara", "region": "Kolda", "population": 406504, "superficie": 5434, "arrondissements": ["Bonconto", "Pakour", "Saré Coly Sallé"]},
+            {"nom": "Médina-Yoro-Foulah", "region": "Kolda", "population": 185575, "superficie": 4687, "arrondissements": ["Fafacourou", "Ndorna", "Niaming"]},
+            {"nom": "Matam", "region": "Matam", "population": 387866, "superficie": 25083, "arrondissements": ["Agnam Civol", "Ogo"]},
+            {"nom": "Kanel", "region": "Matam", "population": 342507, "superficie": 16947, "arrondissements": ["Orkadiere", "Wouro Sidy"]},
+            {"nom": "Ranérou-Ferlo", "region": "Matam", "population": 103283, "superficie": 15708, "arrondissements": ["Orkadiere", "Wouro Sidy"]},
+            {"nom": "Kaffrine", "region": "Kaffrine", "population": 280969, "superficie": 2716, "arrondissements": ["Gniby", "Katakel"]},
+            {"nom": "Birkelane", "region": "Kaffrine", "population": 151205, "superficie": 1122, "arrondissements": ["Keur Mboucki", "Mabo"]},
+            {"nom": "Koungheul", "region": "Kaffrine", "population": 253710, "superficie": 4237, "arrondissements": ["Missirah Wadene", "Ida Mouride", "Lour Escale"]},
+            {"nom": "Malem-Hodar", "region": "Kaffrine", "population": 135403, "superficie": 3106, "arrondissements": ["Darou Minam 2", "Sagna"]},
+            {"nom": "Kédougou", "region": "Kédougou", "population": 124265, "superficie": 6149, "arrondissements": ["Bandafassi", "Fongolembi"]},
+            {"nom": "Salemata", "region": "Kédougou", "population": 28111, "superficie": 1970, "arrondissements": ["Dakateli", "Dar Salam"]},
+            {"nom": "Saraya", "region": "Kédougou", "population": 92912, "superficie": 8777, "arrondissements": ["Bembou", "Sabodala"]},
+            {"nom": "Sédhiou", "region": "Sédhiou", "population": 193867, "superficie": 2726, "arrondissements": ["Diendé", "Djibabouya", "Djiredji"]},
+            {"nom": "Bounkiling", "region": "Sédhiou", "population": 208380, "superficie": 2830, "arrondissements": ["Boghal", "Bona", "Diaroumé"]},
+            {"nom": "Goudomp", "region": "Sédhiou", "population": 188537, "superficie": 1773, "arrondissements": ["Djibanar", "Simbandi Brassou", "Karantaba"]}
+        ];
+
+        let selectedRegion = null;
+        let selectedDepartment = null;
+
+        // Format numbers
+        const formatNumber = (num) => num.toLocaleString('fr-FR');
+
+        // Populate region filter
+        const regionFilter = document.getElementById('regionFilter');
+        regions.forEach(region => {
+            const option = document.createElement('option');
+            option.value = region.nom;
+            option.textContent = region.nom;
+            regionFilter.appendChild(option);
+        });
+
+        // Add click handlers to region paths
+        document.querySelectorAll('.region-path').forEach(path => {
+            path.addEventListener('click', function() {
+                const regionName = this.id.replace('region-', '');
+                const region = regions.find(r => r.nom === regionName);
+                if (region) {
+                    selectRegion(region);
+                }
+            });
+        });
+
+        // Region filter change
+        regionFilter.addEventListener('change', function() {
+            if (this.value) {
+                const region = regions.find(r => r.nom === this.value);
+                if (region) selectRegion(region);
+            }
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            if (query.length < 2) return;
+
+            // Search regions
+            const region = regions.find(r => r.nom.toLowerCase().includes(query));
+            if (region) {
+                selectRegion(region);
+                return;
+            }
+
+            // Search departments
+            const dept = departments.find(d => d.nom.toLowerCase().includes(query));
+            if (dept) {
+                const parentRegion = regions.find(r => r.nom === dept.region);
+                if (parentRegion) {
+                    selectRegion(parentRegion);
+                    setTimeout(() => showDepartment(dept), 100);
+                }
+            }
+        });
+
+        function selectRegion(region) {
+            selectedRegion = region;
+            selectedDepartment = null;
+
+            // Update map
+            document.querySelectorAll('.region-path').forEach(p => p.classList.remove('selected'));
+            const path = document.getElementById(`region-${region.nom}`);
+            if (path) path.classList.add('selected');
+
+            // Update filter
+            regionFilter.value = region.nom;
+
+            displayRegionInfo(region);
+        }
+
+        function displayRegionInfo(region) {
+            const panel = document.getElementById('infoPanel');
+            const regionDepts = departments.filter(d => d.region === region.nom);
+            const density = Math.round(region.population / region.superficie);
+
+            panel.innerHTML = `
+                <div class="info-header">
+                    <h2>${region.nom}</h2>
+                    <span class="info-badge">${region.code}</span>
+                </div>
+
+                <div class="info-stats">
+                    <div class="info-stat-item">
+                        <div class="info-stat-label">Population</div>
+                        <div class="info-stat-value">${formatNumber(region.population)}</div>
+                    </div>
+                    <div class="info-stat-item">
+                        <div class="info-stat-label">Superficie</div>
+                        <div class="info-stat-value">${formatNumber(region.superficie)} km²</div>
+                    </div>
+                    <div class="info-stat-item">
+                        <div class="info-stat-label">Densité</div>
+                        <div class="info-stat-value">${density} hab/km²</div>
+                    </div>
+                    <div class="info-stat-item">
+                        <div class="info-stat-label">Départements</div>
+                        <div class="info-stat-value">${regionDepts.length}</div>
+                    </div>
+                </div>
+
+                <div class="department-list">
+                    <h3>Départements (${regionDepts.length})</h3>
+                    ${regionDepts.map(dept => `
+                        <div class="department-item" onclick="showDepartment(departments.find(d => d.nom === '${dept.nom}'))">
+                            <div class="department-name">${dept.nom}</div>
+                            <div class="department-info">
+                                <span>👥 ${formatNumber(dept.population)}</span>
+                                <span>📏 ${formatNumber(dept.superficie)} km²</span>
+                                <span>🏘️ ${dept.arrondissements.length} arr.</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function showDepartment(dept) {
+            selectedDepartment = dept;
+            const panel = document.getElementById('infoPanel');
+            const density = Math.round(dept.population / dept.superficie);
+
+            panel.innerHTML = `
+                <button class="back-button" onclick="selectRegion(regions.find(r => r.nom === '${dept.region}'))">
+                    ← Retour à ${dept.region}
+                </button>
+
+                <div class="info-header">
+                    <h2>${dept.nom}</h2>
+                    <span class="info-badge">Département de ${dept.region}</span>
+                </div>
+
+                <div class="info-stats">
+                    <div class="info-stat-item">
+                        <div class="info-stat-label">Population</div>
+                        <div class="info-stat-value">${formatNumber(dept.population)}</div>
+                    </div>
+                    <div class="info-stat-item">
+                        <div class="info-stat-label">Superficie</div>
+                        <div class="info-stat-value">${formatNumber(dept.superficie)} km²</div>
+                    </div>
+                    <div class="info-stat-item">
+                        <div class="info-stat-label">Densité</div>
+                        <div class="info-stat-value">${density} hab/km²</div>
+                    </div>
+                    <div class="info-stat-item">
+                        <div class="info-stat-label">Arrondissements</div>
+                        <div class="info-stat-value">${dept.arrondissements.length}</div>
+                    </div>
+                </div>
+
+                <div class="department-list">
+                    <h3>Arrondissements (${dept.arrondissements.length})</h3>
+                    <div class="arrondissement-list">
+                        ${dept.arrondissements.map(arr => `
+                            <div class="arrondissement-item">${arr}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
