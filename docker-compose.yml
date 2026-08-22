@@ -1,0 +1,41 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      DJANGO_ENV: local
+      DB_ENGINE: postgresql
+      POSTGRES_DB: galsenapi
+      POSTGRES_USER: galsenapi
+      POSTGRES_PASSWORD: galsenapi
+      POSTGRES_HOST: db
+    command: >
+      sh -c "until python -c \"import socket; socket.create_connection(('db', 5432), 2)\" 2>/dev/null; do sleep 1; done &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: galsenapi
+      POSTGRES_PASSWORD: galsenapi
+      POSTGRES_DB: galsenapi
+    ports:
+      - "5432:5432"
+    volumes:
+      - galsenapi_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U galsenapi -d galsenapi"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  galsenapi_pgdata:
