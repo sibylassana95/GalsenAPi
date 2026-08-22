@@ -2,7 +2,7 @@
 import json
 import zipfile
 from datetime import datetime, timezone
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 import requests
@@ -42,6 +42,14 @@ PCODE_CANDIDATES = {
     3: ['adm3_pcode'],
 }
 EXPECTED_COUNTS = {1: 14, 2: 46, 3: 125}
+
+# Variantes de nommage legacy (dataset/departments.json) -> slugs HDX.
+DEPARTEMENT_SLUG_ALIASES = {
+    'mbackke': 'mbacke',
+    'm-bour': 'mbour',
+    'medina-yoro-foulah': 'medina-yorofoula',
+    'ranerou-ferlo': 'ranerou',
+}
 
 
 class ImportReport:
@@ -358,8 +366,111 @@ def _load_legacy(name):
     return json.loads(path.read_bytes())
 
 
+def enrich_departements_legacy(report):
+    """Complète population/superficie_km2 depuis dataset/departments.json.
+
+    Matching nom + region via slug_nom. Mise à jour systématique des valeurs
+    legacy (idempotent), ne crée aucun département.
+    """
+    data = _load_legacy('departments')
+    report.count('legacy_departements_lus', len(data))
+
+    index = {}
+    for dept in Departement.objects.select_related('region'):
+        index[(slug_nom(dept.region.nom), slug_nom(dept.nom))] = dept
+
+    renseignes = non_resolus = 0
+    manquants = []
+    for entry in data:
+        nom_brut = repair_mojibake(entry.get('nom')) or entry.get('nom') or ''
+        region_brut = repair_mojibake(entry.get('region')) or entry.get('region') or ''
+        nom_slug = DEPARTEMENT_SLUG_ALIASES.get(
+            slug_nom(nom_brut.strip()), slug_nom(nom_brut.strip())
+        )
+        dept = index.get((slug_nom(region_brut.strip()), nom_slug))
+        if dept is None:
+            non_resolus += 1
+            manquants.append(f'{nom_brut} ({region_brut})')
+            continue
+        population = entry.get('population')
+        superficie = entry.get('superficie')
+        try:
+            dept.population = int(str(population).strip()) if population is not None else None
+        except (TypeError, ValueError):
+            dept.population = None
+        try:
+            dept.superficie_km2 = (
+                Decimal(str(superficie).strip()) if superficie is not None else None
+            )
+        except (InvalidOperation, ValueError):
+            dept.superficie_km2 = None
+        meta = dict(dept.meta or {})
+        meta['population_source'] = 'legacy_departments.json'
+        dept.meta = meta
+        dept.save(update_fields=['population', 'superficie_km2', 'meta'])
+        renseignes += 1
+
+    report.count('departements_renseignes_legacy', renseignes)
+    report.count('departements_legacy_non_resolus', non_resolus)
+    if manquants:
+        report.add(f"Départements legacy non résolus ({len(manquants)}): "
+                   + ', '.join(manquants[:30])
+                   + (' ...' if len(manquants) > 30 else ''))
+    return {'departements_renseignes': renseignes}
+
+
+def enrich_regions_legacy(report):
+    """Complète population/superficie_km2/code_court depuis dataset/regions.json.
+
+    Matching par slug_nom. code_court n'est rempli que si vide/null.
+    Mise à jour systématique des valeurs legacy (idempotent), ne crée aucune région.
+    """
+    data = _load_legacy('regions')
+    report.count('legacy_regions_lues', len(data))
+
+    index = {slug_nom(region.nom): region for region in Region.objects.all()}
+
+    renseignees = non_resolues = 0
+    manquantes = []
+    for entry in data:
+        nom_brut = repair_mojibake(entry.get('nom')) or entry.get('nom') or ''
+        region = index.get(slug_nom(nom_brut.strip()))
+        if region is None:
+            non_resolues += 1
+            manquantes.append(nom_brut)
+            continue
+        population = entry.get('population')
+        superficie = entry.get('superficie')
+        try:
+            region.population = int(str(population).strip()) if population is not None else None
+        except (TypeError, ValueError):
+            region.population = None
+        try:
+            region.superficie_km2 = (
+                Decimal(str(superficie).strip()) if superficie is not None else None
+            )
+        except (InvalidOperation, ValueError):
+            region.superficie_km2 = None
+        if not region.code_court:
+            code = entry.get('code')
+            region.code_court = str(code).strip() if code else None
+        meta = dict(region.meta or {})
+        meta['population_source'] = 'legacy_regions.json'
+        region.meta = meta
+        region.save(update_fields=['population', 'superficie_km2', 'code_court', 'meta'])
+        renseignees += 1
+
+    report.count('regions_renseignees_legacy', renseignees)
+    report.count('regions_legacy_non_resolues', non_resolues)
+    if manquantes:
+        report.add(f"Régions legacy non résolues ({len(manquantes)}): "
+                   + ', '.join(manquantes[:30])
+                   + (' ...' if len(manquantes) > 30 else ''))
+    return {'regions_renseignees': renseignees}
+
+
 def import_legacy(report):
-    """Ingestion dataset/commune.json et dataset/village.json (données non géo)."""
+    """Ingestion dataset/commune.json, village.json, regions.json et departments.json (legacy)."""
     communes_data = _load_legacy('commune')
     villages_data = _load_legacy('village')
     report.count('legacy_communes_lues', len(communes_data))
@@ -464,9 +575,15 @@ def import_legacy(report):
         report.add(f"Villages non résolus ({len(unresolved_villages)}): "
                    + ', '.join(unresolved_villages[:30])
                    + (' ...' if len(unresolved_villages) > 30 else ''))
+
+    regions_legacy = enrich_regions_legacy(report)
+    depts_legacy = enrich_departements_legacy(report)
+
     return {
         'communes_creees': communes_creees,
         'villages_crees': villages_crees,
+        'regions_renseignees': regions_legacy['regions_renseignees'],
+        'departements_renseignes': depts_legacy['departements_renseignes'],
     }
 
 

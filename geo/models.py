@@ -58,6 +58,10 @@ class Departement(GeoLevelMixin):
     region = models.ForeignKey(Region, on_delete=models.PROTECT, related_name='departements')
     pcode = models.CharField(max_length=20, unique=True)
     nom = models.CharField(max_length=100)
+    population = models.PositiveIntegerField(null=True, blank=True)
+    superficie_km2 = models.DecimalField(
+        max_digits=12, decimal_places=2, null=True, blank=True
+    )
 
     class Meta:
         ordering = ['nom']

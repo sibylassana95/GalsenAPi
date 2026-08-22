@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 from pathlib import Path
 from unittest.mock import patch
 
@@ -153,7 +154,7 @@ class ImportLegacyTests(TestCase):
             {'nom': 'Sans région', 'region': 'INCONNU'},
         ]
         with patch.object(ingest, '_load_legacy',
-                          side_effect=[legacy_communes, legacy_villages]):
+                          side_effect=[legacy_communes, legacy_villages, [], []]):
             report = ingest.ImportReport()
             ingest.import_legacy(report)
 
@@ -170,6 +171,161 @@ class ImportLegacyTests(TestCase):
         self.assertEqual(village.nom, 'Keur Test')
         self.assertEqual(village.region.pcode, 'TEST01')
         self.assertIsNone(village.commune)
+
+    def test_departements_population_superficie_legacy(self):
+        legacy_departements = [
+            {'nom': 'Département Test', 'region': 'RÉGION TEST',
+             'population': 123456, 'superficie': 789},
+            {'nom': 'Inconnu', 'region': 'NULLE PART',
+             'population': 1, 'superficie': 2},
+        ]
+        with patch.object(ingest, '_load_legacy',
+                          side_effect=[[], [], [], legacy_departements]):
+            report = ingest.ImportReport()
+            ingest.import_legacy(report)
+
+        departement = Departement.objects.get(pcode='TEST0102')
+        self.assertEqual(departement.population, 123456)
+        self.assertEqual(departement.superficie_km2, Decimal('789'))
+        self.assertEqual(departement.meta['population_source'],
+                         'legacy_departments.json')
+        self.assertEqual(report.counts['departements_renseignes_legacy'], 1)
+        self.assertEqual(report.counts['departements_legacy_non_resolus'], 1)
+
+        with patch.object(ingest, '_load_legacy',
+                          side_effect=[[], [], [], legacy_departements]):
+            second = ingest.import_legacy(ingest.ImportReport())
+        self.assertEqual(second['departements_renseignes'], 1)
+        self.assertEqual(Departement.objects.count(), 1)
+        departement.refresh_from_db()
+        self.assertEqual(departement.population, 123456)
+
+    def test_regions_population_code_court_legacy(self):
+        legacy_regions = [
+            {'nom': 'RÉGION TEST', 'code': 'RT',
+             'population': 4042225, 'superficie': 547},
+            {'nom': 'Inconnue', 'code': 'XX', 'population': 1, 'superficie': 2},
+        ]
+        with patch.object(ingest, '_load_legacy',
+                          side_effect=[[], [], legacy_regions, []]):
+            report = ingest.ImportReport()
+            ingest.import_legacy(report)
+
+        region = Region.objects.get(pcode='TEST01')
+        self.assertEqual(region.population, 4042225)
+        self.assertEqual(region.superficie_km2, Decimal('547'))
+        self.assertEqual(region.code_court, 'RT')
+        self.assertEqual(region.meta['population_source'], 'legacy_regions.json')
+        self.assertEqual(report.counts['regions_renseignees_legacy'], 1)
+        self.assertEqual(report.counts['regions_legacy_non_resolues'], 1)
+
+        # Idempotence + code_court déjà renseigné non écrasé
+        legacy_regions_bis = [
+            {'nom': 'Region Test', 'code': 'ZZ',
+             'population': 4042225, 'superficie': 547},
+        ]
+        with patch.object(ingest, '_load_legacy',
+                          side_effect=[[], [], legacy_regions_bis, []]):
+            second = ingest.import_legacy(ingest.ImportReport())
+        self.assertEqual(second['regions_renseignees'], 1)
+        region.refresh_from_db()
+        self.assertEqual(region.population, 4042225)
+        self.assertEqual(region.code_court, 'RT')
+        self.assertEqual(Region.objects.count(), 1)
+
+
+class GeoApiTests(TestCase):
+    def setUp(self):
+        pays = Pays.objects.create(nom='Sénégal', code_iso2='SN')
+        self.region_dakar = Region.objects.create(
+            pays=pays, pcode='SN01', nom='Dakar', code_court='DK',
+            chef_lieu='Dakar', population=3100000, superficie_km2='1831.00',
+            latitude='14.716667', longitude='-17.466667',
+            geometry={'type': 'Polygon', 'coordinates': [[[0, 0], [1, 0], [1, 1], [0, 0]]]},
+        )
+        Region.objects.create(
+            pays=pays, pcode='SN02', nom='Ziguinchor', population=600000,
+        )
+        Departement.objects.create(region=self.region_dakar, pcode='SN011', nom='Dakar',
+                                   population=100000, superficie_km2='79.00')
+        Departement.objects.create(region=self.region_dakar, pcode='SN012', nom='Rufisque',
+                                   population=200000, superficie_km2='372.00')
+        departement_zig = Departement.objects.create(
+            region=Region.objects.get(pcode='SN02'), pcode='SN021', nom='Ziguinchor'
+        )
+        Arrondissement.objects.create(departement=departement_zig, pcode='SN0211', nom='Niaguis')
+        commune_yoff = Commune.objects.create(departement=departement_zig, nom='Yoff')
+        Village.objects.create(region=self.region_dakar, commune=commune_yoff,
+                               nom='Ngor', population=5000)
+        Village.objects.create(region=self.region_dakar, nom='Dakar Plateau', population=12000)
+
+    def api_get(self, url):
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200, url)
+        return response.json()
+
+    def test_pays_objet_unique(self):
+        data = self.api_get('/api/v1/pays/')
+        self.assertEqual(data['code_iso2'], 'SN')
+        self.assertNotIn('results', data)
+
+    def test_envelope_pagination_regions(self):
+        data = self.api_get('/api/v1/regions/?page_size=5')
+        for key in ('count', 'next', 'previous', 'results'):
+            self.assertIn(key, data)
+        self.assertEqual(data['count'], 2)
+        self.assertEqual(len(data['results']), 2)
+
+    def test_filtre_departements_par_region(self):
+        data = self.api_get('/api/v1/departements/?region=SN01')
+        self.assertEqual(data['count'], 2)
+        self.assertEqual({row['pcode'] for row in data['results']}, {'SN011', 'SN012'})
+        self.assertTrue(all(row['region'] == 'SN01' for row in data['results']))
+
+    def test_detail_region_par_pcode_avec_departements(self):
+        data = self.api_get('/api/v1/regions/SN01/')
+        self.assertEqual(data['nom'], 'Dakar')
+        self.assertEqual([d['pcode'] for d in data['departements']], ['SN011', 'SN012'])
+        self.assertNotIn('meta', data)
+
+    def test_detail_region_inconnue_404(self):
+        response = self.client.get('/api/v1/regions/SN99/')
+        self.assertEqual(response.status_code, 404)
+
+    def test_regions_geojson_feature_collection(self):
+        data = self.api_get('/api/v1/regions/geojson/')
+        self.assertEqual(data['type'], 'FeatureCollection')
+        self.assertGreaterEqual(len(data['features']), 1)
+        feature = data['features'][0]
+        self.assertEqual(feature['type'], 'Feature')
+        self.assertIn('pcode', feature['properties'])
+        pcodes = {feature['properties']['pcode'] for feature in data['features']}
+        self.assertEqual(pcodes, {'SN01'})
+
+    def test_departements_geojson(self):
+        data = self.api_get('/api/v1/departements/geojson/?region=SN01')
+        self.assertEqual(data['type'], 'FeatureCollection')
+
+    def test_villages_search_partiel(self):
+        data = self.api_get('/api/v1/villages/?search=dak&page_size=10')
+        noms = [row['nom'] for row in data['results']]
+        self.assertEqual(noms, ['Dakar Plateau'])
+
+    def test_ordering_population_desc(self):
+        data = self.api_get('/api/v1/regions/?ordering=-population')
+        populations = [row['population'] for row in data['results']]
+        self.assertEqual(populations, sorted(populations, reverse=True))
+        self.assertEqual(populations[0], 3100000)
+
+    def test_departements_ordering_population_desc(self):
+        data = self.api_get('/api/v1/departements/?ordering=-population')
+        pcodes = [row['pcode'] for row in data['results']]
+        self.assertEqual(pcodes[:2], ['SN012', 'SN011'])
+
+    def test_departements_champs_population_serialises(self):
+        data = self.api_get('/api/v1/departements/SN011/')
+        self.assertEqual(data['population'], 100000)
+        self.assertEqual(data['superficie_km2'], '79.00')
 
 
 class FixEncodingCommandTests(TestCase):
