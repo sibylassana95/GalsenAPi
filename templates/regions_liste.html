@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Régions du Sénégal — GalsenAPI{% endblock %}
+{% block page_title %}Régions du Sénégal{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <header class="py-10 md:py-14">
+        <nav aria-label="Fil d'Ariane" class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Accueil</a></li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" class="font-medium text-on-surface dark:text-[#ecf1ff]">Régions</li>
+            </ol>
+        </nav>
+        <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Les 14 régions du Sénégal</h2>
+        <p class="mt-3 max-w-2xl text-on-surface-variant dark:text-outline">
+            Population officielle RGPH-5 2023 (ANSD), superficie et densité.
+            Cliquez sur une région pour l'explorer en détail.
+        </p>
+    </header>
+
+    <form method="get" action="{% url 'region' %}" role="search" aria-label="Rechercher une région" class="max-w-md">
+        <label for="region-search" class="sr-only">Rechercher une région</label>
+        <div class="relative">
+            <div class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-forest-deep dark:text-inverse-primary" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+            </div>
+            <input type="search" id="region-search" name="q" value="{{ recherche }}" autocomplete="off" placeholder="Rechercher une région…" class="input-field w-full pl-9">
+        </div>
+    </form>
+
+    <section class="mt-8 pb-16" aria-label="Liste des régions">
+        {% if regions %}
+        <ul class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {% for item in regions %}
+            <li class="card group relative flex flex-col p-5">
+                <div class="flex items-start justify-between gap-3">
+                    <h3 class="font-display text-lg font-semibold text-primary transition-colors group-hover:text-sovereign-gold dark:text-inverse-primary">
+                        <a href="{% url 'region-detail' item.obj.pcode %}" class="focus:outline-none">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            {{ item.obj.nom }}
+                        </a>
+                    </h3>
+                    <span class="rounded bg-container px-2 py-0.5 font-mono text-[11px] text-on-surface-variant dark:bg-white/10 dark:text-outline">{{ item.obj.pcode }}</span>
+                </div>
+                {% if item.obj.chef_lieu %}<p class="mt-1 text-sm text-on-surface-variant dark:text-outline">Chef-lieu : {{ item.obj.chef_lieu }}</p>{% endif %}
+                <dl class="mt-4 grid grid-cols-3 gap-2 border-t border-border-subtle pt-4 text-center dark:border-[#2c3a52]">
+                    <div>
+                        <dt class="text-[10px] font-semibold uppercase tracking-wider text-on-surface-variant dark:text-outline">Habitants</dt>
+                        <dd class="data-mono mt-1 text-sm !text-sm text-forest-deep dark:text-inverse-primary">{{ item.obj.population }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-[10px] font-semibold uppercase tracking-wider text-on-surface-variant dark:text-outline">km²</dt>
+                        <dd class="data-mono mt-1 text-sm !text-sm text-forest-deep dark:text-inverse-primary">{{ item.obj.superficie_km2|floatformat:"-2" }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-[10px] font-semibold uppercase tracking-wider text-on-surface-variant dark:text-outline">hab/km²</dt>
+                        <dd class="data-mono mt-1 text-sm !text-sm text-forest-deep dark:text-inverse-primary">{{ item.densite|floatformat:"-1"|default:"—" }}</dd>
+                    </div>
+                </dl>
+                <p class="mt-3 text-xs text-on-surface-variant dark:text-outline">
+                    {{ item.nb_departements }} département{{ item.nb_departements|pluralize }} · {{ item.nb_villages }} villages
+                </p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="card flex flex-col items-center px-6 py-16 text-center">
+            <h3 class="font-display text-lg font-semibold text-on-surface dark:text-[#ecf1ff]">Aucune région trouvée</h3>
+            <p class="mt-2 text-sm text-on-surface-variant dark:text-outline">Aucun résultat pour «&nbsp;{{ recherche }}&nbsp;».</p>
+            <a href="{% url 'region' %}" class="btn-ghost mt-6 px-5 py-2.5 text-sm">Voir toutes les régions</a>
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

@@ -29,18 +29,18 @@ class ArrondissementAdmin(admin.ModelAdmin):
     list_display = ('nom', 'region')
     search_fields = ('nom',)
     list_filter = ('region',)
-    
+
 class CommuneAdmin(admin.ModelAdmin):
     list_display = ('nom', 'region')
     search_fields = ('nom',)
     list_filter = ('region',)
-    
+
 class UniversiteAdmin(admin.ModelAdmin):
     list_display = ('nom', 'logo')
     search_fields = ('nom',)
     list_filter = ('nom',)
-    
-            
+
+
 admin.site.register(Pays, PaysAdmin)
 admin.site.register(Regions, RegionAdmin)
 admin.site.register(Departements, DepartementAdmin)

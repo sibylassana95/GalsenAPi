@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Climat — GalsenAPI{% endblock %}
+{% block page_title %}Tableau de bord climatique{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <header class="py-10 md:py-14">
+        <nav aria-label="Fil d'Ariane" class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Accueil</a></li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" class="font-medium text-on-surface dark:text-[#ecf1ff]">Climat</li>
+            </ol>
+        </nav>
+        <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Climat au Sénégal</h2>
+        <p class="mt-3 max-w-2xl text-on-surface-variant dark:text-outline">Observations mensuelles issues des stations GHCN-Daily de la NOAA (domaine public), de {{ periode.debut }} à {{ periode.fin }}.</p>
+    </header>
+
+    <section class="border-y border-border-subtle bg-surface-container-lowest dark:border-[#2c3a52] dark:bg-[#10192a]" aria-label="Chiffres clés">
+        <dl class="grid w-full grid-cols-2 gap-x-6 gap-y-6 py-8 sm:grid-cols-4">
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Stations</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ nb_stations }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Mois-station</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ nb_mois }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Période</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ periode.debut }}–{{ periode.fin }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Règle de série</dt><dd class="mt-1 text-sm font-semibold text-forest-deep dark:text-inverse-primary">≥ {{ seuil_stations }} stations/an</dd><dd class="text-[11px] text-on-surface-variant dark:text-outline">années moins couvertes exclues</dd></div>
+        </dl>
+    </section>
+
+    <div class="grid grid-cols-1 gap-8 py-12 lg:grid-cols-2">
+        <figure class="card p-5">
+            <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Précipitations annuelles (moyenne par station)</h3>
+            <div class="relative mt-4 h-80"><canvas id="chart-pluie" role="img" aria-label="Évolution des précipitations annuelles moyennes par station"></canvas></div>
+            <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">Moyenne des cumuls annuels des stations actives (mm/an).</figcaption>
+        </figure>
+        <figure class="card p-5">
+            <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Température moyenne annuelle</h3>
+            <div class="relative mt-4 h-80"><canvas id="chart-temp" role="img" aria-label="Évolution de la température moyenne annuelle"></canvas></div>
+            <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">Moyenne des tavg mensuelles toutes stations (°C).</figcaption>
+        </figure>
+    </div>
+
+    <section class="pb-12" aria-label="Stations climatiques">
+        <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Stations ({{ nb_stations }})</h3>
+        <div class="card mt-4 overflow-x-auto">
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Station</th><th scope="col">Identifiant GHCN</th><th scope="col" class="text-right">Latitude</th><th scope="col" class="text-right">Longitude</th><th scope="col" class="text-right">Altitude (m)</th></tr></thead>
+                <tbody>
+                    {% for s in stations %}
+                    <tr>
+                        <td class="font-medium">{{ s.nom }}</td>
+                        <td class="data-mono !text-xs">{{ s.station_id }}</td>
+                        <td class="data-mono !text-xs text-right">{{ s.latitude|floatformat:"-4" }}</td>
+                        <td class="data-mono !text-xs text-right">{{ s.longitude|floatformat:"-4" }}</td>
+                        <td class="data-mono !text-xs text-right">{{ s.altitude|default:"—" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="pb-16" aria-label="Accès aux données">
+        <div class="flex flex-wrap gap-3">
+            <a href="/api/v1/climat/stations/" class="btn-ghost px-4 py-2 text-xs">API stations</a>
+            <a href="/api/v1/climat/observations/?station=SG000061641&ordering=annee,mois&page_size=200" class="btn-ghost px-4 py-2 text-xs">API observations (Dakar/Yoff)</a>
+            <a href="{% url 'donnees' %}?categorie=climat" class="btn-secondary px-4 py-2 text-xs">Dataset NOAA</a>
+        </div>
+    </section>
+</div>
+{{ serie|json_script:"data-climat" }}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+    if (typeof Chart === 'undefined') return;
+    var font = { family: "'JetBrains Mono', monospace", size: 11 };
+    var grid = 'rgba(112,121,116,0.15)';
+    var serie = JSON.parse(document.getElementById('data-climat').textContent);
+    var labels = serie.map(function (s) { return s.annee; });
+
+    new Chart(document.getElementById('chart-pluie'), {
+        type: 'line',
+        data: { labels: labels,
+            datasets: [{ data: serie.map(function (s) { return s.precip_moyenne; }), borderColor: '#1d4ed8', backgroundColor: 'rgba(29,78,216,0.08)', fill: true, tension: 0.25, pointRadius: 0, borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+            tooltip: { callbacks: { label: function (c) { return c.parsed.y + ' mm'; } } } },
+            scales: { x: { ticks: { font: font, maxTicksLimit: 10 }, grid: { display: false } },
+                y: { ticks: { font: font }, grid: { color: grid }, title: { display: true, text: 'mm/an', font: font } } } }
+    });
+
+    new Chart(document.getElementById('chart-temp'), {
+        type: 'line',
+        data: { labels: labels,
+            datasets: [{ data: serie.map(function (s) { return s.tavg; }), borderColor: '#b91c1c', backgroundColor: 'rgba(185,28,28,0.08)', fill: true, tension: 0.25, pointRadius: 0, borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+            tooltip: { callbacks: { label: function (c) { return c.parsed.y + ' °C'; } } } },
+            scales: { x: { ticks: { font: font, maxTicksLimit: 10 }, grid: { display: false } },
+                y: { ticks: { font: font, callback: function (v) { return v + ' °C'; } }, grid: { color: grid } } } }
+    });
+});
+</script>
+{% endblock %}

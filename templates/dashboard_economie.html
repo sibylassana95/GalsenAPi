@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Économie — GalsenAPI{% endblock %}
+{% block page_title %}Tableau de bord économique{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <header class="py-10 md:py-14">
+        <nav aria-label="Fil d'Ariane" class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Accueil</a></li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" class="font-medium text-on-surface dark:text-[#ecf1ff]">Économie</li>
+            </ol>
+        </nav>
+        <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Économie du Sénégal</h2>
+        <p class="mt-3 max-w-2xl text-on-surface-variant dark:text-outline">Indicateurs macroéconomiques de la Banque mondiale (CC BY 4.0), de 1960 à 2025.</p>
+    </header>
+
+    <section class="border-y border-border-subtle bg-surface-container-lowest dark:border-[#2c3a52] dark:bg-[#10192a]" aria-label="Chiffres clés">
+        <dl class="grid w-full grid-cols-1 gap-x-6 gap-y-6 py-8 sm:grid-cols-3">
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">PIB ({{ pib_kpi.annee }})</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ pib_kpi.valeur|floatformat:"-0" }} US$</dd><dd class="text-[11px] text-on-surface-variant dark:text-outline">≈ {% widthratio pib_kpi.valeur 1000000000 1 %} milliards US$</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Croissance ({{ croissance_kpi.annee }})</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">+{{ croissance_kpi.valeur|floatformat:"-2" }} %</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Inflation ({{ inflation_kpi.annee }})</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ inflation_kpi.valeur|floatformat:"-2" }} %</dd></div>
+        </dl>
+    </section>
+
+    <div class="grid grid-cols-1 gap-8 py-12">
+        <figure class="card p-5">
+            <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Produit intérieur brut (US$ courants)</h3>
+            <div class="relative mt-4 h-72"><canvas id="chart-pib" role="img" aria-label="Évolution du PIB du Sénégal"></canvas></div>
+            <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">NY.GDP.MKTP.CD — Banque mondiale.</figcaption>
+        </figure>
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            <figure class="card p-5">
+                <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Croissance du PIB réel (%)</h3>
+                <div class="relative mt-4 h-80"><canvas id="chart-croissance" role="img" aria-label="Évolution de la croissance du PIB"></canvas></div>
+                <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">NY.GDP.MKTP.KD.ZG.</figcaption>
+            </figure>
+            <figure class="card p-5">
+                <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Inflation, prix à la consommation (%)</h3>
+                <div class="relative mt-4 h-80"><canvas id="chart-inflation" role="img" aria-label="Évolution de l'inflation"></canvas></div>
+                <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">FP.CPI.TOTL.ZG.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <section class="pb-12" aria-label="Indicateurs disponibles">
+        <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Indicateurs suivis ({{ indicateurs|length }})</h3>
+        <div class="card mt-4 overflow-x-auto">
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Indicateur</th><th scope="col">Code</th><th scope="col">Catégorie</th><th scope="col" class="text-right">Dernière valeur</th><th scope="col" class="text-right">Année</th></tr></thead>
+                <tbody>
+                    {% for i in indicateurs %}
+                    <tr>
+                        <td class="font-medium">{{ i.obj.nom }}</td>
+                        <td class="data-mono !text-xs">{{ i.obj.code }}</td>
+                        <td>{{ i.obj.get_categorie_display }}</td>
+                        <td class="data-mono !text-sm text-right">{{ i.derniere_valeur|floatformat:"-4"|default:"—" }}{% if i.obj.unite %} <span class="text-[11px] font-normal text-on-surface-variant dark:text-outline">{{ i.obj.unite }}</span>{% endif %}</td>
+                        <td class="data-mono !text-sm text-right">{{ i.derniere_annee|default:"—" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="pb-16" aria-label="Accès aux données">
+        <div class="flex flex-wrap gap-3">
+            <a href="/api/v1/economie/indicateurs/" class="btn-ghost px-4 py-2 text-xs">API indicateurs</a>
+            <a href="/api/v1/economie/observations/?indicateur=NY.GDP.MKTP.CD&ordering=-annee&page_size=70" class="btn-ghost px-4 py-2 text-xs">API observations PIB</a>
+            <a href="{% url 'donnees' %}?categorie=economie" class="btn-secondary px-4 py-2 text-xs">Dataset Banque mondiale</a>
+        </div>
+    </section>
+</div>
+{{ pib|json_script:"data-pib" }}
+{{ croissance|json_script:"data-croissance" }}
+{{ inflation|json_script:"data-inflation" }}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+    if (typeof Chart === 'undefined') return;
+    var font = { family: "'JetBrains Mono', monospace", size: 11 };
+    var fmt = new Intl.NumberFormat('fr-FR');
+    var grid = 'rgba(112,121,116,0.15)';
+
+    function lineaire(canvasId, raw, couleur, fill, formate) {
+        new Chart(document.getElementById(canvasId), {
+            type: 'line',
+            data: { labels: raw.map(function (d) { return d[0]; }),
+                datasets: [{ data: raw.map(function (d) { return d[1]; }), borderColor: couleur, backgroundColor: fill, fill: true, tension: 0.25, pointRadius: 0, borderWidth: 2 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+                tooltip: { callbacks: { label: function (c) { return formate(c.parsed.y); } } } },
+                scales: { x: { ticks: { font: font, maxTicksLimit: 10 }, grid: { display: false } },
+                    y: { ticks: { font: font }, grid: { color: grid } } } }
+        });
+    }
+    lineaire('chart-pib', JSON.parse(document.getElementById('data-pib').textContent), '#064e3b', 'rgba(6,78,59,0.08)', function (y) { return fmt.format(Math.round(y / 1e9 * 100) / 100) + ' Md US$'; });
+    lineaire('chart-croissance', JSON.parse(document.getElementById('data-croissance').textContent), '#eab308', 'rgba(234,179,8,0.10)', function (y) { return y + ' %'; });
+    lineaire('chart-inflation', JSON.parse(document.getElementById('data-inflation').textContent), '#b91c1c', 'rgba(185,28,28,0.08)', function (y) { return y + ' %'; });
+});
+</script>
+{% endblock %}

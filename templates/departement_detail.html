@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load l10n static %}
+
+{% block title %}Département de {{ departement.nom }} — GalsenAPI{% endblock %}
+{% block page_title %}Département de {{ departement.nom }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <header class="py-10 md:py-14">
+        <nav aria-label="Fil d'Ariane" class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            <ol class="flex flex-wrap items-center gap-2">
+                <li><a href="/" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Accueil</a></li>
+                <li aria-hidden="true">/</li>
+                <li><a href="{% url 'region' %}" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Régions</a></li>
+                <li aria-hidden="true">/</li>
+                <li><a href="{% url 'region-detail' region.pcode %}" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">{{ region.nom }}</a></li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" class="font-medium text-on-surface dark:text-[#ecf1ff]">{{ departement.nom }}</li>
+            </ol>
+        </nav>
+        <div class="flex flex-wrap items-center gap-3">
+            <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Département de {{ departement.nom }}</h2>
+            <span class="rounded bg-container px-2 py-1 font-mono text-xs text-on-surface-variant dark:bg-white/10 dark:text-outline">{{ departement.pcode }}</span>
+        </div>
+        <p class="mt-2 text-on-surface-variant dark:text-outline">Région de <a href="{% url 'region-detail' region.pcode %}" class="font-medium text-forest-deep hover:underline dark:text-inverse-primary">{{ region.nom }}</a></p>
+    </header>
+
+    <section aria-label="Chiffres clés du département" class="border-y border-border-subtle bg-surface-container-lowest dark:border-[#2c3a52] dark:bg-[#10192a]">
+        <dl class="grid w-full grid-cols-2 gap-x-6 gap-y-6 py-8 sm:grid-cols-3 lg:grid-cols-5">
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Habitants</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ departement.population|default:"—" }}</dd><dd class="mt-0.5 text-[11px] text-on-surface-variant dark:text-outline">RGPH-5 2023, ANSD</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Superficie</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ departement.superficie_km2|floatformat:"-2"|default:"—" }} km²</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Densité</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ densite|floatformat:"-1"|default:"—" }} hab/km²</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Arrondissements</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ nb_arrondissements }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Communes rattachées</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ nb_communes }}</dd></div>
+        </dl>
+    </section>
+
+    <div class="grid grid-cols-1 gap-8 py-12 lg:grid-cols-5">
+        <figure class="card overflow-hidden lg:col-span-3">
+            <div id="carte-departement" class="h-80 w-full bg-container-low dark:bg-[#10192a]" role="img"
+                 aria-label="Carte des frontières du département de {{ departement.nom }}"></div>
+            <figcaption class="flex flex-wrap items-center justify-between gap-2 border-t border-border-subtle px-4 py-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">
+                <span>Frontières : HDX COD-AB (CC BY-IGO) · Fond : OpenStreetMap</span>
+                <a href="{{ geometry_url }}" class="font-medium text-forest-deep hover:underline dark:text-inverse-primary">GeoJSON</a>
+            </figcaption>
+        </figure>
+
+        <div class="lg:col-span-2">
+            <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Arrondissements ({{ nb_arrondissements }})</h3>
+            <ul class="mt-4 space-y-2">
+                {% for arr in arrondissements %}
+                <li class="card flex items-center justify-between gap-3 px-4 py-2.5">
+                    <span class="font-display text-sm font-semibold text-on-surface dark:text-[#ecf1ff]">{{ arr.nom }}</span>
+                    <span class="rounded bg-container px-1.5 py-0.5 font-mono text-[10px] text-on-surface-variant dark:bg-white/10 dark:text-outline">{{ arr.pcode }}</span>
+                </li>
+                {% empty %}
+                <li class="text-sm text-on-surface-variant dark:text-outline">Aucun arrondissement renseigné.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <section class="pb-16" aria-label="Communes et données liées">
+        <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Communes rattachées ({{ nb_communes }})</h3>
+        {% if communes %}
+        <ul class="mt-4 flex flex-wrap gap-2">
+            {% for com in communes %}
+            <li class="rounded-full border border-border-subtle bg-white px-3 py-1.5 text-sm text-on-surface dark:border-[#2c3a52] dark:bg-transparent dark:text-[#ecf1ff]">
+                {{ com.nom }}{% if com.population %} <span class="font-mono text-[11px] text-on-surface-variant dark:text-outline">{{ com.population }}</span>{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        <p class="mt-3 text-xs text-on-surface-variant dark:text-outline">Population par commune : RGPH-5 2023, ANSD (Répertoire des localités).</p>
+        {% else %}
+        <p class="mt-3 text-sm text-on-surface-variant dark:text-outline">Aucune commune renseignée pour ce département.</p>
+        {% endif %}
+
+        <h3 class="mt-8 font-display text-lg font-semibold text-primary dark:text-inverse-primary">Données liées</h3>
+        <div class="mt-4 flex flex-wrap gap-3">
+            <a href="/api/v1/departements/{{ departement.pcode }}/" class="btn-ghost px-4 py-2 text-xs">API département</a>
+            <a href="/api/v1/arrondissements/?departement={{ departement.pcode }}" class="btn-ghost px-4 py-2 text-xs">API arrondissements</a>
+            <a href="/api/v1/communes/?departement={{ departement.pcode }}" class="btn-ghost px-4 py-2 text-xs">API communes</a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function () {
+    'use strict';
+    var el = document.getElementById('carte-departement');
+    if (!el || typeof L === 'undefined') return;
+    var map = L.map(el, { scrollWheelZoom: false }).setView([{{ departement.latitude|default:"14.5"|unlocalize }}, {{ departement.longitude|default:"-14.5"|unlocalize }}], 8);
+    var tuiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        subdomains: 'abcd',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    });
+    tuiles.on('tileerror', function () {
+        el.setAttribute('aria-label', 'Fond de carte indisponible — les frontières restent affichées.');
+    });
+    tuiles.addTo(map);
+    fetch('{{ geometry_url|escapejs }}')
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (data) {
+            var layer = L.geoJSON(data, {
+                style: { color: '#064e3b', weight: 1.5, fillColor: '#003527', fillOpacity: 0.25 }
+            }).addTo(map);
+            map.fitBounds(layer.getBounds(), { padding: [16, 16] });
+        })
+        .catch(function () {
+            el.setAttribute('aria-label', 'Carte indisponible');
+        });
+})();
+</script>
+{% endblock %}

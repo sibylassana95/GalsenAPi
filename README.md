@@ -1,263 +1,228 @@
-<a name="readme-top"></a>
+# GalsenAPI 2.0
+
 <div align="center">
-  <img src="capture/logo.png" alt="logo" width="140" height="auto" />
-  <h1>GalsenApi</h1>
+  <img src="static/images/logo-galsenapi.png" alt="GalsenAPI" width="220" />
+  <p><strong>La plateforme ouverte pour explorer les données du Sénégal.</strong></p>
   <p>
-    Une API moderne pour accéder facilement aux données du Sénégal 🇸🇳
+    <a href="./Licence.md"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="Licence MIT" /></a>
+    <img src="https://img.shields.io/badge/django-5.2-44B78B" alt="Django 5.2" />
+    <img src="https://img.shields.io/badge/PostgreSQL-16-4169E1" alt="PostgreSQL" />
+    <img src="https://img.shields.io/badge/tests-144%20OK-brightgreen" alt="Tests" />
   </p>
-
   <p>
-    <a href="./Licence.md">
-      <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="mit" />
-    </a>
-    <a href="https://github.com/GalsenDev221/made.in.senegal">
-      <img src="https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg" alt="made in senegal" />
-    </a>
-    <img src="https://img.shields.io/badge/version-2.0.0-blue" alt="version" />
+    <a href="https://galsenapi.lassanasiby.com/">Démonstration</a>
+    <span> · </span>
+    <a href="https://galsenapi.lassanasiby.com/docs/">Documentation API (Swagger)</a>
+    <span> · </span>
+    <a href="https://github.com/sibylassana95/GalsenAPi">GitHub</a>
   </p>
-
-  <h4>
-    <a href="https://galsenapi.vercel.app/">Démo</a>
-    <span> · </span>
-    <a href="https://galsenapi.vercel.app/docs/">Documentation</a>
-    <span> · </span>
-    <a href="EN.md">English version</a>
-  </h4>
 </div>
 
-<br />
+---
 
-## 📋 Table des matières
+## Qu'est-ce que GalsenAPI ?
 
-- [Aperçu](#-aperçu)
-- [Installation](#-installation)
-- [Utilisation](#-utilisation)
-- [Fonctionnalités](#-fonctionnalités)
-- [Technologies](#-technologies)
-- [Auteur](#-auteur)
-- [Remerciements](#-remerciements)
+GalsenAPI est une plateforme **open source** dédiée aux données publiques du Sénégal.
+Elle permet de découvrir, comprendre, explorer, comparer et télécharger des données
+officielles sourcées — géographie, démographie, agriculture, économie, climat,
+éducation — via une interface web moderne et une **API REST documentée**.
 
-## 🚀 Aperçu
+> Une donnée inconnue reste inconnue : aucune valeur n'est inventée. Chaque chiffre
+> est tracé vers sa source (ANSD, FAO, Banque mondiale, NOAA, HDX…) avec sa licence.
 
-**GalsenApi** est une API REST qui vous permet d'accéder facilement aux données du Sénégal. Ce projet s'inspire du package [Galsenify](https://www.npmjs.com/package/galsenify) et fournit des informations détaillées sur :
+## Contenu des données
 
-- Les régions du Sénégal
-- Les départements
-- Les arrondissements
-- Les communes
-- Les villages
-- Les Universités et Ecole de formations
-- Les données démographiques
-- Et plus encore...
+| Domaine | Source (licence) | Volume |
+|---|---|---|
+| Géographie | HDX COD-AB (CC BY-IGO) + Galsenify (MIT) | 14 régions · 46 départements · 125 arrondissements · **553 communes** (population RGPH-5) · 8 635 villages · géométries GeoJSON |
+| Démographie | ANSD — RGPH-5 2023 (CC BY 4.0) | 18 126 388 habitants, par région et département, hommes/femmes |
+| Agriculture | FAOSTAT (CC BY 4.0) | 105 cultures · 11 694 observations · 1961-2024 |
+| Économie | Banque mondiale (CC BY 4.0) | 21 indicateurs · 943 observations · 1960-2025 |
+| Climat | NOAA GHCN-Daily (domaine public) | 14 stations · 9 027 mois-station · 1950-2025 |
+| Éducation | Galsenify (MIT) | 86 établissements d'enseignement supérieur |
 
-## ⚙️ Installation
+## API v1
 
-1. Créez un environnement virtuel :
+Base : `https://galsenapi.lassanasiby.com/api/v1/` — pagination (50/page, `?page_size=` jusqu'à 200),
+recherche (`?search=`), filtres, tri (`?ordering=`), limite 60 req/min par IP.
 
+| Endpoint | Description |
+|---|---|
+| `regions` · `departements` · `arrondissements` · `communes` · `villages` · `pays` | Hiérarchie administrative (P-codes stables) |
+| `regions/geojson/` | Frontières complètes (FeatureCollection, cache 30 min) |
+| `regions/{pcode}/geometry/` | Géométrie d'une entité (léger) |
+| `search/?q=` | Recherche multi-entités (`?types=`, `?limit=`) |
+| `statistics/` · `statistics/regions/{pcode}/` | Agrégats calculés depuis les données réelles |
+| `demographie/population/` | RGPH-5 2023 (`?niveau=`, `?region=`, `?annee=`) |
+| `agriculture/cultures/` · `agriculture/production/` | FAOSTAT (`?element=`, `?annee_min=`…) |
+| `economie/indicateurs/` · `economie/observations/` | Banque mondiale (`?indicateur=CODE`) |
+| `climat/stations/` · `climat/observations/` | NOAA GHCN (`?station=`, `?annee_min=`) |
+| `datasets/` · `datasets/{slug}/download/?format=json\|csv\|geojson` | Catalogue sourcé + exports |
+
+Les anciennes routes `/api/<entité>/` restent servies pour compatibilité (dépréciation progressive).
+
+### Exemples
+
+**curl**
 ```bash
-python -m venv .venv
+curl "https://galsenapi.lassanasiby.com/api/v1/search/?q=kanel"
 ```
 
-2. Activez l'environnement virtuel :
+**Python**
+```python
+import requests
 
-```bash
-source .venv/bin/activate
+r = requests.get(
+    "https://galsenapi.lassanasiby.com/api/v1/departements/",
+    params={"region": "SN01", "ordering": "-population"},
+)
+for dept in r.json()["results"]:
+    print(dept["nom"], dept["population"])
 ```
 
-3. Installez les dépendances :
+**JavaScript**
+```js
+const r = await fetch("https://galsenapi.lassanasiby.com/api/v1/statistics/");
+const stats = await r.json();
+console.log(stats.population.totale); // 18126388 (RGPH-5 2023)
+```
+
+**Java**
+```java
+var http = java.net.http.HttpClient.newHttpClient();
+var req = java.net.http.HttpRequest.newBuilder()
+        .uri(java.net.URI.create("https://galsenapi.lassanasiby.com/api/v1/regions/?ordering=-population"))
+        .build();
+var reponse = http.send(req, java.net.http.HttpResponse.BodyHandlers.ofString());
+System.out.println(reponse.body());
+```
+
+## Architecture
+
+```
+GalsenAPi/
+├── GalsenifyDj/          # settings (base/local/production), urls, vues frontend, filtres
+├── app/                  # modèles legacy (compat) + tests pages frontend
+├── geo/                  # hiérarchie administrative + ingestion HDX + API + recherche + stats
+├── datasets/             # DataSource → Dataset → DatasetVersion → DataQualityReport + exports
+├── demographie/          # RGPH-5 2023 (ANSD)
+├── agriculture/          # FAOSTAT
+├── economie/             # Banque mondiale
+├── climat/               # NOAA GHCN
+├── templates/            # design system « Institutional Modern » (Tailwind compilé)
+├── static/               # css compilé, js, images
+├── dataset/              # JSON legacy d'origine
+└── var/                  # caches d'ingestion + rapports (non versionnés)
+```
+
+Chaque domaine suit le même schéma : `models.py`, `api/` (viewsets DRF),
+`management/commands/import_<domaine>.py` (pipeline téléchargement → parse → validation
+→ upsert idempotent), provenance dans `meta` et catalogue `datasets`.
+
+## Installation
+
+Prérequis : Python 3.12+, PostgreSQL 14+ (ou SQLite pour essayer).
 
 ```bash
+git clone https://github.com/sibylassana95/GalsenAPi.git
+cd GalsenAPi
+python -m venv venv
+venv\Scripts\activate            # Windows  (Linux/macOS : source venv/bin/activate)
 pip install -r requirements.txt
-```
-
-4. Effectuez les migrations :
-
-```bash
-python manage.py makemigrations
+cp .env.example .env             # puis renseigner SECRET_KEY, POSTGRES_*…
 python manage.py migrate
-```
-
-5. Créez un super utilisateur :
-
-```bash
 python manage.py createsuperuser
 ```
 
-6. Créez un fichier `.env` dans le projet Django pour stocker la clé secrète.
+### Chargement des données (reproductible, caches locaux)
 
-## 🎯 Utilisation
-
-### Points d'accès de l'API
-
-#### Récupérer toutes les régions
-
-```http
-GET /api/regions/
+```bash
+galsenapi avec le venv activé :
+python manage.py migrate                  # crée les tables
+python manage.py import_geo               # limites HDX + villages/communes legacy (~2 min)
+python manage.py sync_datasets            # catalogue des sources/datasets
+python manage.py import_demographie       # RGPH-5 2023 régions+départements (fichier local data/)
+python manage.py import_agriculture       # FAOSTAT (télécharge 34 Mo — ou --offline si tu copie le cache)
+python manage.py import_economie          # Banque mondiale (API)
+python manage.py import_climat            # NOAA GHCN 14 stations (~3 min)
+python manage.py import_communes --offline  # ⚠️ nécessite le cache : copie var/ingest/ansd/repertoire_2023.csv du PC 
+python manage.py collectstatic --noinput  # statiques (WhiteNoise)
 ```
 
-#### Récupérer une seule région
+Chaque commande est **idempotente** (relançable sans doublons) et accepte `--offline`
+pour n'utiliser que le cache `var/ingest/`. Les rapports qualité sont écrits dans `var/reports/`.
 
-```http
-GET /api/regions/1/
+### Développement frontend
+
+```powershell
+.\build_css.ps1     # compile Tailwind (tools/tailwindcss.exe) → static/css/galsenapi.css
 ```
 
-#### Récupérer tous les départements
+À exécuter après toute nouvelle classe utilitaire dans un template.
 
-```http
-GET /api/departements
+### Docker
+
+```bash
+docker compose up
 ```
 
-#### Récupérer un seul département
+Lance Django + PostgreSQL 16. Variables via `.env` (voir `.env.example`).
 
-```http
-GET /api/departements/1/
+## Serveur MCP (assistants IA)
+
+GalsenAPI expose ses données aux assistants IA (Claude Desktop, opencode, Cursor…) via un
+serveur MCP : 12 outils (recherche, régions, RGPH-5, FAOSTAT, Banque mondiale, NOAA,
+datasets). L'assistant ne devine rien : chaque réponse provient de l'API.
+
+```bash
+cd mcp-server && pip install -r requirements.txt && python server.py
 ```
 
-#### Récupérer tous les arrondissements
+Configuration Claude Desktop / opencode et liste des outils : [mcp-server/README.md](mcp-server/README.md).
 
-```http
-GET /api/arrondissements/
+## Tests
+
+```bash
+python manage.py test
 ```
 
-#### Récupérer un seul arrondissement
+144 tests : modèles, hiérarchie, ingestion, API (pagination, filtres, tri, GeoJSON),
+recherche, statistiques, exports, pages frontend.
 
-```http
-GET /api/arrondissements/1/
-```
+## Déploiement
 
-#### Récupérer toutes les communes
+Hébergé sur cPanel (`galsenapi.lassanasiby.com`) : Python 3.12 via `build_files.sh`,
+PostgreSQL, WhiteNoise pour les statiques. Définir en production :
+`DJANGO_ENV=production`, `SECRET_KEY`, `ALLOWED_HOSTS`, `CORS_ALLOWED_ORIGINS`, `POSTGRES_*`.
 
-```http
-GET /api/communes/
-```
+## Sources et licences des données
 
-#### Récupérer une seule commune
+| Source | Licence | Redistribution |
+|---|---|---|
+| [HDX COD-AB Sénégal](https://data.humdata.org/dataset/cod-ab-sen) | CC BY-IGO | Oui |
+| [ANSD (RGPH-5 2023)](https://www.ansd.sn/) | CC BY 4.0 (revendiquée côté anads.ansd.sn) | Oui |
+| [FAOSTAT](https://www.fao.org/faostat/) | CC BY 4.0 | Oui |
+| [Banque mondiale](https://data.worldbank.org/) | CC BY 4.0 | Oui |
+| [NOAA GHCN-Daily](https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily) | Domaine public | Oui |
+| [Galsenify](https://github.com/GalsenDev221/galsenify) | MIT | Oui |
 
-```http
-GET /api/communes/1/
-```
+Les données dont la licence interdit la redistribution ne sont pas copiées :
+seules leurs métadonnées et un lien vers la source sont référencés.
 
-#### Récupérer tous les villages
+## Contribution
 
-```http
-GET api/villages
-```
+Les contributions sont bienvenues ! Voir [CONTRIBUTING.md](CONTRIBUTING.md).
+Signaler une donnée incorrecte ou manquante : ouvrez une issue avec le modèle
+« Data correction » ou « Dataset request ».
 
-#### Récupérer un seul village
+## Roadmap
 
-```http
-GET /api/villages/1
-```
+- [x] Phase 1-7 : modernisation, modèle géo, API v1, datasets, recherche/stats, domaines, frontend
+- [x] Phase 9-10 : documentation, CI/CD, audits sécurité
+- [x] Phase 11 : serveur MCP (`mcp-server/`) pour assistants IA
+- [ ] Domaines supplémentaires selon disponibilité de sources ouvertes (santé, transport, énergie)
 
-#### Récupérer tous les Universités et Ecole de formations
+## Licence
 
-```http
-GET /api/universites/
-```
-
-#### Récupérer une universite ou ecole de formation
-
-```http
-GET /api/universites/1
-```
-
-#### Récupérer les informations sur le pays
-
-```http
-GET /api/pays/
-```
-
-## 💫 Fonctionnalités
-
-- ✨ Interface utilisateur moderne et responsive
-- 📱 Compatible mobile
-- 🔍 Recherche avancée
-- 📊 Données détaillées et à jour
-- 🔒 Sécurisé et fiable
-
-## 🛠 Technologies
-
-- ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-- ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
-- ![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
-- ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-
-## 👤 Auteur
-
-**Lassana SIBY**
-
-[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sibylassana95)
-[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sibylassana)
-[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/sibyog13)
-
-## 💝 Remerciements
-
-### Merci à [Daouda BA](https://github.com/daoodaba975) pour les donées.
-[![Daouda BA](https://avatars.githubusercontent.com/daoodaba975?s=64)](https://github.com/daoodaba975)
-
-### Exemple d'utilisation de l'api 
-Views region et departement
-```python
-def regions_view(request):
-    query = request.GET.get('q')
-    url = 'https://galsenapi.vercel.app/api/regions/'
-    params = {'search': query} if query else {}
-    response = requests.get(url, params=params)
-    data = response.json()
-    regions = data
-    context = {'regions': regions, 'query': query}
-    return render(request, 'demo/regions.html', context)
-
-
-def departments_view(request):
-    query = request.GET.get('q')
-    url = 'https://galsenapi.vercel.app/api/departements/'
-    params = {'search': query} if query else {}
-    response = requests.get(url, params=params)
-    data = response.json()
-    departments = data
-    context = {'departments': departments, 'query': query}
-    return render(request, 'demo/departements.html', context)
-
-def villages_view(request):
-    query = request.GET.get('q')
-    url = 'https://galsenapi.vercel.app/api/villages/'
-    params = {'search': query} if query else {}
-    response = requests.get(url, params=params)
-    data = response.json()
-    villages = data
-    context = {'villages': villages, 'query': query}
-    return render(request, 'demo/village.html', context)    
-```
-![CAPTURE](capture/home.png)
-
-![CAPTURE](capture/galsenApi.png)
-
-![CAPTURE](capture/galsenapi-vercel-app-region.png)
-
-## 📝 License
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](./Licence.md)
-
-[![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)](https://github.com/GalsenDev221/made.in.senegal)
-
-## Star History
-
-<a href="https://www.star-history.com/#sibylassana95/GalsenAPi&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=sibylassana95/GalsenAPi&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=sibylassana95/GalsenAPi&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=sibylassana95/GalsenAPi&type=date&legend=top-left" />
- </picture>
-</a>
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<div align="center">
-  <a href="https://www.buymeacoffee.com/sibyamara9M">
-    <img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />
-  </a>
-  <a href="https://paypal.me/sibylassana">
-    <img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal" />
-  </a>
-</div>
+[Licence.md](Licence.md) — MIT avec attribution de l'auteur original
+[Lassana Siby](https://github.com/sibylassana95).

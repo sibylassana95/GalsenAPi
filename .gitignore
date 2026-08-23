@@ -4,7 +4,17 @@
 *.pyc
 __pycache__
 
+# Outils locaux (CLI Tailwind standalone)
+tools/
+
 media
+
+# Fichiers statiques generes (collectstatic)
+staticfiles/
+static/admin/
+static/drf-yasg/
+static/rest_framework/
+static/rest_framework_swagger/
 
 # Backup files # 
 *.bak 
@@ -138,3 +148,9 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 .vscode/settings.json
+galsenapi_2.0_design/
+
+.playwright-mcp/
+
+# Documents personnels - jamais versionnes
+capture/*.xlsx

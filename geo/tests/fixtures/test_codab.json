@@ -1,0 +1,60 @@
+{
+  "adm1": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "adm1_pcode": "TEST01",
+          "adm1_fr": "Région Test",
+          "validOn": "2024-05-20"
+        },
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [[[ -16.2, 14.3 ], [ -15.8, 14.3 ], [ -15.8, 14.7 ], [ -16.2, 14.7 ], [ -16.2, 14.3 ]]],
+            [[[-17.9, 20.0], [-17.8, 20.0], [-17.8, 20.1], [-17.9, 20.0]]]
+          ]
+        }
+      }
+    ]
+  },
+  "adm2": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "adm2_pcode": "TEST0102",
+          "adm2_fr": "Département Test",
+          "adm1_pcode": "TEST01"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-16.1, 14.35], [-15.9, 14.35], [-15.9, 14.65], [-16.1, 14.65], [-16.1, 14.35]]
+          ]
+        }
+      }
+    ]
+  },
+  "adm3": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "adm3_pcode": "TEST010201",
+          "adm3_fr": "Arrondissement Test",
+          "adm2_pcode": "TEST0102"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-16.05, 14.4], [-15.95, 14.4], [-15.95, 14.6], [-16.05, 14.6], [-16.05, 14.4]]
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "source": "RGPH-5 2023, ANSD",
+    "titre_source": "Rapport définitif du 5e Recensement Général de la Population et de l'Habitat (RGPH-5), Thème I : État et structure, urbanisation et caractéristiques socioculturelles de la population, ANSD, juillet 2025",
+    "sources": [
+      {
+        "url": "https://www.vie-publique.sn/docs/f5ae8d48-de94-4dea-882b-990bdfa1958d/etat-structure-urbanisation-caracteristiques-socioculturelles-population-rgph-5-2023-ansd.pdf",
+        "date_consultation": "2026-08-23",
+        "note": "Source primaire. Tableau I-21 (population résidente par région selon le sexe) et Tableau I-9 (indicateurs de variation régionale par département, population totale 2023). PDF miroir officiel vie-publique.sn du rapport définitif RGPH-5 Thème I (ANSD)."
+      },
+      {
+        "url": "https://www.vie-publique.sn/documents/10517/etat-structure-urbanisation-caracteristiques-socioculturelles-population-rgph-5-2023-ansd",
+        "date_consultation": "2026-08-23",
+        "note": "Fiche de présentation du rapport définitif (total national 18 126 390 ; densités régionales Dakar 7 485/km², Kédougou 15/km²)."
+      },
+      {
+        "url": "https://www.ansd.sn/actualite/les-principaux-resultats-du-5e-recensement-general-de-la-population-et-de-lhabitat-du",
+        "date_consultation": "2026-08-23",
+        "note": "Note de presse ANSD du 9 juillet 2024 : total national 18 126 390 (50,6% hommes / 49,4% femmes) ; Dakar+Thiès+Diourbel = 47,0% de la population."
+      },
+      {
+        "url": "https://www.vie-publique.sn/documents/10416/rapport-provisoire-recensement-general-population-habitat-2023-rgph5-ansd",
+        "date_consultation": "2026-08-23",
+        "note": "Rapport provisoire (juillet 2024), recoupement : total national identique 18 126 390 ; région de Dakar 4 004 426 habitants (densité 7 478/km²)."
+      },
+      {
+        "url": "https://housingfinanceafrica.org/country-detail/senegal/",
+        "date_consultation": "2026-08-23",
+        "note": "Recoupement tiers : région de Dakar 22,1% de la population (4 004 427 habitants en 2023), citant le RGPH-5."
+      }
+    ],
+    "license": "CC BY 4.0 (revendiquée sur anads.ansd.sn)",
+    "total_national": 18126390,
+    "annee": 2023,
+    "value_type": "officielle",
+    "notes": [
+      "Valeurs issues des résultats définitifs du RGPH-5 (rapport Thème I, ANSD, juillet 2025), pas des résultats préliminaires (18 032 473 au 31/10/2023) ni de la page https://www.ansd.sn/regions qui affiche encore les chiffres préliminaires.",
+      "Incohérences internes de la publication ANSD assumées telles quelles : la somme des 14 régions vaut 18 126 388 (écart -2 avec le total national annoncé 18 126 390) ; les tableaux I-15 et I-21 diffèrent de ±1 sur certaines régions (ex. Dakar 4 004 427 vs 4 004 426). La colonne « Ensemble » du tableau I-21 est retenue car cohérente avec la somme exacte des 46 départements du tableau I-9.",
+      "Niveau département : seule la population totale est publiée dans le tableau I-9 ; les effectifs hommes/femmes par département ne sont pas extraits ici."
+    ]
+  },
+  "regions": [
+    {"nom": "Dakar", "population": 4004426, "hommes": 2018761, "femmes": 1985666},
+    {"nom": "Ziguinchor", "population": 617567, "hommes": 318982, "femmes": 298585},
+    {"nom": "Diourbel", "population": 2080333, "hommes": 1029753, "femmes": 1050580},
+    {"nom": "Saint-Louis", "population": 1202441, "hommes": 610883, "femmes": 591558},
+    {"nom": "Tambacounda", "population": 987152, "hommes": 504081, "femmes": 483071},
+    {"nom": "Kaolack", "population": 1336720, "hommes": 674912, "femmes": 661809},
+    {"nom": "Thiès", "population": 2463677, "hommes": 1256977, "femmes": 1206700},
+    {"nom": "Louga", "population": 1125908, "hommes": 563944, "femmes": 561964},
+    {"nom": "Fatick", "population": 906918, "hommes": 453863, "femmes": 453055},
+    {"nom": "Kolda", "population": 914798, "hommes": 467909, "femmes": 446889},
+    {"nom": "Matam", "population": 831630, "hommes": 428108, "femmes": 403522},
+    {"nom": "Kaffrine", "population": 820405, "hommes": 415885, "femmes": 404521},
+    {"nom": "Kédougou", "population": 245147, "hommes": 132256, "femmes": 112891},
+    {"nom": "Sédhiou", "population": 589266, "hommes": 302582, "femmes": 286684}
+  ],
+  "departements": [
+    {"region": "Dakar", "nom": "Dakar", "population": 1278471},
+    {"region": "Dakar", "nom": "Pikine", "population": 764596},
+    {"region": "Dakar", "nom": "Rufisque", "population": 818337},
+    {"region": "Dakar", "nom": "Guédiawaye", "population": 372708},
+    {"region": "Dakar", "nom": "Keur Massar", "population": 770314},
+    {"region": "Ziguinchor", "nom": "Bignona", "population": 287499},
+    {"region": "Ziguinchor", "nom": "Oussouye", "population": 54567},
+    {"region": "Ziguinchor", "nom": "Ziguinchor", "population": 275501},
+    {"region": "Diourbel", "nom": "Bambey", "population": 376467},
+    {"region": "Diourbel", "nom": "Diourbel", "population": 344108},
+    {"region": "Diourbel", "nom": "Mbacké", "population": 1359758},
+    {"region": "Saint-Louis", "nom": "Dagana", "population": 329064},
+    {"region": "Saint-Louis", "nom": "Podor", "population": 486008},
+    {"region": "Saint-Louis", "nom": "Saint-Louis", "population": 387369},
+    {"region": "Tambacounda", "nom": "Bakel", "population": 189937},
+    {"region": "Tambacounda", "nom": "Tambacounda", "population": 427418},
+    {"region": "Tambacounda", "nom": "Goudiry", "population": 170601},
+    {"region": "Tambacounda", "nom": "Koumpentoum", "population": 199196},
+    {"region": "Kaolack", "nom": "Kaolack", "population": 664054},
+    {"region": "Kaolack", "nom": "Nioro", "population": 512610},
+    {"region": "Kaolack", "nom": "Guinguinéo", "population": 160056},
+    {"region": "Thiès", "nom": "Mbour", "population": 935304},
+    {"region": "Thiès", "nom": "Thiès", "population": 879185},
+    {"region": "Thiès", "nom": "Tivaouane", "population": 649188},
+    {"region": "Louga", "nom": "Kébémer", "population": 335921},
+    {"region": "Louga", "nom": "Linguère", "population": 312223},
+    {"region": "Louga", "nom": "Louga", "population": 477764},
+    {"region": "Fatick", "nom": "Fatick", "population": 408565},
+    {"region": "Fatick", "nom": "Foundiougne", "population": 375386},
+    {"region": "Fatick", "nom": "Gossas", "population": 122967},
+    {"region": "Kolda", "nom": "Kolda", "population": 324192},
+    {"region": "Kolda", "nom": "Vélingara", "population": 405151},
+    {"region": "Kolda", "nom": "Médina Yoro Foulah", "population": 185455},
+    {"region": "Matam", "nom": "Matam", "population": 386887},
+    {"region": "Matam", "nom": "Kanel", "population": 341518},
+    {"region": "Matam", "nom": "Ranérou", "population": 103225},
+    {"region": "Kaffrine", "nom": "Kaffrine", "population": 280788},
+    {"region": "Kaffrine", "nom": "Birkelane", "population": 151064},
+    {"region": "Kaffrine", "nom": "Koungheul", "population": 253303},
+    {"region": "Kaffrine", "nom": "Malem Hodar", "population": 135250},
+    {"region": "Kédougou", "nom": "Kédougou", "population": 124265},
+    {"region": "Kédougou", "nom": "Salémata", "population": 28027},
+    {"region": "Kédougou", "nom": "Saraya", "population": 92855},
+    {"region": "Sédhiou", "nom": "Sédhiou", "population": 193295},
+    {"region": "Sédhiou", "nom": "Bounkiling", "population": 207873},
+    {"region": "Sédhiou", "nom": "Goudomp", "population": 188098}
+  ]
+}

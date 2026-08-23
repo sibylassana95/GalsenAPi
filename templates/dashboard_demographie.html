@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Démographie — GalsenAPI{% endblock %}
+{% block page_title %}Tableau de bord démographique{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <header class="py-10 md:py-14">
+        <nav aria-label="Fil d'Ariane" class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Accueil</a></li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" class="font-medium text-on-surface dark:text-[#ecf1ff]">Démographie</li>
+            </ol>
+        </nav>
+        <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Démographie du Sénégal</h2>
+        <p class="mt-3 max-w-2xl text-on-surface-variant dark:text-outline">Population officielle du 5ᵉ Recensement Général de la Population et de l'Habitat (RGPH-5, ANSD, 2023).</p>
+    </header>
+
+    <section class="border-y border-border-subtle bg-surface-container-lowest dark:border-[#2c3a52] dark:bg-[#10192a]" aria-label="Chiffres clés">
+        <dl class="grid w-full grid-cols-2 gap-x-6 gap-y-6 py-8 sm:grid-cols-4">
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Population (2023)</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ population_totale }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Hommes</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ hommes_total }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Femmes</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ femmes_total }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Régions / Départements</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">14 / 46</dd></div>
+        </dl>
+    </section>
+
+    <div class="grid grid-cols-1 gap-8 py-12 lg:grid-cols-2">
+        <figure class="card p-5">
+            <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Population par région</h3>
+            <div class="relative mt-4 h-[420px]"><canvas id="chart-regions" role="img" aria-label="Diagramme en barres de la population par région en 2023"></canvas></div>
+            <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">Source : RGPH-5 2023, ANSD (CC BY 4.0).</figcaption>
+        </figure>
+        <figure class="card p-5">
+            <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Répartition hommes / femmes</h3>
+            <div class="relative mt-4 h-[420px]"><canvas id="chart-hf" role="img" aria-label="Diagramme en barres empilées de la population par sexe et par région"></canvas></div>
+            <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">Hommes et femmes par région, RGPH-5 2023.</figcaption>
+        </figure>
+    </div>
+
+    <section class="pb-12" aria-label="Départements les plus peuplés">
+        <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Départements les plus peuplés</h3>
+        <div class="card mt-4 overflow-x-auto">
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Département</th><th scope="col">Région</th><th scope="col" class="text-right">Population (2023)</th></tr></thead>
+                <tbody>
+                    {% for d in top_departements %}
+                    <tr>
+                        <td><a href="{% url 'departement-detail' d.pcode %}" class="font-medium text-forest-deep hover:underline dark:text-inverse-primary">{{ d.nom }}</a></td>
+                        <td>{{ d.region }}</td>
+                        <td class="data-mono !text-sm text-right">{{ d.population }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="pb-16" aria-label="Accès aux données">
+        <div class="flex flex-wrap gap-3">
+            <a href="/api/v1/demographie/population/?niveau=region&ordering=-population" class="btn-ghost px-4 py-2 text-xs">API population</a>
+            <a href="{% url 'donnees' %}?categorie=demographie" class="btn-secondary px-4 py-2 text-xs">Datasets démographie</a>
+        </div>
+    </section>
+</div>
+{{ repartition|json_script:"data-demo" }}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+    if (typeof Chart === 'undefined') return;
+    var data = JSON.parse(document.getElementById('data-demo').textContent);
+    var labels = data.map(function (d) { return d.nom; });
+    var populations = data.map(function (d) { return d.population; });
+    var hommes = data.map(function (d) { return d.hommes || 0; });
+    var femmes = data.map(function (d) { return d.femmes || 0; });
+    var font = { family: "'JetBrains Mono', monospace", size: 11 };
+    var opts = {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: function (c) { return new Intl.NumberFormat('fr-FR').format(c.parsed.x) + ' hab.'; } } }
+        },
+        scales: {
+            x: { ticks: { font: font, callback: function (v) { return v / 1e6 + ' M'; } }, grid: { color: 'rgba(112,121,116,0.15)' } },
+            y: { ticks: { font: font }, grid: { display: false } }
+        }
+    };
+    new Chart(document.getElementById('chart-regions'), {
+        type: 'bar',
+        data: { labels: labels, datasets: [{ data: populations, backgroundColor: '#064e3b', borderRadius: 3 }] },
+        options: opts
+    });
+    new Chart(document.getElementById('chart-hf'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                { label: 'Hommes', data: hommes, backgroundColor: '#064e3b', borderRadius: 2 },
+                { label: 'Femmes', data: femmes, backgroundColor: '#eab308', borderRadius: 2 }
+            ]
+        },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { font: font, boxWidth: 12 } },
+                tooltip: { callbacks: { label: function (c) { return c.dataset.label + ' : ' + new Intl.NumberFormat('fr-FR').format(c.parsed.x); } } } },
+            scales: { x: { stacked: true, ticks: { font: font, callback: function (v) { return v / 1e6 + ' M'; } }, grid: { color: 'rgba(112,121,116,0.15)' } },
+                y: { stacked: true, ticks: { font: font }, grid: { display: false } } }
+        }
+    });
+});
+</script>
+{% endblock %}

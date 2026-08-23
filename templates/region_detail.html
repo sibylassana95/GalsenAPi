@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load l10n static %}
+
+{% block title %}Région de {{ region.nom }} — GalsenAPI{% endblock %}
+{% block page_title %}Région de {{ region.nom }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <header class="py-10 md:py-14">
+        <nav aria-label="Fil d'Ariane" class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            <ol class="flex flex-wrap items-center gap-2">
+                <li><a href="/" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Accueil</a></li>
+                <li aria-hidden="true">/</li>
+                <li><a href="{% url 'region' %}" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Régions</a></li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" class="font-medium text-on-surface dark:text-[#ecf1ff]">{{ region.nom }}</li>
+            </ol>
+        </nav>
+        <div class="flex flex-wrap items-center gap-3">
+            <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Région de {{ region.nom }}</h2>
+            <span class="rounded bg-container px-2 py-1 font-mono text-xs text-on-surface-variant dark:bg-white/10 dark:text-outline">{{ region.pcode }}</span>
+        </div>
+        {% if region.chef_lieu %}<p class="mt-2 text-on-surface-variant dark:text-outline">Chef-lieu : {{ region.chef_lieu }}</p>{% endif %}
+    </header>
+
+    <!-- Chiffres clés -->
+    <section aria-label="Chiffres clés de la région" class="border-y border-border-subtle bg-surface-container-lowest dark:border-[#2c3a52] dark:bg-[#10192a]">
+        <dl class="grid w-full grid-cols-2 gap-x-6 gap-y-6 py-8 sm:grid-cols-3 lg:grid-cols-6">
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Habitants</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ region.population|default:"—" }}</dd><dd class="mt-0.5 text-[11px] text-on-surface-variant dark:text-outline">RGPH-5 2023, ANSD</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Superficie</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ region.superficie_km2|floatformat:"-2"|default:"—" }} km²</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Densité</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ densite|floatformat:"-1"|default:"—" }} hab/km²</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Départements</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ nb_departements }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Arrondissements</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ nb_arrondissements }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Villages</dt><dd class="data-mono mt-1 text-xl text-forest-deep dark:text-inverse-primary">{{ nb_villages }}</dd></div>
+        </dl>
+    </section>
+
+    <!-- Carte + départements -->
+    <div class="grid grid-cols-1 gap-8 py-12 lg:grid-cols-5">
+        <figure class="card overflow-hidden lg:col-span-3">
+            <div id="carte-region" class="h-80 w-full bg-container-low dark:bg-[#10192a]" role="img"
+                 aria-label="Carte des frontières de la région de {{ region.nom }}"></div>
+            <figcaption class="flex flex-wrap items-center justify-between gap-2 border-t border-border-subtle px-4 py-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">
+                <span>Frontières : HDX COD-AB (CC BY-IGO) · Fond : OpenStreetMap</span>
+                <a href="{{ geometry_url }}" class="font-medium text-forest-deep hover:underline dark:text-inverse-primary">GeoJSON</a>
+            </figcaption>
+        </figure>
+
+        <div class="lg:col-span-2">
+            <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Départements ({{ nb_departements }})</h3>
+            <ul class="mt-4 space-y-3">
+                {% for item in departements %}
+                <li class="card group relative flex items-center justify-between gap-4 px-4 py-3">
+                    <div>
+                        <a href="{% url 'departement-detail' item.obj.pcode %}" class="font-display text-base font-semibold text-primary transition-colors group-hover:text-sovereign-gold dark:text-inverse-primary">
+                            <span class="absolute inset-0" aria-hidden="true"></span>
+                            {{ item.obj.nom }}
+                        </a>
+                        <span class="ml-2 rounded bg-container px-1.5 py-0.5 font-mono text-[10px] text-on-surface-variant dark:bg-white/10 dark:text-outline">{{ item.obj.pcode }}</span>
+                    </div>
+                    <div class="shrink-0 text-right">
+                        <span class="data-mono block text-sm text-forest-deep dark:text-inverse-primary">{{ item.obj.population|default:"—" }}</span>
+                        <span class="text-[11px] text-on-surface-variant dark:text-outline">{{ item.densite|floatformat:"-1"|default:"—" }} hab/km²</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Données liées -->
+    <section class="pb-16" aria-label="Données liées">
+        <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Données liées</h3>
+        <div class="mt-4 flex flex-wrap gap-3">
+            <a href="/api/v1/regions/{{ region.pcode }}/" class="btn-ghost px-4 py-2 text-xs">API région</a>
+            <a href="/api/v1/departements/?region={{ region.pcode }}" class="btn-ghost px-4 py-2 text-xs">API départements</a>
+            <a href="/api/v1/villages/?region={{ region.pcode }}&page_size=200" class="btn-ghost px-4 py-2 text-xs">API villages</a>
+            <a href="/api/v1/statistics/regions/{{ region.pcode }}/" class="btn-ghost px-4 py-2 text-xs">Statistiques</a>
+            <a href="{% url 'donnees' %}?categorie=demographie" class="btn-secondary px-4 py-2 text-xs">Datasets démographie</a>
+        </div>
+        <p class="mt-4 text-xs text-on-surface-variant dark:text-outline">
+            {{ nb_communes }} commune{{ nb_communes|pluralize }} (rattachement officiel ANSD, RGPH-5 2023).
+        </p>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function () {
+    'use strict';
+    var el = document.getElementById('carte-region');
+    if (!el || typeof L === 'undefined') return;
+    var map = L.map(el, { scrollWheelZoom: false }).setView([{{ region.latitude|default:"14.5"|unlocalize }}, {{ region.longitude|default:"-14.5"|unlocalize }}], 7);
+    var tuiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        subdomains: 'abcd',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    });
+    tuiles.on('tileerror', function () {
+        el.setAttribute('aria-label', 'Fond de carte indisponible — les frontières restent affichées.');
+    });
+    tuiles.addTo(map);
+    fetch('{{ geometry_url|escapejs }}')
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (data) {
+            var layer = L.geoJSON(data, {
+                style: { color: '#064e3b', weight: 1.5, fillColor: '#003527', fillOpacity: 0.25 }
+            }).addTo(map);
+            map.fitBounds(layer.getBounds(), { padding: [16, 16] });
+        })
+        .catch(function () {
+            el.setAttribute('aria-label', 'Carte indisponible');
+        });
+})();
+</script>
+{% endblock %}

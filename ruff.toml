@@ -1,0 +1,18 @@
+# Configuration Ruff — GalsenAPI
+# Règles à fort signal : erreurs Python, imports inutilisés, noms indéfinis.
+line-length = 110
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "W"]
+ignore = [
+    "E501",  # longueur de ligne : tolérée (tables SQL, URLs)
+]
+
+[lint.per-file-ignores]
+# Migrations et fixtures générées : non contrôlées
+"*/migrations/*" = ["E", "F", "W"]
+# Les tests utilisent assert (bandit gère ce cas à part)
+"*/tests*.py" = ["S101"]
+# Settings Django : pattern standard d'import étoilé
+"GalsenifyDj/settings/*" = ["F403", "F405"]
