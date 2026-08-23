@@ -137,13 +137,16 @@ python manage.py createsuperuser
 ### Chargement des données (reproductible, caches locaux)
 
 ```bash
-python manage.py import_geo            # limites HDX + legacy (villages, communes)
-python manage.py sync_datasets         # catalogue des sources/datasets
-python manage.py import_demographie    # RGPH-5 2023 (data/rgph5_2023.json)
-python manage.py import_communes       # 553 communes + population (Répertoire ANSD)
-python manage.py import_agriculture    # FAOSTAT (zip ~34 Mo)
-python manage.py import_economie       # Banque mondiale (API)
-python manage.py import_climat         # NOAA GHCN (14 stations)
+galsenapi avec le venv activé :
+python manage.py migrate                  # crée les tables
+python manage.py import_geo               # limites HDX + villages/communes legacy (~2 min)
+python manage.py sync_datasets            # catalogue des sources/datasets
+python manage.py import_demographie       # RGPH-5 2023 régions+départements (fichier local data/)
+python manage.py import_agriculture       # FAOSTAT (télécharge 34 Mo — ou --offline si tu copie le cache)
+python manage.py import_economie          # Banque mondiale (API)
+python manage.py import_climat            # NOAA GHCN 14 stations (~3 min)
+python manage.py import_communes --offline  # ⚠️ nécessite le cache : copie var/ingest/ansd/repertoire_2023.csv du PC 
+python manage.py collectstatic --noinput  # statiques (WhiteNoise)
 ```
 
 Chaque commande est **idempotente** (relançable sans doublons) et accepte `--offline`
