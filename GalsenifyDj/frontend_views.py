@@ -208,15 +208,20 @@ def _densite(population, superficie):
 
 def regions_liste_view(request):
     recherche = request.GET.get("q", "").strip()
-    regions = Region.objects.exclude(population__isnull=True).order_by("-population")
+    regions = (
+        Region.objects.exclude(population__isnull=True)
+        .annotate(
+            nb_departements=Count("departements", distinct=True),
+            nb_villages=Count("villages", distinct=True),
+        )
+        .order_by("-population")
+    )
     if recherche:
         regions = regions.filter(nom__icontains=recherche)
     regions = [
         {
             "obj": r,
             "densite": _densite(r.population, r.superficie_km2),
-            "nb_departements": Departement.objects.filter(region=r).count(),
-            "nb_villages": r.villages.count(),
         }
         for r in regions
     ]
