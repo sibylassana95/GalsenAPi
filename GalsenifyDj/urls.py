@@ -56,8 +56,10 @@ urlpatterns = [
     path('api/v1/', include('agriculture.api.urls')),
     path('api/v1/', include('economie.api.urls')),
     path('api/v1/', include('climat.api.urls')),
-    path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='docs'),
-    path('redoc', schema_view.with_ui('redoc', cache_timeout=0), name='redoc'),
+    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='docs'),
+    path('docs', schema_view.with_ui('swagger', cache_timeout=0)),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='redoc'),
+    path('redoc', schema_view.with_ui('redoc', cache_timeout=0)),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
