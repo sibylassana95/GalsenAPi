@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation API
+    url: https://galsenapi.lassanasiby.com/docs/
+    about: Swagger UI de l'API v1
+  - name: Page Développeurs
+    url: https://galsenapi.lassanasiby.com/developers/
+    about: Endpoints, exemples de code et conditions d'utilisation
