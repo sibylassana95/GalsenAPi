@@ -34,7 +34,7 @@ officielles sourcées — géographie, démographie, agriculture, économie, cli
 
 | Domaine | Source (licence) | Volume |
 |---|---|---|
-| Géographie | HDX COD-AB (CC BY-IGO) + Galsenify (MIT) | 14 régions · 46 départements · 125 arrondissements · 8 635 villages · géométries GeoJSON |
+| Géographie | HDX COD-AB (CC BY-IGO) + Galsenify (MIT) | 14 régions · 46 départements · 125 arrondissements · **553 communes** (population RGPH-5) · 8 635 villages · géométries GeoJSON |
 | Démographie | ANSD — RGPH-5 2023 (CC BY 4.0) | 18 126 388 habitants, par région et département, hommes/femmes |
 | Agriculture | FAOSTAT (CC BY 4.0) | 105 cultures · 11 694 observations · 1961-2024 |
 | Économie | Banque mondiale (CC BY 4.0) | 21 indicateurs · 943 observations · 1960-2025 |
@@ -140,6 +140,7 @@ python manage.py createsuperuser
 python manage.py import_geo            # limites HDX + legacy (villages, communes)
 python manage.py sync_datasets         # catalogue des sources/datasets
 python manage.py import_demographie    # RGPH-5 2023 (data/rgph5_2023.json)
+python manage.py import_communes       # 553 communes + population (Répertoire ANSD)
 python manage.py import_agriculture    # FAOSTAT (zip ~34 Mo)
 python manage.py import_economie       # Banque mondiale (API)
 python manage.py import_climat         # NOAA GHCN (14 stations)
@@ -216,7 +217,6 @@ Signaler une donnée incorrecte ou manquante : ouvrez une issue avec le modèle
 - [x] Phase 1-7 : modernisation, modèle géo, API v1, datasets, recherche/stats, domaines, frontend
 - [x] Phase 9-10 : documentation, CI/CD, audits sécurité
 - [x] Phase 11 : serveur MCP (`mcp-server/`) pour assistants IA
-- [ ] Source officielle des ~557 communes (rattachement complet aux départements)
 - [ ] Domaines supplémentaires selon disponibilité de sources ouvertes (santé, transport, énergie)
 
 ## Licence

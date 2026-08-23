@@ -71,6 +71,12 @@ nouveau frontend, PostgreSQL.
 - `ALLOWED_HOSTS` et `CORS_ALLOWED_ORIGINS` explicites (fini `*`), secrets hors dépôt via `.env`
 - `.env.example` documenté ; `.env` jamais lu ni commité
 
+#### Communes officielles
+- Rattachement des **553 communes** à leur département avec **population RGPH-5 par commune**,
+  depuis le Répertoire des localités 2023 de l'ANSD (commande \import_communes\, aliasing des
+  5 variantes orthographiques départements) ; somme des communes = 18 152 795 hab
+  (+0,15 % vs total national, population comptée à part) ; 5 conteneurs legacy
+  sans donnée supprimés ; \population\ exposée sur \/api/v1/communes/
 ### Compatibilité / migration
 - Base : nouvelles migrations par app ; charger les données avec les commandes `import_*`
   (toutes idempotentes, `--offline` possible via caches)
