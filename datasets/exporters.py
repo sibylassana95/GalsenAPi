@@ -6,6 +6,7 @@ import io
 from django.http import HttpResponse
 
 from app.models import Universites
+from agriculture.models import ProductionAgricole
 from geo.models import Arrondissement, Commune, Departement, Region, Village
 
 CONTENT_TYPES = {
@@ -143,6 +144,29 @@ def export_universites(fmt):
     return _rows_to_response_payload(rows, ['nom', 'logo'], fmt)
 
 
+def export_agriculture_production(fmt):
+    rows = [
+        {
+            'culture_code': row['culture__code_faostat'],
+            'culture': row['culture__nom'],
+            'element': row['element'],
+            'annee': row['annee'],
+            'valeur': str(row['valeur']) if row['valeur'] is not None else None,
+            'flag': row['flag'],
+        }
+        for row in ProductionAgricole.objects
+        .select_related('culture')
+        .order_by('annee', 'culture__code_faostat', 'element')
+        .values(
+            'culture__code_faostat', 'culture__nom',
+            'element', 'annee', 'valeur', 'flag',
+        )
+    ]
+    return _rows_to_response_payload(
+        rows, ['culture_code', 'culture', 'element', 'annee', 'valeur', 'flag'], fmt
+    )
+
+
 def _rows_to_response_payload(rows, fieldnames, fmt):
     if fmt == 'json':
         return json.dumps(rows, ensure_ascii=False, indent=2), 'json'
@@ -165,6 +189,8 @@ EXPORTERS = {
     ('sen-communes', 'csv'): lambda: export_communes('csv'),
     ('sen-universites', 'json'): lambda: export_universites('json'),
     ('sen-universites', 'csv'): lambda: export_universites('csv'),
+    ('sen-agriculture-production-faostat', 'json'): lambda: export_agriculture_production('json'),
+    ('sen-agriculture-production-faostat', 'csv'): lambda: export_agriculture_production('csv'),
 }
 
 

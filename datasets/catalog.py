@@ -2,6 +2,7 @@
 
 
 def _record_counts():
+    from agriculture.models import ProductionAgricole
     from app.models import Universites
     from datasets.models import DataSource
     from demographie.models import PopulationRecord
@@ -21,6 +22,7 @@ def _record_counts():
         'sen-villages': Village.objects.count(),
         'sen-communes': Commune.objects.count(),
         'sen-universites': Universites.objects.count(),
+        'sen-agriculture-production-faostat': ProductionAgricole.objects.count(),
     }
 
 
@@ -116,6 +118,40 @@ CATALOG = [
                     'définitif RGPH-5 Thème I (tableaux I-9 et I-21) via '
                     'manage.py import_demographie ; rafraîchit geo.Region / '
                     'geo.Departement.population.'
+                ),
+            },
+        ],
+    },
+    {
+        'source': {
+            'nom': 'FAO — FAOSTAT',
+            'slug': 'faostat',
+            'url': 'https://www.fao.org/faostat/en/#data/QCL',
+            'publisher': "Organisation des Nations unies pour l'alimentation "
+                         "et l'agriculture",
+            'license_nom': 'CC BY 4.0',
+            'license_url': 'https://www.fao.org/contact-us/terms/db-terms-of-use/en',
+            'redistribuable': True,
+        },
+        'datasets': [
+            {
+                'slug': 'sen-agriculture-production-faostat',
+                'titre': 'Production agricole FAOSTAT (Sénégal)',
+                'description': (
+                    "Production (tonnes), superficie récoltée (ha) et rendement "
+                    "(hg/ha) par culture et produit agricole au Sénégal, de 1961 "
+                    "à la dernière année publiée, d'après le dataset QCL "
+                    "(Production, Crops and livestock products) de FAOSTAT. Les "
+                    "rendements sources en kg/ha sont convertis en hg/ha "
+                    "(x10, valeur source conservée dans meta.unite_source)."
+                ),
+                'categorie': 'agriculture',
+                'coverage_period': '1961-2024',
+                'update_frequency': 'annuelle',
+                'export_formats': ['json', 'csv'],
+                'methodology': (
+                    'Bulk FAOSTAT QCL normalisé filtré Sénégal via '
+                    'manage.py import_agriculture'
                 ),
             },
         ],

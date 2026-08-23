@@ -140,7 +140,7 @@ class DatasetsApiTests(TestCase):
     def test_action_sources(self):
         data = self.api_get('/api/v1/datasets/sources/')
         slugs = {row['slug'] for row in data}
-        self.assertEqual(slugs, {'hdx-cod-ab', 'galsenify', 'ansd'})
+        self.assertEqual(slugs, {'hdx-cod-ab', 'galsenify', 'ansd', 'faostat'})
 
     def test_download_csv_content_type_et_header(self):
         response = self.client.get('/api/v1/datasets/sen-villages/download/?format=csv')
