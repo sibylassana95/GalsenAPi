@@ -6,7 +6,8 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import SearchFilter
+from GalsenifyDj.filters import NullsLastOrderingFilter
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -116,7 +117,7 @@ class DepartementViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'pcode'
     lookup_value_regex = r'(?!geojson$)[^/.]+'
     filterset_class = DepartementFilterSet
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, NullsLastOrderingFilter]
     search_fields = ['nom']
     ordering_fields = ['nom', 'population', 'superficie_km2']
     ordering = ['nom']

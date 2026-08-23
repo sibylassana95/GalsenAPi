@@ -1,7 +1,7 @@
 from django.http import Http404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.exceptions import ValidationError
-from rest_framework.filters import OrderingFilter
+from GalsenifyDj.filters import NullsLastOrderingFilter
 from rest_framework.generics import ListAPIView
 
 from demographie.models import PopulationRecord
@@ -19,7 +19,7 @@ class PopulationListView(ListAPIView):
     """
 
     serializer_class = PopulationRecordSerializer
-    filter_backends = [OrderingFilter]
+    filter_backends = [NullsLastOrderingFilter]
     ordering_fields = ['annee', 'population']
     ordering = ['-annee', '-population']
 

@@ -2,7 +2,8 @@ import django_filters
 from django.db.models import Count
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import SearchFilter
+from GalsenifyDj.filters import NullsLastOrderingFilter
 
 from climat.models import ObservationMensuelle, StationClimatique
 
@@ -20,7 +21,7 @@ class StationClimatiqueViewSet(viewsets.ReadOnlyModelViewSet):
 
     lookup_field = 'station_id'
     serializer_class = StationClimatiqueSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, NullsLastOrderingFilter]
     search_fields = ['nom', 'station_id']
     ordering_fields = ['nom', 'station_id', 'nb_observations']
     ordering = ['nom']
@@ -55,7 +56,7 @@ class ObservationMensuelleViewSet(viewsets.ReadOnlyModelViewSet):
         .order_by('-annee', '-mois')
     )
     serializer_class = ObservationMensuelleSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, NullsLastOrderingFilter]
     filterset_class = ObservationFilterSet
     search_fields = ['station__station_id', 'station__nom']
     ordering_fields = [

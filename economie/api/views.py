@@ -2,7 +2,8 @@ import django_filters
 from django.db.models import Count, Max, OuterRef, Subquery
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import SearchFilter
+from GalsenifyDj.filters import NullsLastOrderingFilter
 
 from economie.models import IndicateurEconomique, ObservationEconomique
 
@@ -23,7 +24,7 @@ class IndicateurEconomiqueViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_value_regex = r'[^/]+'
     lookup_field = 'code'
     serializer_class = IndicateurEconomiqueSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, NullsLastOrderingFilter]
     filterset_fields = ['categorie']
     search_fields = ['nom', 'nom_officiel', 'code']
     ordering_fields = ['code', 'nom', 'categorie', 'nb_observations',
@@ -64,7 +65,7 @@ class ObservationEconomiqueViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = ObservationEconomique.objects.select_related('indicateur')
     serializer_class = ObservationEconomiqueSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, NullsLastOrderingFilter]
     filterset_class = ObservationFilterSet
     search_fields = ['indicateur__code', 'indicateur__nom']
     ordering_fields = ['annee', 'valeur']

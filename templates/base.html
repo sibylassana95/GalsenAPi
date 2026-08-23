@@ -39,10 +39,9 @@
 
             <!-- Logo -->
             <a href="{% url 'home' %}" class="flex shrink-0 items-center gap-3" aria-label="GalsenAPI — retour à l'accueil">
-                <img src="{% static 'images/logo-galsenapi.png' %}" alt="Logo GalsenAPI" width="40" height="40" class="h-10 w-auto">
-                <span class="hidden font-display text-lg font-bold tracking-tight text-forest-deep sm:block dark:text-inverse-primary">
-                    Galsen<span class="text-sovereign-gold">API</span>
-                </span>
+                <img src="{% static 'images/logo-galsenapi.png' %}" alt="Logo GalsenAPI" width="150" height="150" class="h-9 w-auto dark:hidden">
+<img src="{% static 'images/logo-galsenapi_blanc.png' %}" alt="" width="150" height="150" class="hidden h-9 w-auto dark:block" aria-hidden="true">
+                
             </a>
 
             <!-- Nav principale (desktop) -->
@@ -119,7 +118,8 @@
     <!-- ======================= MENU MOBILE PLEIN ÉCRAN ==================== -->
     <div id="mobile-menu" class="fixed inset-0 z-50 hidden flex-col bg-surface dark:bg-[#10192a]" role="dialog" aria-modal="true" aria-label="Menu de navigation">
         <div class="flex h-16 shrink-0 items-center justify-between border-b border-border-subtle px-4 dark:border-[#2c3a52]">
-            <img src="{% static 'images/logo-galsenapi.png' %}" alt="Logo GalsenAPI" width="32" height="32" class="h-8 w-auto">
+            <img src="{% static 'images/logo-galsenapi.png' %}" alt="Logo GalsenAPI" width="32" height="32" class="h-8 w-auto dark:hidden">
+<img src="{% static 'images/logo-galsenapi_blanc.png' %}" alt="" width="32" height="32" class="hidden h-8 w-auto dark:block" aria-hidden="true">
             <button type="button" id="mobile-menu-close" aria-label="Fermer le menu"
                     class="rounded p-2 text-on-surface-variant hover:bg-container-low dark:text-outline dark:hover:bg-white/5">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6" aria-hidden="true">
@@ -183,7 +183,7 @@
                 <!-- Marque -->
                 <div>
                     <a href="{% url 'home' %}" class="flex items-center gap-3" aria-label="GalsenAPI — retour à l'accueil">
-                        <img src="{% static 'images/logo-galsenapi.png' %}" alt="" width="40" height="40" class="h-10 w-auto">
+                        <img src="{% static 'images/logo-galsenapi_blanc.png' %}" alt="" width="40" height="40" class="h-10 w-auto">
                         <span class="font-display text-lg font-bold tracking-tight">Galsen<span class="text-secondary-container">API</span></span>
                     </a>
                     <p class="mt-4 text-sm leading-relaxed text-primary-fixed/90">

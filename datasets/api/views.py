@@ -1,7 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import SearchFilter
+from GalsenifyDj.filters import NullsLastOrderingFilter
 from rest_framework.negotiation import BaseContentNegotiation
 from rest_framework.response import Response
 
@@ -21,7 +22,7 @@ class DownloadContentNegotiation(BaseContentNegotiation):
 
 class DatasetViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'slug'
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, NullsLastOrderingFilter]
     filterset_fields = ['categorie', 'source__slug']
     search_fields = ['titre', 'slug', 'description']
     ordering_fields = ['titre', 'last_refreshed']

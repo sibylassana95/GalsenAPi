@@ -1,8 +1,13 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load static %}
 
 {% block title %}GalsenAPI — Explorez le Sénégal à travers ses données{% endblock %}
 {% block page_title %}GalsenAPI — Explorez le Sénégal à travers ses données{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+{% endblock %}
 
 {% block content %}
 <!-- ================================ HERO ================================ -->
@@ -42,45 +47,20 @@
     </dl>
 </section>
 
-<!-- ====================== CARTE SCHÉMATIQUE + TOP ======================= -->
+<!-- ====================== CARTE RÉELLE + TOP ======================= -->
 <section class="py-16 md:py-24">
     <div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
         <h2 class="font-display text-2xl font-semibold text-primary sm:text-3xl dark:text-inverse-primary">Couverture territoriale exhaustive</h2>
         <p class="mt-2 max-w-2xl text-on-surface-variant dark:text-outline">Les 14 régions administratives du Sénégal, du Cap-Vert à Kédougou.</p>
 
         <div class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-5">
-            <!-- Carte schématique -->
-            <figure class="card p-4 lg:col-span-3">
-                <svg viewBox="0 0 {{ carte_svg.w }} {{ carte_svg.h }}" role="img"
-                     aria-label="Carte schématique des quatorze régions du Sénégal, positionnées d'après leurs coordonnées géographiques"
-                     class="h-auto w-full select-none">
-                    {% for r in regions_carte %}
-                    <a href="{% url 'region-detail' r.pcode %}" aria-label="Région de {{ r.nom }}">
-                        <circle cx="{{ r.x }}" cy="{{ r.y }}" r="20" fill="{{ r.couleur }}"
-                                class="cursor-pointer opacity-90 transition-opacity hover:opacity-100"
-                                stroke="#fcfcfb" stroke-width="2">
-                            <title>{{ r.nom }} — {{ r.population }} habitants (RGPH-5 2023)</title>
-                        </circle>
-                        <text x="{{ r.x }}" y="{{ r.y }}" dy="0.35em" text-anchor="middle"
-                              class="pointer-events-none fill-white text-[9px] font-semibold"
-                              style="font-family:'JetBrains Mono',monospace">{{ forloop.counter }}</text>
-                    </a>
-                    {% endfor %}
-                    <text x="{{ PAD_X|default:46 }}" y="{{ carte_svg.h|add:-6 }}"
-                          class="fill-outline text-[10px]" style="font-family:'Inter',sans-serif">
-                        Positionnement schématique d'après les centroïdes des régions — taille non proportionnelle.
-                    </text>
-                </svg>
-                <ul class="mt-3 flex flex-wrap gap-1.5" aria-label="Légende de la carte">
-                    {% for r in regions_carte %}
-                    <li class="inline-flex items-center gap-1.5 rounded-full bg-container-low px-2 py-1 text-[11px] text-on-surface-variant dark:bg-white/5 dark:text-outline">
-                        <span class="inline-flex h-4 w-4 items-center justify-center rounded-full font-mono text-[9px] font-semibold text-white" style="background-color:{{ r.couleur }}" aria-hidden="true">{{ forloop.counter }}</span>
-                        {{ r.nom }}
-                    </li>
-                    {% endfor %}
-                </ul>
-                <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">
-                    Représentation schématique. Les frontières précises sont disponibles en GeoJSON via l'API.
+            <!-- Carte réelle (géométries HDX) -->
+            <figure class="card overflow-hidden lg:col-span-3">
+                <div id="carte-accueil" class="h-[420px] w-full bg-container-low dark:bg-[#10192a]" role="img"
+                     aria-label="Carte des quatorze régions du Sénégal, colorées selon leur population"></div>
+                <figcaption class="flex flex-wrap items-center justify-between gap-2 border-t border-border-subtle px-4 py-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">
+                    <span>Frontières : HDX COD-AB (CC BY-IGO) · Fond : CARTO / OpenStreetMap · Couleur : population RGPH-5 2023</span>
+                    <a href="/api/v1/regions/geojson/" class="font-medium text-forest-deep hover:underline dark:text-inverse-primary">GeoJSON</a>
                 </figcaption>
             </figure>
 
@@ -89,10 +69,13 @@
                 <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Régions les plus peuplées</h3>
                 <ol class="mt-4 space-y-3">
                     {% for region in top_regions %}
-                    <li class="card group flex items-center justify-between gap-4 px-4 py-3">
+                    <li class="card group relative flex items-center justify-between gap-4 px-4 py-3">
                         <div>
-                            <span class="font-display text-base font-semibold text-primary transition-colors group-hover:text-sovereign-gold dark:text-inverse-primary">{{ region.nom }}</span>
-                            <span class="ml-2 rounded-full bg-container px-2 py-0.5 font-mono text-[11px] text-on-surface-variant dark:bg-white/10 dark:text-outline">{{ region.pcode }}</span>
+                            <a href="{% url 'region-detail' region.pcode %}" class="font-display text-base font-semibold text-primary transition-colors group-hover:text-sovereign-gold dark:text-inverse-primary">
+                                <span class="absolute inset-0" aria-hidden="true"></span>
+                                {{ region.nom }}
+                            </a>
+                            <span class="ml-2 rounded bg-container px-2 py-0.5 font-mono text-[11px] text-on-surface-variant dark:bg-white/10 dark:text-outline">{{ region.pcode }}</span>
                         </div>
                         <span class="data-mono shrink-0 text-sm text-forest-deep dark:text-inverse-primary">{{ region.population }}</span>
                     </li>
@@ -139,42 +122,6 @@
     </div>
 </section>
 
-<!-- ======================== DATASETS RÉCENTS ============================ -->
-<section class="bg-surface-container-low py-16 md:py-24 dark:bg-[#10192a]">
-    <div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-            <h2 class="font-display text-2xl font-semibold text-primary sm:text-3xl dark:text-inverse-primary">Dernières mises à jour</h2>
-            <a href="{% url 'donnees' %}" class="inline-flex items-center gap-1 text-sm font-semibold text-forest-deep hover:underline dark:text-inverse-primary">
-                Voir les {{ nb_datasets }} jeux de données
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-            </a>
-        </div>
-        <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {% for ds in datasets_recents %}
-            <article class="card flex flex-col p-6">
-                <div class="flex items-start justify-between gap-3">
-                    <h3 class="font-headline-md text-lg font-semibold leading-snug text-forest-deep dark:text-inverse-primary">{{ ds.titre }}</h3>
-                    <span class="badge-pending shrink-0">{{ ds.get_categorie_display }}</span>
-                </div>
-                <p class="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-on-surface-variant dark:text-outline">{{ ds.description }}</p>
-                <dl class="mt-4 space-y-1 border-t border-border-subtle pt-4 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">
-                    <div class="flex justify-between gap-2"><dt>Source</dt><dd class="truncate font-medium text-on-surface dark:text-[#ecf1ff]">{{ ds.source.nom }}</dd></div>
-                    <div class="flex justify-between gap-2"><dt>Licence</dt><dd class="font-medium text-on-surface dark:text-[#ecf1ff]">{{ ds.source.license_nom }}</dd></div>
-                    {% if ds.latest_version and ds.latest_version.record_count is not None %}
-                    <div class="flex justify-between gap-2"><dt>Enregistrements</dt><dd class="data-mono !text-xs">{{ ds.latest_version.record_count }}</dd></div>
-                    {% endif %}
-                </dl>
-                <div class="mt-5 flex flex-wrap gap-2">
-                    <a href="{% url 'donnees' %}?q={{ ds.slug|urlencode }}" class="btn-secondary px-4 py-2 text-xs">Explorer</a>
-                    <a href="/api/v1/datasets/{{ ds.slug }}/download/?format=json" class="btn-ghost px-4 py-2 text-xs">Télécharger JSON</a>
-                    <a href="/docs" class="rounded px-4 py-2 text-xs font-semibold text-forest-deep underline-offset-2 hover:underline dark:text-inverse-primary">API</a>
-                </div>
-            </article>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
 <!-- ============================== CTA =================================== -->
 <section class="relative overflow-hidden bg-primary py-20 text-on-primary md:py-28">
     <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_50%_120%,rgba(234,179,8,0.14),transparent)]" aria-hidden="true"></div>
@@ -196,17 +143,75 @@
 {% endblock %}
 
 {% block extra_scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function () {
     'use strict';
+    var fmt = new Intl.NumberFormat('fr-FR');
+
+    /* Carte chorophlète des régions (géométries HDX réelles) */
+    var el = document.getElementById('carte-accueil');
+    if (el && typeof L !== 'undefined') {
+        var map = L.map(el, { scrollWheelZoom: false }).setView([14.5, -14.5], 6);
+        var tuiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+            subdomains: 'abcd',
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        });
+        tuiles.on('tileerror', function () {
+            el.setAttribute('aria-label', 'Fond de carte indisponible — les frontières restent affichées.');
+        });
+        tuiles.addTo(map);
+
+        function couleur(pop) {
+            if (!pop) return '#95d3ba';
+            if (pop >= 2000000) return '#003527';
+            if (pop >= 1000000) return '#064e3b';
+            if (pop >= 750000) return '#0b513d';
+            if (pop >= 500000) return '#116149';
+            return '#178155';
+        }
+        fetch('/api/v1/regions/geojson/')
+            .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(function (data) {
+                var layer = L.geoJSON(data, {
+                    style: function (feature) {
+                        return {
+                            color: '#fcfcfb', weight: 1.2,
+                            fillColor: couleur(feature.properties.population),
+                            fillOpacity: 0.85
+                        };
+                    },
+                    onEachFeature: function (feature, couche) {
+                        var p = feature.properties || {};
+                        couche.bindTooltip(
+                            '<strong>' + (p.nom || '') + '</strong><br>' +
+                            fmt.format(p.population || 0) + ' hab. (RGPH-5 2023)',
+                            { sticky: true }
+                        );
+                        couche.on('click', function () {
+                            window.location.href = '/regions/' + (p.pcode || '') + '/';
+                        });
+                        couche.on('mouseover', function () { couche.setStyle({ weight: 2.5, fillOpacity: 1 }); });
+                        couche.on('mouseout', function () { couche.setStyle({ weight: 1.2, fillOpacity: 0.85 }); });
+                    }
+                }).addTo(map);
+                map.fitBounds(layer.getBounds(), { padding: [12, 12] });
+            })
+            .catch(function () {
+                el.setAttribute('aria-label', 'Carte momentanément indisponible.');
+            });
+    }
+
+    /* Compteurs animés */
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var targets = document.querySelectorAll('[data-countup]');
     if (!targets.length) return;
-    var fmt = function (n) { try { return new Intl.NumberFormat('fr-FR').format(n); } catch (e) { return String(n); } };
     if (reduceMotion || !('IntersectionObserver' in window)) {
-        targets.forEach(function (el) {
-            var v = parseInt(el.getAttribute('data-countup'), 10);
-            if (!isNaN(v)) el.textContent = fmt(v);
+        targets.forEach(function (n) {
+            var v = parseInt(n.getAttribute('data-countup'), 10);
+            if (!isNaN(v)) n.textContent = fmt.format(v);
         });
         return;
     }
@@ -214,20 +219,20 @@
         entries.forEach(function (entry) {
             if (!entry.isIntersecting) return;
             observer.unobserve(entry.target);
-            var el = entry.target;
-            var target = parseInt(el.getAttribute('data-countup'), 10);
+            var n = entry.target;
+            var target = parseInt(n.getAttribute('data-countup'), 10);
             if (isNaN(target)) return;
             var start = null, duration = 900;
             function step(ts) {
                 if (!start) start = ts;
                 var p = Math.min((ts - start) / duration, 1);
-                el.textContent = fmt(Math.round(target * (1 - Math.pow(1 - p, 3))));
+                n.textContent = fmt.format(Math.round(target * (1 - Math.pow(1 - p, 3))));
                 if (p < 1) requestAnimationFrame(step);
             }
             requestAnimationFrame(step);
         });
     }, { threshold: 0.4 });
-    targets.forEach(function (el) { observer.observe(el); });
+    targets.forEach(function (n) { observer.observe(n); });
 })();
 </script>
 {% endblock %}

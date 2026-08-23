@@ -1,7 +1,8 @@
 import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.filters import SearchFilter
+from GalsenifyDj.filters import NullsLastOrderingFilter
 
 from agriculture.models import Culture, ProductionAgricole
 
@@ -26,7 +27,7 @@ class CultureViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Culture.objects.all()
     serializer_class = CultureSerializer
-    filter_backends = [SearchFilter, OrderingFilter]
+    filter_backends = [SearchFilter, NullsLastOrderingFilter]
     search_fields = ['nom', 'code_faostat']
     ordering_fields = ['nom', 'code_faostat']
     ordering = ['nom']
@@ -40,7 +41,7 @@ class ProductionAgricoleViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = ProductionAgricole.objects.select_related('culture').all()
     serializer_class = ProductionAgricoleSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter, NullsLastOrderingFilter]
     filterset_class = ProductionFilterSet
     search_fields = ['culture__nom']
     ordering_fields = ['annee', 'valeur']

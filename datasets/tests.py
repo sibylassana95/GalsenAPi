@@ -123,8 +123,8 @@ class DatasetsApiTests(TestCase):
         self.assertEqual([row['slug'] for row in data['results']], ['sen-villages'])
         data = self.api_get('/api/v1/datasets/?categorie=demographie')
         self.assertEqual(
-            [row['slug'] for row in data['results']],
-            ['sen-population-rgph5-2023', 'sen-population-admin'],
+            sorted(row['slug'] for row in data['results']),
+            ['sen-population-admin', 'sen-population-rgph5-2023'],
         )
         data = self.api_get('/api/v1/datasets/?source__slug=galsenify')
         self.assertGreaterEqual(len(data['results']), 3)
