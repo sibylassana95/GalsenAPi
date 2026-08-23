@@ -7,6 +7,7 @@ from django.http import HttpResponse
 
 from app.models import Universites
 from agriculture.models import ProductionAgricole
+from economie.models import ObservationEconomique
 from geo.models import Arrondissement, Commune, Departement, Region, Village
 
 CONTENT_TYPES = {
@@ -167,6 +168,24 @@ def export_agriculture_production(fmt):
     )
 
 
+def export_economie_indicateurs(fmt):
+    rows = [
+        {
+            'code': row['indicateur__code'],
+            'nom': row['indicateur__nom'],
+            'annee': row['annee'],
+            'valeur': str(row['valeur']) if row['valeur'] is not None else None,
+            'unite': row['indicateur__unite'],
+        }
+        for row in ObservationEconomique.objects
+        .select_related('indicateur')
+        .order_by('indicateur__code', '-annee')
+        .values('indicateur__code', 'indicateur__nom', 'indicateur__unite',
+                'annee', 'valeur')
+    ]
+    return _rows_to_response_payload(rows, ['code', 'nom', 'annee', 'valeur', 'unite'], fmt)
+
+
 def _rows_to_response_payload(rows, fieldnames, fmt):
     if fmt == 'json':
         return json.dumps(rows, ensure_ascii=False, indent=2), 'json'
@@ -191,6 +210,8 @@ EXPORTERS = {
     ('sen-universites', 'csv'): lambda: export_universites('csv'),
     ('sen-agriculture-production-faostat', 'json'): lambda: export_agriculture_production('json'),
     ('sen-agriculture-production-faostat', 'csv'): lambda: export_agriculture_production('csv'),
+    ('sen-economie-indicateurs-banque-mondiale', 'json'): lambda: export_economie_indicateurs('json'),
+    ('sen-economie-indicateurs-banque-mondiale', 'csv'): lambda: export_economie_indicateurs('csv'),
 }
 
 

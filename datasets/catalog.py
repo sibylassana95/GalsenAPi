@@ -6,6 +6,7 @@ def _record_counts():
     from app.models import Universites
     from datasets.models import DataSource
     from demographie.models import PopulationRecord
+    from economie.models import ObservationEconomique
     from geo.models import Arrondissement, Commune, Departement, Region, Village
 
     return {
@@ -23,6 +24,9 @@ def _record_counts():
         'sen-communes': Commune.objects.count(),
         'sen-universites': Universites.objects.count(),
         'sen-agriculture-production-faostat': ProductionAgricole.objects.count(),
+        'sen-economie-indicateurs-banque-mondiale': (
+            ObservationEconomique.objects.count()
+        ),
     }
 
 
@@ -152,6 +156,46 @@ CATALOG = [
                 'methodology': (
                     'Bulk FAOSTAT QCL normalisé filtré Sénégal via '
                     'manage.py import_agriculture'
+                ),
+            },
+        ],
+    },
+    {
+        'source': {
+            'nom': 'Banque mondiale',
+            'slug': 'worldbank',
+            'url': 'https://data.worldbank.org',
+            'publisher': 'World Bank Group',
+            'license_nom': 'CC BY 4.0',
+            'license_url': (
+                'https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets'
+            ),
+            'redistribuable': True,
+        },
+        'datasets': [
+            {
+                'slug': 'sen-economie-indicateurs-banque-mondiale',
+                'titre': 'Indicateurs économiques du Sénégal (Banque mondiale)',
+                'description': lambda counts: (
+                    "Série annuelle d'indicateurs macroéconomiques du "
+                    'Sénégal (PIB et croissance, inflation, emploi, commerce '
+                    'extérieur, dette et finance publique, structure '
+                    'sectorielle, accès à l\u2019électricité) issus de '
+                    "l'API World Bank Indicators : "
+                    f'{counts.get("sen-economie-indicateurs-banque-mondiale", 0)} '
+                    'observations pour ~21 indicateurs, de 1960 à la dernière '
+                    'année publiée.'
+                ),
+                'categorie': 'economie',
+                'coverage_period': '1960-2025',
+                'update_frequency': 'annuelle',
+                'export_formats': ['json', 'csv'],
+                'methodology': (
+                    "Import sélectif de l'API api.worldbank.org (format json, "
+                    'date=1960:2026) filtrée sur le Sénégal via '
+                    'manage.py import_economie ; les années sans valeur '
+                    "(value=null) sont écartées ; noms officiels EN conservés "
+                    '(nom_officiel) à côté des libellés FR courts.'
                 ),
             },
         ],
