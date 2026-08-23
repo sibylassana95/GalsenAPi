@@ -55,7 +55,7 @@
                      aria-label="Carte schématique des quatorze régions du Sénégal, positionnées d'après leurs coordonnées géographiques"
                      class="h-auto w-full select-none">
                     {% for r in regions_carte %}
-                    <a href="/region/?q={{ r.nom|urlencode }}" aria-label="Région de {{ r.nom }}">
+                    <a href="{% url 'region-detail' r.pcode %}" aria-label="Région de {{ r.nom }}">
                         <circle cx="{{ r.x }}" cy="{{ r.y }}" r="20" fill="{{ r.couleur }}"
                                 class="cursor-pointer opacity-90 transition-opacity hover:opacity-100"
                                 stroke="#fcfcfb" stroke-width="2">

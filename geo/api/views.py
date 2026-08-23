@@ -50,6 +50,7 @@ class PaysDetailView(RetrieveAPIView):
 
 
 @method_decorator(cache_page(1800), name='geojson')
+@method_decorator(cache_page(1800), name='geometry')
 class RegionViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'pcode'
     lookup_value_regex = r'(?!geojson$)[^/.]+'
@@ -90,8 +91,27 @@ class RegionViewSet(viewsets.ReadOnlyModelViewSet):
             })
         return _feature_collection(features)
 
+    @action(detail=True, methods=['get'], url_path='geometry')
+    def geometry(self, request, pcode=None):
+        region = self.get_object()
+        if not region.geometry:
+            return Response({'detail': 'Géométrie indisponible pour cette région.'}, status=404)
+        return Response({
+            'type': 'Feature',
+            'geometry': region.geometry,
+            'properties': {
+                'pcode': region.pcode,
+                'nom': region.nom,
+                'code_court': region.code_court,
+                'chef_lieu': region.chef_lieu,
+                'population': region.population,
+                'superficie_km2': region.superficie_km2,
+            },
+        })
+
 
 @method_decorator(cache_page(1800), name='geojson')
+@method_decorator(cache_page(1800), name='geometry')
 class DepartementViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'pcode'
     lookup_value_regex = r'(?!geojson$)[^/.]+'
@@ -129,6 +149,21 @@ class DepartementViewSet(viewsets.ReadOnlyModelViewSet):
                 },
             })
         return _feature_collection(features)
+
+    @action(detail=True, methods=['get'], url_path='geometry')
+    def geometry(self, request, pcode=None):
+        departement = self.get_object()
+        if not departement.geometry:
+            return Response({'detail': 'Géométrie indisponible pour ce département.'}, status=404)
+        return Response({
+            'type': 'Feature',
+            'geometry': departement.geometry,
+            'properties': {
+                'pcode': departement.pcode,
+                'nom': departement.nom,
+                'region': departement.region.pcode,
+            },
+        })
 
 
 class ArrondissementViewSet(viewsets.ReadOnlyModelViewSet):

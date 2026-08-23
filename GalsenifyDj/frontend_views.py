@@ -7,7 +7,7 @@ from agriculture.models import ProductionAgricole
 from climat.models import ObservationMensuelle
 from datasets.models import Dataset
 from economie.models import ObservationEconomique
-from geo.models import Arrondissement, Departement, Region, Village
+from geo.models import Arrondissement, Commune, Departement, Region, Village
 
 
 LNG_MIN, LNG_MAX = -17.85, -11.35
@@ -159,3 +159,79 @@ def donnees_view(request):
             "recherche": recherche,
         },
     )
+
+
+def _densite(population, superficie):
+    if not population or not superficie:
+        return None
+    return round(population / superficie, 1)
+
+
+def regions_liste_view(request):
+    recherche = request.GET.get("q", "").strip()
+    regions = Region.objects.exclude(population__isnull=True).order_by("-population")
+    if recherche:
+        regions = regions.filter(nom__icontains=recherche)
+    regions = [
+        {
+            "obj": r,
+            "densite": _densite(r.population, r.superficie_km2),
+            "nb_departements": Departement.objects.filter(region=r).count(),
+            "nb_villages": r.villages.count(),
+        }
+        for r in regions
+    ]
+    return render(
+        request,
+        "regions_liste.html",
+        {"regions": regions, "recherche": recherche},
+    )
+
+
+def region_detail_view(request, pcode):
+    from django.shortcuts import get_object_or_404
+
+    region = get_object_or_404(Region, pcode=pcode)
+    departements = (
+        Departement.objects.filter(region=region)
+        .order_by("-population", "nom")
+    )
+    departements_ctx = [
+        {
+            "obj": d,
+            "densite": _densite(d.population, d.superficie_km2),
+        }
+        for d in departements
+    ]
+    contexte = {
+        "region": region,
+        "departements": departements_ctx,
+        "nb_departements": len(departements_ctx),
+        "nb_arrondissements": Arrondissement.objects.filter(departement__region=region).count(),
+        "nb_communes": Commune.objects.filter(departement__region=region).count(),
+        "nb_villages": region.villages.count(),
+        "densite": _densite(region.population, region.superficie_km2),
+        "geometry_url": f"/api/v1/regions/{region.pcode}/geometry/",
+    }
+    return render(request, "region_detail.html", contexte)
+
+
+def departement_detail_view(request, pcode):
+    from django.shortcuts import get_object_or_404
+
+    departement = get_object_or_404(
+        Departement.objects.select_related("region"), pcode=pcode
+    )
+    arrondissements = Arrondissement.objects.filter(departement=departement).order_by("nom")
+    communes = Commune.objects.filter(departement=departement).order_by("nom")
+    contexte = {
+        "departement": departement,
+        "region": departement.region,
+        "arrondissements": arrondissements,
+        "communes": communes,
+        "nb_arrondissements": arrondissements.count(),
+        "nb_communes": communes.count(),
+        "densite": _densite(departement.population, departement.superficie_km2),
+        "geometry_url": f"/api/v1/departements/{departement.pcode}/geometry/",
+    }
+    return render(request, "departement_detail.html", contexte)

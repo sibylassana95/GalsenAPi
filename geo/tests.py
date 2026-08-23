@@ -275,6 +275,29 @@ class GeoApiTests(TestCase):
         self.assertEqual(data['code_iso2'], 'SN')
         self.assertNotIn('results', data)
 
+    def test_geometry_region(self):
+        data = self.api_get('/api/v1/regions/SN01/geometry/')
+        self.assertEqual(data['type'], 'Feature')
+        self.assertEqual(data['properties']['pcode'], 'SN01')
+        self.assertIn('coordinates', data['geometry'])
+
+    def test_geometry_region_sans_geometrie_404(self):
+        response = self.client.get('/api/v1/regions/SN02/geometry/')
+        self.assertEqual(response.status_code, 404)
+
+    def test_geometry_departement(self):
+        Departement.objects.create(
+            region=self.region_dakar, pcode='SN013', nom='Guediawaye',
+            geometry={'type': 'Polygon', 'coordinates': [[[2, 2], [3, 2], [3, 3], [2, 2]]]},
+        )
+        data = self.api_get('/api/v1/departements/SN013/geometry/')
+        self.assertEqual(data['type'], 'Feature')
+        self.assertEqual(data['properties']['region'], 'SN01')
+
+    def test_geometry_departement_sans_geometrie_404(self):
+        response = self.client.get('/api/v1/departements/SN012/geometry/')
+        self.assertEqual(response.status_code, 404)
+
     def test_envelope_pagination_regions(self):
         data = self.api_get('/api/v1/regions/?page_size=5')
         for key in ('count', 'next', 'previous', 'results'):
