@@ -277,9 +277,10 @@ CATALOG = [
                 'slug': 'sen-communes',
                 'titre': 'Communes du Sénégal',
                 'description': lambda counts: (
-                    'Communes rattachées aux départements quand le rattachement a '
-                    f'pu être établi ({counts.get("sen-communes", 0)}/618 résolues '
-                    '— enrichissement en cours).'
+                    'Les '
+                    f'{counts.get("sen-communes", 0)} communes du Sénégal avec leur '
+                    'rattachement officiel aux départements et leur population '
+                    'RGPH-5 2023 (ANSD, Répertoire des localités).'
                 ),
                 'categorie': 'geographie',
                 'export_formats': ['json', 'csv'],

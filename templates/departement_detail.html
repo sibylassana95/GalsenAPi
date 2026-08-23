@@ -71,17 +71,13 @@
         <ul class="mt-4 flex flex-wrap gap-2">
             {% for com in communes %}
             <li class="rounded-full border border-border-subtle bg-white px-3 py-1.5 text-sm text-on-surface dark:border-[#2c3a52] dark:bg-transparent dark:text-[#ecf1ff]">
-                {{ com.nom }}{% if com.type != 'commune' %} <span class="text-xs text-on-surface-variant dark:text-outline">({{ com.get_type_display }})</span>{% endif %}
+                {{ com.nom }}{% if com.population %} <span class="font-mono text-[11px] text-on-surface-variant dark:text-outline">{{ com.population }}</span>{% endif %}
             </li>
             {% endfor %}
         </ul>
-        <p class="mt-3 text-xs text-on-surface-variant dark:text-outline">
-            Liste partielle — le rattachement complet des ~557 communes attend une source officielle.
-        </p>
+        <p class="mt-3 text-xs text-on-surface-variant dark:text-outline">Population par commune : RGPH-5 2023, ANSD (Répertoire des localités).</p>
         {% else %}
-        <p class="mt-3 text-sm text-on-surface-variant dark:text-outline">
-            Aucune commune rattachée à ce jour — le rattachement complet des ~557 communes attend une source officielle.
-        </p>
+        <p class="mt-3 text-sm text-on-surface-variant dark:text-outline">Aucune commune renseignée pour ce département.</p>
         {% endif %}
 
         <h3 class="mt-8 font-display text-lg font-semibold text-primary dark:text-inverse-primary">Données liées</h3>

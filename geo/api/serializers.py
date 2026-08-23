@@ -91,7 +91,7 @@ class CommuneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Commune
-        fields = ['id', 'nom', 'type', 'departement', 'arrondissement']
+        fields = ['id', 'nom', 'type', 'departement', 'arrondissement', 'population']
 
 
 class VillageSerializer(serializers.ModelSerializer):
