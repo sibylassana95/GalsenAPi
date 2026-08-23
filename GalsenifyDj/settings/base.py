@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'geo',
+    'datasets',
     'rest_framework',
     'drf_yasg',
     'corsheaders',

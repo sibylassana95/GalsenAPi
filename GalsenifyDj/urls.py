@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('app.urls')),
     path('api/v1/', include('geo.api.urls')),
+    path('api/v1/', include('datasets.api.urls')),
     path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='docs'),
     path('redoc', schema_view.with_ui('redoc', cache_timeout=0), name='redoc'),
 ]
