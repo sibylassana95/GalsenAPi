@@ -151,3 +151,6 @@ GitHub.sublime-settings
 galsenapi_2.0_design/
 
 .playwright-mcp/
+
+# Documents personnels - jamais versionnes
+capture/*.xlsx
