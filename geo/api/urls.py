@@ -11,6 +11,10 @@ router.register('communes', views.CommuneViewSet, basename='communes')
 router.register('villages', views.VillageViewSet, basename='villages')
 
 urlpatterns = [
+    path('search/', views.SearchView.as_view(), name='search'),
+    path('statistics/', views.StatisticsView.as_view(), name='statistics'),
+    path('statistics/regions/<str:pcode>/', views.RegionStatisticsView.as_view(),
+         name='statistics-region'),
     path('pays/', views.PaysDetailView.as_view(), name='pays-detail'),
 ]
 

@@ -1,11 +1,17 @@
 import json
+from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 from unittest.mock import patch
 
+from django.core.cache import cache
 from django.core.management import call_command
 from django.db import IntegrityError
+from django.db.models import Count, Sum
 from django.test import TestCase
+
+from app.models import Universites
+from datasets.models import DataSource, Dataset
 
 from . import ingest
 from .management.commands.fix_dataset_encoding import repair_json_bytes
@@ -326,6 +332,252 @@ class GeoApiTests(TestCase):
         data = self.api_get('/api/v1/departements/SN011/')
         self.assertEqual(data['population'], 100000)
         self.assertEqual(data['superficie_km2'], '79.00')
+
+
+class SearchApiTests(TestCase):
+    def setUp(self):
+        cache.clear()
+        pays = Pays.objects.create(nom='Sénégal', code_iso2='SN')
+        self.region = Region.objects.create(
+            pays=pays, pcode='SN01', nom='Kanel', code_court='KN',
+            chef_lieu='Kanel', population=300000, superficie_km2='1200.00',
+        )
+        Region.objects.create(pays=pays, pcode='SN02', nom='Grand Kanel Est')
+        self.departement = Departement.objects.create(
+            region=self.region, pcode='SN011', nom='Kanel'
+        )
+        Arrondissement.objects.create(
+            departement=self.departement, pcode='SN0111', nom='Kanel Centre'
+        )
+        commune = Commune.objects.create(departement=self.departement, nom='Kanel Nord')
+        Village.objects.create(region=self.region, commune=commune, nom='Keur Kanel')
+        Universites.objects.create(nom='Université de Kanel', logo='logo-kanel.png')
+        source = DataSource.objects.create(
+            nom='ANSD', slug='ansd', url='https://ansd.sn', license_nom='CC-BY-4.0'
+        )
+        Dataset.objects.create(
+            titre='Données Kanel', slug='donnees-kanel',
+            description='Statistiques de la région de Kanel',
+            categorie='demographie', source=source,
+        )
+
+    def search(self, query):
+        response = self.client.get(f'/api/v1/search/?{query}')
+        return response
+
+    def test_q_requis_minimum_2_caracteres(self):
+        for query in ('', 'q=k', 'q=%20%20'):
+            response = self.search(query)
+            self.assertEqual(response.status_code, 400, query)
+            self.assertIn('detail', response.json())
+
+    def test_q_sans_parametre_400(self):
+        response = self.client.get('/api/v1/search/')
+        self.assertEqual(response.status_code, 400)
+
+    def test_recherche_multi_entites(self):
+        data = self.search('q=kan').json()
+        self.assertEqual(data['count'], len(data['results']))
+        types = {row['type'] for row in data['results']}
+        self.assertEqual(
+            types,
+            {'region', 'departement', 'arrondissement', 'commune',
+             'village', 'universite', 'dataset'},
+        )
+        regions = [row['nom'] for row in data['results'] if row['type'] == 'region']
+        self.assertIn('Kanel', regions)
+
+    def test_types_filtre_village(self):
+        data = self.search('q=kan&types=village').json()
+        self.assertGreaterEqual(len(data['results']), 1)
+        self.assertTrue(all(row['type'] == 'village' for row in data['results']))
+
+    def test_types_invalide_400(self):
+        response = self.search('q=kan&types=village,inexistant')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('inexistant', response.json()['detail'])
+
+    def test_types_csv_multiples(self):
+        data = self.search('q=kan&types=village,dataset').json()
+        types = {row['type'] for row in data['results']}
+        self.assertEqual(types, {'village', 'dataset'})
+
+    def test_shape_resultat_region(self):
+        data = self.search('q=kan').json()
+        expected_keys = {'type', 'type_label', 'pcode', 'id', 'nom', 'parent', 'url', 'extra'}
+        for row in data['results']:
+            self.assertEqual(set(row.keys()), expected_keys)
+        region_row = next(
+            row for row in data['results']
+            if row['type'] == 'region' and row['pcode'] == 'SN01'
+        )
+        self.assertEqual(region_row['type_label'], 'Région')
+        self.assertEqual(region_row['url'], '/api/v1/regions/SN01/')
+        self.assertIsNone(region_row['id'])
+        self.assertEqual(region_row['extra']['population'], 300000)
+        self.assertEqual(region_row['extra']['code_court'], 'KN')
+
+    def test_ordre_exact_prefixe_contient(self):
+        data = self.search('q=kanel&types=region,arrondissement,village,departement').json()
+
+        def score_of(nom):
+            lowered = nom.casefold()
+            if lowered == 'kanel':
+                return 0
+            if lowered.startswith('kanel'):
+                return 1
+            return 2
+
+        scores = [score_of(row['nom']) for row in data['results']]
+        self.assertEqual(scores, sorted(scores))
+        self.assertEqual(data['results'][0]['nom'], 'Kanel')
+
+    def test_parent_village_region(self):
+        data = self.search('q=keur&types=village').json()
+        village_row = next(
+            row for row in data['results'] if row['nom'] == 'Keur Kanel'
+        )
+        self.assertEqual(
+            village_row['parent'],
+            {'type': 'region', 'nom': 'Kanel', 'pcode': 'SN01'},
+        )
+
+    def test_parent_departement_region(self):
+        data = self.search('q=kanel&types=departement').json()
+        dept_row = data['results'][0]
+        self.assertEqual(
+            dept_row['parent'],
+            {'type': 'region', 'nom': 'Kanel', 'pcode': 'SN01'},
+        )
+
+    def test_universite_url_null_logo_dans_extra(self):
+        data = self.search('q=universit').json()
+        univ_rows = [row for row in data['results'] if row['type'] == 'universite']
+        self.assertEqual(len(univ_rows), 1)
+        row = univ_rows[0]
+        self.assertIsNone(row['url'])
+        self.assertEqual(row['extra']['logo'], 'logo-kanel.png')
+        self.assertIsNotNone(row['id'])
+
+    def test_dataset_url_et_extra(self):
+        data = self.search('q=kanel&types=dataset').json()
+        dataset_row = data['results'][0]
+        self.assertEqual(dataset_row['url'], '/api/v1/datasets/donnees-kanel/')
+        self.assertEqual(dataset_row['nom'], 'Données Kanel')
+        self.assertEqual(dataset_row['extra']['slug'], 'donnees-kanel')
+        self.assertEqual(dataset_row['extra']['categorie'], 'demographie')
+
+    def test_limit_par_type(self):
+        pays = Pays.objects.get(code_iso2='SN')
+        region = Region.objects.create(pays=pays, pcode='SN03', nom='Kanène')
+        Village.objects.create(region=region, nom='Kanène Village')
+        data = self.search('q=kan&types=region&limit=2').json()
+        self.assertEqual(len(data['results']), 2)
+
+
+class StatisticsApiTests(TestCase):
+    def setUp(self):
+        cache.clear()
+        pays = Pays.objects.create(nom='Sénégal', code_iso2='SN')
+        Region.objects.create(
+            pays=pays, pcode='SN01', nom='Dakar',
+            population=1000, superficie_km2='200.00',
+        )
+        Region.objects.create(pays=pays, pcode='SN02', nom='Thiès', population=500)
+        departement_dakar = Departement.objects.create(
+            region=Region.objects.get(pcode='SN01'), pcode='SN011', nom='Dakar'
+        )
+        Departement.objects.create(
+            region=Region.objects.get(pcode='SN02'), pcode='SN021', nom='Thiès'
+        )
+        Arrondissement.objects.create(
+            departement=departement_dakar, pcode='SN0111', nom='Almadies'
+        )
+        Commune.objects.create(departement=departement_dakar, nom='Yoff')
+        Village.objects.create(region=Region.objects.get(pcode='SN01'), nom='Ngor')
+        Village.objects.create(region=Region.objects.get(pcode='SN02'), nom='Fissel')
+        Universites.objects.create(nom='UCAD', logo='ucad.png')
+        Universites.objects.create(nom='UGB', logo='ugb.png')
+        source = DataSource.objects.create(
+            nom='ANSD', slug='ansd', url='https://ansd.sn', license_nom='CC-BY-4.0'
+        )
+        Dataset.objects.create(
+            titre='Universités', slug='universites',
+            description='Liste des universités', categorie='education', source=source,
+        )
+
+    def api_get(self, url):
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200, url)
+        return response.json()
+
+    def test_statistics_agregats_orm(self):
+        data = self.api_get('/api/v1/statistics/')
+        counts = {
+            'regions': Region.objects.count(),
+            'departements': Departement.objects.count(),
+            'arrondissements': Arrondissement.objects.count(),
+            'communes': Commune.objects.count(),
+            'villages': Village.objects.count(),
+        }
+        for level, total in counts.items():
+            self.assertEqual(data['geographie'][level], total)
+        self.assertEqual(
+            data['geographie']['entites_georeferencees'],
+            counts['regions'] + counts['departements'] + counts['arrondissements'],
+        )
+        self.assertEqual(
+            data['population']['totale'],
+            Region.objects.aggregate(total=Sum('population'))['total'],
+        )
+        self.assertAlmostEqual(
+            data['superficie_totale_km2'],
+            float(Region.objects.aggregate(total=Sum('superficie_km2'))['total']),
+        )
+        self.assertEqual(data['education']['universites'], Universites.objects.count())
+        datasets_publics = Dataset.objects.filter(is_public=True)
+        self.assertEqual(data['datasets']['total'], datasets_publics.count())
+        par_categorie_orm = dict(
+            datasets_publics.values('categorie')
+            .annotate(total=Count('id'))
+            .values_list('categorie', 'total')
+        )
+        self.assertEqual(data['datasets']['par_categorie'], par_categorie_orm)
+        datetime.fromisoformat(data['generated_at'])
+
+    def test_statistics_population_par_region(self):
+        data = self.api_get('/api/v1/statistics/')
+        par_region = data['population']['par_region']
+        self.assertEqual([row['pcode'] for row in par_region], ['SN01', 'SN02'])
+        dakar = par_region[0]
+        self.assertEqual(dakar['population'], 1000)
+        self.assertEqual(dakar['superficie_km2'], 200.0)
+        self.assertEqual(dakar['densite'], 5.0)
+        thies = par_region[1]
+        self.assertIsNone(thies['superficie_km2'])
+        self.assertIsNone(thies['densite'])
+        self.assertEqual(data['population']['plus_peuplee']['pcode'], 'SN01')
+        self.assertEqual(data['population']['plus_dense']['pcode'], 'SN01')
+        self.assertIn('source_note', data['population'])
+
+    def test_statistics_regions_detail_comptes_fk(self):
+        data = self.api_get('/api/v1/statistics/regions/SN01/')
+        self.assertEqual(data['pcode'], 'SN01')
+        self.assertEqual(data['nb_departements'],
+                         Departement.objects.filter(region__pcode='SN01').count())
+        self.assertEqual(data['nb_arrondissements'],
+                         Arrondissement.objects.filter(departement__region__pcode='SN01').count())
+        self.assertEqual(data['nb_communes'],
+                         Commune.objects.filter(departement__region__pcode='SN01').count())
+        self.assertEqual(data['nb_villages'],
+                         Village.objects.filter(region__pcode='SN01').count())
+        self.assertEqual(data['population'], 1000)
+        self.assertEqual(data['densite'], 5.0)
+        self.assertEqual([d['pcode'] for d in data['departements']], ['SN011'])
+
+    def test_statistics_regions_detail_404(self):
+        response = self.client.get('/api/v1/statistics/regions/SN99/')
+        self.assertEqual(response.status_code, 404)
 
 
 class FixEncodingCommandTests(TestCase):

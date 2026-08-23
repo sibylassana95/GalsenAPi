@@ -2,12 +2,17 @@ from django.http import Http404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from geo import search as search_service
+from geo import statistics as statistics_service
 from geo.models import Arrondissement, Commune, Departement, Pays, Region, Village
 
 from .filtersets import (
@@ -152,3 +157,65 @@ class VillageViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ['nom']
     ordering_fields = ['nom', 'population']
     ordering = ['nom']
+
+
+class SearchView(APIView):
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'q', openapi.IN_QUERY, description="Terme recherché (2 caractères minimum)",
+                type=openapi.TYPE_STRING, required=True,
+            ),
+            openapi.Parameter(
+                'types', openapi.IN_QUERY,
+                description=(
+                    'Liste CSV parmi : region,departement,arrondissement,'
+                    'commune,village,universite,dataset'
+                ),
+                type=openapi.TYPE_STRING,
+            ),
+            openapi.Parameter(
+                'limit', openapi.IN_QUERY,
+                description='Résultats maximum par type (20 par défaut, 50 max)',
+                type=openapi.TYPE_INTEGER,
+            ),
+        ],
+        responses={200: 'Résultats de recherche multi-entités', 400: 'Requête invalide'},
+    )
+    def get(self, request):
+        q = request.query_params.get('q', '')
+        if len(q.strip()) < 2:
+            return Response(
+                {
+                    'detail': "Paramètre 'q' requis : termenez avec au moins "
+                              '2 caractères.',
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        try:
+            types = search_service.parse_types(request.query_params.get('types'))
+            limit = search_service.parse_limit(request.query_params.get('limit'))
+        except search_service.SearchValidationError as error:
+            return Response({'detail': str(error)}, status=status.HTTP_400_BAD_REQUEST)
+        results = search_service.search(q, types=types, limit=limit)
+        return Response({'count': len(results), 'results': results})
+
+
+@method_decorator(cache_page(600), name='get')
+class StatisticsView(APIView):
+    @swagger_auto_schema(responses={200: 'Statistiques globales'})
+    def get(self, request):
+        return Response(statistics_service.build_statistics())
+
+
+@method_decorator(cache_page(600), name='get')
+class RegionStatisticsView(APIView):
+    @swagger_auto_schema(responses={200: 'Statistiques régionales', 404: 'Région inconnue'})
+    def get(self, request, pcode):
+        stats = statistics_service.region_statistics(pcode)
+        if stats is None:
+            return Response(
+                {'detail': f"Aucune région avec le pcode '{pcode}'."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        return Response(stats)
