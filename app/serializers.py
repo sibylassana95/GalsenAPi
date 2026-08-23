@@ -7,6 +7,7 @@ class PaysSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pays
         fields = '__all__'
+        ref_name = 'PaysLegacy'
 
 
 class DepartementsSerializer(serializers.ModelSerializer):

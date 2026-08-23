@@ -17,6 +17,7 @@ class PaysSerializer(serializers.ModelSerializer):
             'id', 'nom', 'code_iso2', 'capitale', 'indicatif',
             'monnaie', 'devise', 'population', 'superficie_km2',
         ]
+        ref_name = 'Pays'
 
 
 class DepartementMinimalSerializer(serializers.ModelSerializer):

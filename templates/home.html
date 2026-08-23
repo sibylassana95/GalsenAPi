@@ -110,7 +110,7 @@
         <h2 class="max-w-3xl font-display text-2xl font-bold text-primary sm:text-4xl dark:text-inverse-primary">Des données pour comprendre le Sénégal</h2>
         <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {% for cat in categories_affichees %}
-            <a href="{% url 'donnees' %}?categorie={{ cat.slug }}"
+            <a href="{% if cat.slug == 'demographie' %}{% url 'dashboard-demographie' %}{% elif cat.slug == 'agriculture' %}{% url 'dashboard-agriculture' %}{% elif cat.slug == 'climat' %}{% url 'dashboard-climat' %}{% elif cat.slug == 'economie' %}{% url 'dashboard-economie' %}{% elif cat.slug == 'education' %}{% url 'education' %}{% else %}{% url 'donnees' %}?categorie={{ cat.slug }}{% endif %}"
                class="card group flex items-start gap-4 p-6">
                 <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-forest-deep dark:bg-white/5 dark:text-inverse-primary" aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
@@ -120,6 +120,9 @@
                     <span class="mt-1 block text-sm text-on-surface-variant dark:text-outline">
                         {{ cat.n }} jeu{{ cat.n|pluralize }}x de données
                     </span>
+                    {% if cat.slug != 'geographie' %}
+                    <span class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-forest-deep dark:text-inverse-primary">{% if cat.slug == 'education' %}Voir les établissements{% else %}Tableau de bord{% endif %} <span aria-hidden="true">→</span></span>
+                    {% endif %}
                 </span>
             </a>
             {% endfor %}

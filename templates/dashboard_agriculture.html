@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Agriculture — GalsenAPI{% endblock %}
+{% block page_title %}Tableau de bord agricole{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <header class="py-10 md:py-14">
+        <nav aria-label="Fil d'Ariane" class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            <ol class="flex items-center gap-2">
+                <li><a href="/" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Accueil</a></li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" class="font-medium text-on-surface dark:text-[#ecf1ff]">Agriculture</li>
+            </ol>
+        </nav>
+        <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Agriculture du Sénégal</h2>
+        <p class="mt-3 max-w-2xl text-on-surface-variant dark:text-outline">Productions, superficies et rendements par culture, de {{ periode.debut }} à {{ periode.fin }}. Source : FAOSTAT (CC BY 4.0).</p>
+    </header>
+
+    <section class="border-y border-border-subtle bg-surface-container-lowest dark:border-[#2c3a52] dark:bg-[#10192a]" aria-label="Chiffres clés">
+        <dl class="grid w-full grid-cols-2 gap-x-6 gap-y-6 py-8 sm:grid-cols-4">
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Cultures suivies</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ nb_cultures }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Observations</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ nb_records }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Période</dt><dd class="data-mono mt-1 text-2xl text-forest-deep dark:text-inverse-primary">{{ periode.debut }}–{{ periode.fin }}</dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">1ʳᵉ production 2024</dt><dd class="mt-1 text-sm font-semibold text-forest-deep dark:text-inverse-primary">{{ top_2024.0.culture.nom }}</dd><dd class="data-mono !text-xs text-on-surface-variant dark:text-outline">{{ top_2024.0.valeur|floatformat:"-0" }} t</dd></div>
+        </dl>
+    </section>
+
+    <div class="grid grid-cols-1 gap-8 py-12">
+        <figure class="card p-5">
+            <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Production totale par an (cultures individuelles)</h3>
+            <div class="relative mt-4 h-72"><canvas id="chart-evolution" role="img" aria-label="Évolution de la production agricole totale de 1961 à 2024"></canvas></div>
+            <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">Somme des productions en tonnes, agrégats FAOSTAT exclus (codes item ≥ 1700).</figcaption>
+        </figure>
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            <figure class="card p-5">
+                <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Top 10 des productions 2024</h3>
+                <div class="relative mt-4 h-96"><canvas id="chart-top" role="img" aria-label="Les dix premières productions en tonnes en 2024"></canvas></div>
+                <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">Tonnes, hors agrégats.</figcaption>
+            </figure>
+            <figure class="card p-5">
+                <h3 class="font-display text-base font-semibold text-primary dark:text-inverse-primary">Rendement de l'arachide (hg/ha)</h3>
+                <div class="relative mt-4 h-96"><canvas id="chart-rendement" role="img" aria-label="Évolution du rendement de l'arachide"></canvas></div>
+                <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">Unité FAOSTAT : hectogrammes par hectare.</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <section class="pb-12" aria-label="Détail du top 2024">
+        <div class="card overflow-x-auto">
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Culture</th><th scope="col" class="text-right">Production 2024 (t)</th></tr></thead>
+                <tbody>
+                    {% for p in top_2024 %}
+                    <tr><td>{{ p.culture.nom }}</td><td class="data-mono !text-sm text-right">{{ p.valeur|floatformat:"-0" }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="pb-16" aria-label="Accès aux données">
+        <div class="flex flex-wrap gap-3">
+            <a href="/api/v1/agriculture/production/?element=production_tonnes&ordering=-valeur&page_size=20" class="btn-ghost px-4 py-2 text-xs">API production</a>
+            <a href="/api/v1/agriculture/cultures/" class="btn-ghost px-4 py-2 text-xs">API cultures</a>
+            <a href="{% url 'donnees' %}?categorie=agriculture" class="btn-secondary px-4 py-2 text-xs">Dataset FAOSTAT</a>
+        </div>
+    </section>
+</div>
+{{ evolution|json_script:"data-evo" }}
+{{ top_2024_data|json_script:"data-top" }}
+{{ rendement_arachide|json_script:"data-rend" }}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script>
+window.addEventListener('DOMContentLoaded', function () {
+    if (typeof Chart === 'undefined') return;
+    var font = { family: "'JetBrains Mono', monospace", size: 11 };
+    var fmt = new Intl.NumberFormat('fr-FR');
+    var grid = 'rgba(112,121,116,0.15)';
+
+    var evo = JSON.parse(document.getElementById('data-evo').textContent);
+    new Chart(document.getElementById('chart-evolution'), {
+        type: 'line',
+        data: { labels: evo.map(function (e) { return e.annee; }),
+            datasets: [{ data: evo.map(function (e) { return e.total; }), borderColor: '#064e3b', backgroundColor: 'rgba(6,78,59,0.08)', fill: true, tension: 0.25, pointRadius: 0, borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+            tooltip: { callbacks: { label: function (c) { return fmt.format(c.parsed.y) + ' t'; } } } },
+            scales: { x: { ticks: { font: font, maxTicksLimit: 10 }, grid: { display: false } },
+                y: { ticks: { font: font, callback: function (v) { return v / 1e6 + ' Mt'; } }, grid: { color: grid } } } }
+    });
+
+    var top = JSON.parse(document.getElementById('data-top').textContent).slice().reverse();
+    new Chart(document.getElementById('chart-top'), {
+        type: 'bar',
+        data: { labels: top.map(function (t) { return t.culture.nom; }),
+            datasets: [{ data: top.map(function (t) { return Number(t.valeur); }), backgroundColor: '#064e3b', borderRadius: 3 }] },
+        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+            tooltip: { callbacks: { label: function (c) { return fmt.format(c.parsed.x) + ' t'; } } } },
+            scales: { x: { ticks: { font: font, callback: function (v) { return v / 1e6 + ' Mt'; } }, grid: { color: grid } },
+                y: { ticks: { font: { family: "'Inter', sans-serif", size: 11 } }, grid: { display: false } } } }
+    });
+
+    var rend = JSON.parse(document.getElementById('data-rend').textContent);
+    new Chart(document.getElementById('chart-rendement'), {
+        type: 'line',
+        data: { labels: rend.map(function (r) { return r.annee; }),
+            datasets: [{ label: 'Arachide', data: rend.map(function (r) { return r.valeur; }), borderColor: '#eab308', backgroundColor: 'rgba(234,179,8,0.10)', fill: true, tension: 0.25, pointRadius: 0, borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+            tooltip: { callbacks: { label: function (c) { return fmt.format(c.parsed.y) + ' hg/ha'; } } } },
+            scales: { x: { ticks: { font: font, maxTicksLimit: 10 }, grid: { display: false } },
+                y: { ticks: { font: font }, grid: { color: grid } } } }
+    });
+});
+</script>
+{% endblock %}

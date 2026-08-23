@@ -59,9 +59,8 @@
                    class="border-b-2 pb-0.5 font-display text-sm font-semibold transition-colors {% if '/region' in request.path %}border-sovereign-gold text-forest-deep dark:text-inverse-primary{% else %}border-transparent text-on-surface-variant hover:border-border-subtle hover:text-forest-deep dark:text-outline dark:hover:text-inverse-primary{% endif %}">
                     Régions
                 </a>
-                <a href="#"
-                   class="border-b-2 border-transparent pb-0.5 font-display text-sm font-semibold text-on-surface-variant transition-colors hover:border-border-subtle hover:text-forest-deep dark:text-outline dark:hover:text-inverse-primary"
-                   title="Bientôt disponible (phase 7d)">
+                <a href="{% url 'developers' %}"
+                   class="border-b-2 pb-0.5 font-display text-sm font-semibold transition-colors {% if '/developers' in request.path %}border-sovereign-gold text-forest-deep dark:text-inverse-primary{% else %}border-transparent text-on-surface-variant hover:border-border-subtle hover:text-forest-deep dark:text-outline dark:hover:text-inverse-primary{% endif %}">
                     Développeurs
                 </a>
             </nav>
@@ -152,6 +151,7 @@
                 <a href="{% url 'home' %}" data-mobile-nav-link class="rounded px-3 py-3 font-display text-base font-semibold text-on-surface hover:bg-container-low dark:text-[#ecf1ff] dark:hover:bg-white/5">Accueil</a>
                 <a href="{% url 'donnees' %}" data-mobile-nav-link class="rounded px-3 py-3 font-display text-base font-semibold text-on-surface hover:bg-container-low dark:text-[#ecf1ff] dark:hover:bg-white/5">Données</a>
                 <a href="{% url 'region' %}" data-mobile-nav-link class="rounded px-3 py-3 font-display text-base font-semibold text-on-surface hover:bg-container-low dark:text-[#ecf1ff] dark:hover:bg-white/5">Régions</a>
+                <a href="{% url 'developers' %}" data-mobile-nav-link class="rounded px-3 py-3 font-display text-base font-semibold text-on-surface hover:bg-container-low dark:text-[#ecf1ff] dark:hover:bg-white/5">Développeurs</a>
                 <a href="#" data-mobile-nav-link class="rounded px-3 py-3 font-display text-base font-semibold text-on-surface hover:bg-container-low dark:text-[#ecf1ff] dark:hover:bg-white/5">Développeurs <span class="badge-pending ml-2 align-middle">bientôt</span></a>
                 <a href="{% url 'docs' %}" data-mobile-nav-link class="rounded px-3 py-3 font-display text-base font-semibold text-forest-deep hover:bg-container-low dark:text-inverse-primary dark:hover:bg-white/5">Documentation API</a>
             </nav>
@@ -199,7 +199,7 @@
                         <li><a href="{% url 'home' %}" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">Accueil</a></li>
                         <li><a href="{% url 'region' %}" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">Régions</a></li>
                         <li><a href="{% url 'donnees' %}" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">Données</a></li>
-                        <li><a href="#" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">Développeurs <span class="text-xs text-secondary-container">(bientôt)</span></a></li>
+                        <li><a href="{% url 'developers' %}" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">Développeurs</a></li>
                     </ul>
                 </nav>
 
@@ -223,7 +223,7 @@
                         <li><a href="https://www.fao.org/" target="_blank" rel="noopener noreferrer" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">FAO <span class="text-xs text-secondary-container">CC BY 4.0</span></a></li>
                         <li><a href="https://www.worldbank.org/" target="_blank" rel="noopener noreferrer" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">Banque mondiale <span class="text-xs text-secondary-container">CC BY 4.0</span></a></li>
                         <li><a href="https://www.ncei.noaa.gov/" target="_blank" rel="noopener noreferrer" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">NOAA <span class="text-xs text-secondary-container">Domaine public</span></a></li>
-                        <li><a href="https://github.com/sibylassana95/GalsenAPi" target="_blank" rel="noopener noreferrer" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">Galsenify <span class="text-xs text-secondary-container">MIT</span></a></li>
+                        <li><a href="https://github.com/daoodaba975/galsenify" target="_blank" rel="noopener noreferrer" class="text-primary-fixed/90 transition-colors hover:text-white hover:underline">Galsenify <span class="text-xs text-secondary-container">MIT</span></a></li>
                     </ul>
                 </nav>
             </div>

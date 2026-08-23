@@ -1,10 +1,10 @@
 import json
 
-from django.db.models import Count, Max, Sum
+from django.db.models import Avg, Count, Max, Min, Sum
 from django.shortcuts import render
 
-from agriculture.models import ProductionAgricole
-from climat.models import ObservationMensuelle
+from agriculture.models import Culture, ProductionAgricole
+from climat.models import ObservationMensuelle, StationClimatique
 from datasets.models import Dataset
 from economie.models import ObservationEconomique
 from geo.models import Arrondissement, Commune, Departement, Region, Village
@@ -235,3 +235,219 @@ def departement_detail_view(request, pcode):
         "geometry_url": f"/api/v1/departements/{departement.pcode}/geometry/",
     }
     return render(request, "departement_detail.html", contexte)
+
+
+# ---------------------------------------------------------------------------
+# Dashboards par domaine (Phase 7d)
+# ---------------------------------------------------------------------------
+
+def demographie_dashboard(request):
+    from demographie.models import PopulationRecord
+
+    regions = Region.objects.exclude(population__isnull=True).order_by("-population")
+    totaux = regions.aggregate(t=Sum("population"))
+    repartition = PopulationRecord.objects.filter(
+        entity_type="region", annee=2023
+    ).select_related("region").order_by("-population")
+
+    regions_ctx = [
+        {
+            "nom": r.nom,
+            "pcode": r.pcode,
+            "population": r.population,
+            "densite": _densite(r.population, r.superficie_km2),
+        }
+        for r in regions
+    ]
+    hommes_total = sum((p.hommes or 0) for p in repartition)
+    femmes_total = sum((p.femmes or 0) for p in repartition)
+    top_departements = [
+        {
+            "nom": d.nom,
+            "pcode": d.pcode,
+            "region": d.region.nom,
+            "population": d.population,
+        }
+        for d in Departement.objects.exclude(population__isnull=True)
+        .select_related("region").order_by("-population")[:5]
+    ]
+    return render(
+        request,
+        "dashboard_demographie.html",
+        {
+            "population_totale": totaux["t"],
+            "hommes_total": hommes_total,
+            "femmes_total": femmes_total,
+            "regions": regions_ctx,
+            "repartition": [
+                {
+                    "nom": p.region.nom,
+                    "hommes": p.hommes,
+                    "femmes": p.femmes,
+                    "population": p.population,
+                }
+                for p in repartition
+            ],
+            "top_departements": top_departements,
+        },
+    )
+
+
+def agriculture_dashboard(request):
+    periode = ProductionAgricole.objects.aggregate(
+        debut=Min("annee"), fin=Max("annee")
+    )
+    nb_cultures = Culture.objects.count()
+    nb_records = ProductionAgricole.objects.count()
+
+    evolution = (
+        ProductionAgricole.objects
+        .filter(element="production_tonnes", culture__code_faostat__lt=1700)
+        .values("annee")
+        .annotate(total=Sum("valeur"))
+        .order_by("annee")
+    )
+    top_2024 = list(
+        ProductionAgricole.objects
+        .filter(annee=2024, element="production_tonnes", culture__code_faostat__lt=1700)
+        .select_related("culture")
+        .order_by("-valeur")[:10]
+    )
+    rendement_arachide = (
+        ProductionAgricole.objects
+        .filter(culture__code_faostat="242", element="rendement")
+        .order_by("annee")
+    )
+    superficie_arachide = (
+        ProductionAgricole.objects
+        .filter(culture__code_faostat="242", element="superficie_ha")
+        .order_by("annee")
+    )
+    return render(
+        request,
+        "dashboard_agriculture.html",
+        {
+            "periode": periode,
+            "nb_cultures": nb_cultures,
+            "nb_records": nb_records,
+            "evolution": [
+                {"annee": e["annee"], "total": float(e["total"])} for e in evolution
+            ],
+            "top_2024": top_2024,
+            "top_2024_data": [
+                {"culture": p.culture.nom, "valeur": float(p.valeur)}
+                for p in top_2024
+            ],
+            "rendement_arachide": [
+                {"annee": r.annee, "valeur": float(r.valeur)} for r in rendement_arachide
+            ],
+            "superficie_arachide": [
+                {"annee": r.annee, "valeur": float(r.valeur)} for r in superficie_arachide
+            ],
+        },
+    )
+
+
+def climat_dashboard(request):
+    stations = StationClimatique.objects.order_by("nom")
+    nb_mois = ObservationMensuelle.objects.count()
+    periode = ObservationMensuelle.objects.aggregate(
+        debut=Min("annee"), fin=Max("annee")
+    )
+    brut = (
+        ObservationMensuelle.objects
+        .values("annee")
+        .annotate(
+            tavg=Avg("tavg"),
+            precip_totale=Sum("prcp_mm"),
+            nb_stations=Count("station", distinct=True),
+        )
+        .order_by("annee")
+    )
+    serie = [
+        {
+            "annee": b["annee"],
+            "tavg": round(float(b["tavg"]), 2) if b["tavg"] is not None else None,
+            "precip_moyenne": round(float(b["precip_totale"]) / b["nb_stations"], 1)
+            if b["precip_totale"] is not None else None,
+            "nb_stations": b["nb_stations"],
+        }
+        for b in brut
+        if b["nb_stations"] >= 5
+    ]
+    return render(
+        request,
+        "dashboard_climat.html",
+        {
+            "stations": stations,
+            "nb_stations": stations.count(),
+            "nb_mois": nb_mois,
+            "periode": periode,
+            "serie": serie,
+            "seuil_stations": 5,
+        },
+    )
+
+
+def economie_dashboard(request):
+    from economie.models import IndicateurEconomique
+
+    indicateurs = IndicateurEconomique.objects.order_by("categorie", "nom")
+    indicateurs_ctx = []
+    for ind in indicateurs:
+        derniere = ind.observations.order_by("-annee").first()
+        indicateurs_ctx.append(
+            {
+                "obj": ind,
+                "derniere_valeur": derniere.valeur if derniere else None,
+                "derniere_annee": derniere.annee if derniere else None,
+            }
+        )
+
+    def _serie(code):
+        return list(
+            ObservationEconomique.objects
+            .filter(indicateur__code=code)
+            .order_by("annee")
+            .values_list("annee", "valeur")
+        )
+
+    pib = _serie("NY.GDP.MKTP.CD")
+    croissance = _serie("NY.GDP.MKTP.KD.ZG")
+    inflation = _serie("FP.CPI.TOTL.ZG")
+
+    def _derniere(serie):
+        return {"annee": serie[-1][0], "valeur": serie[-1][1]} if serie else None
+
+    return render(
+        request,
+        "dashboard_economie.html",
+        {
+            "indicateurs": indicateurs_ctx,
+            "pib": [(a, float(v)) for a, v in pib],
+            "croissance": [(a, float(v)) for a, v in croissance],
+            "inflation": [(a, float(v)) for a, v in inflation],
+            "pib_kpi": _derniere(pib),
+            "croissance_kpi": _derniere(croissance),
+            "inflation_kpi": _derniere(inflation),
+        },
+    )
+
+
+def education_page(request):
+    from app.models import Universites
+
+    recherche = request.GET.get("q", "").strip()
+    universites = Universites.objects.order_by("nom")
+    if recherche:
+        universites = universites.filter(nom__icontains=recherche)
+    return render(
+        request,
+        "education.html",
+        {"universites": universites, "recherche": recherche,
+         "total": Universites.objects.count()},
+    )
+
+
+def developers_page(request):
+    return render(request, "developers.html", {})
