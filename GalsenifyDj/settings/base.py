@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'demographie',
     'agriculture',
     'economie',
+    'climat',
     'rest_framework',
     'drf_yasg',
     'corsheaders',

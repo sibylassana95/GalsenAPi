@@ -7,6 +7,7 @@ from django.http import HttpResponse
 
 from app.models import Universites
 from agriculture.models import ProductionAgricole
+from climat.models import ObservationMensuelle
 from economie.models import ObservationEconomique
 from geo.models import Arrondissement, Commune, Departement, Region, Village
 
@@ -186,6 +187,36 @@ def export_economie_indicateurs(fmt):
     return _rows_to_response_payload(rows, ['code', 'nom', 'annee', 'valeur', 'unite'], fmt)
 
 
+def export_climat_observations(fmt):
+    rows = [
+        {
+            'station_id': row['station__station_id'],
+            'nom': row['station__nom'],
+            'annee': row['annee'],
+            'mois': row['mois'],
+            'tavg': str(row['tavg']) if row['tavg'] is not None else None,
+            'tmin': str(row['tmin']) if row['tmin'] is not None else None,
+            'tmax': str(row['tmax']) if row['tmax'] is not None else None,
+            'prcp_mm': (
+                str(row['prcp_mm']) if row['prcp_mm'] is not None else None
+            ),
+        }
+        for row in ObservationMensuelle.objects
+        .select_related('station')
+        .order_by('station__station_id', '-annee', '-mois')
+        .values(
+            'station__station_id', 'station__nom',
+            'annee', 'mois', 'tavg', 'tmin', 'tmax', 'prcp_mm',
+        )
+    ]
+    return _rows_to_response_payload(
+        rows,
+        ['station_id', 'nom', 'annee', 'mois', 'tavg', 'tmin', 'tmax',
+         'prcp_mm'],
+        fmt,
+    )
+
+
 def _rows_to_response_payload(rows, fieldnames, fmt):
     if fmt == 'json':
         return json.dumps(rows, ensure_ascii=False, indent=2), 'json'
@@ -212,6 +243,8 @@ EXPORTERS = {
     ('sen-agriculture-production-faostat', 'csv'): lambda: export_agriculture_production('csv'),
     ('sen-economie-indicateurs-banque-mondiale', 'json'): lambda: export_economie_indicateurs('json'),
     ('sen-economie-indicateurs-banque-mondiale', 'csv'): lambda: export_economie_indicateurs('csv'),
+    ('sen-climat-observations-noaa', 'json'): lambda: export_climat_observations('json'),
+    ('sen-climat-observations-noaa', 'csv'): lambda: export_climat_observations('csv'),
 }
 
 

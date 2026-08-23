@@ -142,7 +142,8 @@ class DatasetsApiTests(TestCase):
         slugs = {row['slug'] for row in data}
         self.assertEqual(
             slugs,
-            {'hdx-cod-ab', 'galsenify', 'ansd', 'faostat', 'worldbank'},
+            {'hdx-cod-ab', 'galsenify', 'ansd', 'faostat', 'worldbank',
+             'noaa-ghcn'},
         )
 
     def test_download_csv_content_type_et_header(self):

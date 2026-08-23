@@ -4,6 +4,7 @@
 def _record_counts():
     from agriculture.models import ProductionAgricole
     from app.models import Universites
+    from climat.models import ObservationMensuelle
     from datasets.models import DataSource
     from demographie.models import PopulationRecord
     from economie.models import ObservationEconomique
@@ -27,6 +28,7 @@ def _record_counts():
         'sen-economie-indicateurs-banque-mondiale': (
             ObservationEconomique.objects.count()
         ),
+        'sen-climat-observations-noaa': ObservationMensuelle.objects.count(),
     }
 
 
@@ -196,6 +198,57 @@ CATALOG = [
                     'manage.py import_economie ; les années sans valeur '
                     "(value=null) sont écartées ; noms officiels EN conservés "
                     '(nom_officiel) à côté des libellés FR courts.'
+                ),
+            },
+        ],
+    },
+    {
+        'source': {
+            'nom': 'NOAA NCEI — GHCN-Daily',
+            'slug': 'noaa-ghcn',
+            'url': (
+                'https://www.ncei.noaa.gov/products/land-based-station/'
+                'global-historical-climatology-network-daily'
+            ),
+            'publisher': (
+                'National Centers for Environmental Information (NOAA)'
+            ),
+            'license_nom': 'Domaine public (U.S. Government)',
+            'license_url': (
+                'https://www.ncei.noaa.gov/access/metadata/landing-page/'
+                'bin/iso?id=gov.noaa.ncdc:C00861'
+            ),
+            'redistribuable': True,
+        },
+        'datasets': [
+            {
+                'slug': 'sen-climat-observations-noaa',
+                'titre': 'Observations climatiques mensuelles (NOAA GHCN-Daily)',
+                'description': lambda counts: (
+                    'Agrégats mensuels des stations météorologiques du '
+                    'Sénégal (températures moyennes/minimales/maximales et '
+                    f'précipitations) d\u2019après GHCN-Daily : '
+                    f'{counts.get("sen-climat-observations-noaa", 0)} '
+                    'mois-station couverts, de 1943 à la dernière année '
+                    'publiée selon la station.'
+                ),
+                'categorie': 'climat',
+                'coverage_period': 'variable selon la station',
+                'update_frequency': 'quotidienne (source), import manuel',
+                'export_formats': ['json', 'csv'],
+                'methodology': (
+                    'Import via manage.py import_climat : inventaire fixed-'
+                    'width ghcnd-stations.txt filtré sur le préfixe pays SG, '
+                    'puis CSV journaliers par station '
+                    '(.../access/{STATION_ID}.csv). Éléments retenus : PRCP, '
+                    'TAVG, TMAX, TMIN ; les valeurs sources en dixièmes '
+                    '(°C×10, mm×10) sont converties en unités réelles (/10). '
+                    'Agrégation mensuelle : moyenne des jours documentés pour '
+                    'les températures, somme pour les précipitations, '
+                    'nb_jours = jours avec au moins une valeur exploitable '
+                    '(flags qualité *_ATTRIBUTES ignorés). Upsert idempotent '
+                    'en bulk ; les mois sans mesure restent NULL, aucune '
+                    'valeur n\u2019est inventée ni interpolée.'
                 ),
             },
         ],
