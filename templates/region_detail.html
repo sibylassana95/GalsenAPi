@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load l10n static %}
 
 {% block title %}Région de {{ region.nom }} — GalsenAPI{% endblock %}
 {% block page_title %}Région de {{ region.nom }}{% endblock %}
@@ -98,7 +98,7 @@
     'use strict';
     var el = document.getElementById('carte-region');
     if (!el || typeof L === 'undefined') return;
-    var map = L.map(el, { scrollWheelZoom: false }).setView([{{ region.latitude|default:"14.5" }}, {{ region.longitude|default:"-14.5" }}], 7);
+    var map = L.map(el, { scrollWheelZoom: false }).setView([{{ region.latitude|default:"14.5"|unlocalize }}, {{ region.longitude|default:"-14.5"|unlocalize }}], 7);
     var tuiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         maxZoom: 19,
         subdomains: 'abcd',

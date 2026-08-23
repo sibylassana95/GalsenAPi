@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load l10n static %}
 
 {% block title %}Département de {{ departement.nom }} — GalsenAPI{% endblock %}
 {% block page_title %}Département de {{ departement.nom }}{% endblock %}
@@ -102,7 +102,7 @@
     'use strict';
     var el = document.getElementById('carte-departement');
     if (!el || typeof L === 'undefined') return;
-    var map = L.map(el, { scrollWheelZoom: false }).setView([{{ departement.latitude|default:"14.5" }}, {{ departement.longitude|default:"-14.5" }}], 8);
+    var map = L.map(el, { scrollWheelZoom: false }).setView([{{ departement.latitude|default:"14.5"|unlocalize }}, {{ departement.longitude|default:"-14.5"|unlocalize }}], 8);
     var tuiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         maxZoom: 19,
         subdomains: 'abcd',
