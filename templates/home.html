@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}GalsenAPI — Explorez le Sénégal à travers ses données{% endblock %}
+{% block page_title %}GalsenAPI — Explorez le Sénégal à travers ses données{% endblock %}
+
+{% block content %}
+<!-- ================================ HERO ================================ -->
+<section class="relative overflow-hidden bg-surface-bright dark:bg-[#0d1626]">
+    <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(6,78,59,0.05)_0%,transparent_55%)]" aria-hidden="true"></div>
+    <div class="relative mx-auto flex max-w-3xl flex-col items-center px-4 py-24 text-center md:py-36">
+        <p class="badge-success">Plateforme ouverte de données</p>
+        <h2 class="mt-6 font-display text-3xl font-bold tracking-tighter text-primary leading-[1.1] sm:text-5xl md:text-[64px] dark:text-inverse-primary">
+            Explorez le Sénégal<br>à travers ses données
+        </h2>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-on-surface-variant dark:text-outline">
+            Géographie, démographie, agriculture, économie et climat&nbsp;:
+            des données officielles sourcées, documentées et accessibles gratuitement,
+            via une interface claire et une API REST.
+        </p>
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+            <a href="{% url 'donnees' %}" class="btn-primary px-6 py-3 text-base">
+                Explorer les données
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+            </a>
+            <a href="/docs" class="btn-ghost px-6 py-3 text-base">Documentation API</a>
+        </div>
+    </div>
+</section>
+
+<!-- =========================== CHIFFRES CLÉS ============================ -->
+<section class="border-y border-border-subtle bg-surface-container-lowest dark:border-[#2c3a52] dark:bg-[#10192a]" aria-label="Chiffres clés">
+    <dl class="mx-auto grid w-full max-w-container grid-cols-2 gap-x-6 gap-y-8 px-4 py-12 sm:px-6 lg:grid-cols-6 lg:px-10">
+        {% with sg=stats_geo %}
+        <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Régions</dt><dd class="data-mono mt-2 text-2xl text-forest-deep dark:text-inverse-primary" data-countup="{{ sg.regions }}">14</dd></div>
+        <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Départements</dt><dd class="data-mono mt-2 text-2xl text-forest-deep dark:text-inverse-primary" data-countup="{{ sg.departements }}">46</dd></div>
+        <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Arrondissements</dt><dd class="data-mono mt-2 text-2xl text-forest-deep dark:text-inverse-primary" data-countup="{{ sg.arrondissements }}">125</dd></div>
+        <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Villages</dt><dd class="data-mono mt-2 text-2xl text-forest-deep dark:text-inverse-primary" data-countup="{{ sg.villages }}">8 635</dd></div>
+        <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Habitants (RGPH-5 2023)</dt><dd class="data-mono mt-2 text-2xl text-forest-deep dark:text-inverse-primary" data-countup="{{ population_totale|default:0 }}">18 126 388</dd></div>
+        <div><dt class="text-xs font-semibold uppercase tracking-widest text-on-surface-variant dark:text-outline">Jeux de données</dt><dd class="data-mono mt-2 text-2xl text-forest-deep dark:text-inverse-primary" data-countup="{{ nb_datasets }}">9</dd></div>
+        {% endwith %}
+    </dl>
+</section>
+
+<!-- ====================== CARTE SCHÉMATIQUE + TOP ======================= -->
+<section class="py-16 md:py-24">
+    <div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+        <h2 class="font-display text-2xl font-semibold text-primary sm:text-3xl dark:text-inverse-primary">Couverture territoriale exhaustive</h2>
+        <p class="mt-2 max-w-2xl text-on-surface-variant dark:text-outline">Les 14 régions administratives du Sénégal, du Cap-Vert à Kédougou.</p>
+
+        <div class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-5">
+            <!-- Carte schématique -->
+            <figure class="card p-4 lg:col-span-3">
+                <svg viewBox="0 0 {{ carte_svg.w }} {{ carte_svg.h }}" role="img"
+                     aria-label="Carte schématique des quatorze régions du Sénégal, positionnées d'après leurs coordonnées géographiques"
+                     class="h-auto w-full select-none">
+                    {% for r in regions_carte %}
+                    <a href="/region/?q={{ r.nom|urlencode }}" aria-label="Région de {{ r.nom }}">
+                        <circle cx="{{ r.x }}" cy="{{ r.y }}" r="20" fill="{{ r.couleur }}"
+                                class="cursor-pointer opacity-90 transition-opacity hover:opacity-100"
+                                stroke="#fcfcfb" stroke-width="2">
+                            <title>{{ r.nom }} — {{ r.population }} habitants (RGPH-5 2023)</title>
+                        </circle>
+                        <text x="{{ r.x }}" y="{{ r.y }}" dy="0.35em" text-anchor="middle"
+                              class="pointer-events-none fill-white text-[9px] font-semibold"
+                              style="font-family:'JetBrains Mono',monospace">{{ forloop.counter }}</text>
+                    </a>
+                    {% endfor %}
+                    <text x="{{ PAD_X|default:46 }}" y="{{ carte_svg.h|add:-6 }}"
+                          class="fill-outline text-[10px]" style="font-family:'Inter',sans-serif">
+                        Positionnement schématique d'après les centroïdes des régions — taille non proportionnelle.
+                    </text>
+                </svg>
+                <ul class="mt-3 flex flex-wrap gap-1.5" aria-label="Légende de la carte">
+                    {% for r in regions_carte %}
+                    <li class="inline-flex items-center gap-1.5 rounded-full bg-container-low px-2 py-1 text-[11px] text-on-surface-variant dark:bg-white/5 dark:text-outline">
+                        <span class="inline-flex h-4 w-4 items-center justify-center rounded-full font-mono text-[9px] font-semibold text-white" style="background-color:{{ r.couleur }}" aria-hidden="true">{{ forloop.counter }}</span>
+                        {{ r.nom }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <figcaption class="mt-3 border-t border-border-subtle pt-3 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">
+                    Représentation schématique. Les frontières précises sont disponibles en GeoJSON via l'API.
+                </figcaption>
+            </figure>
+
+            <!-- Top régions -->
+            <div class="lg:col-span-2">
+                <h3 class="font-display text-lg font-semibold text-primary dark:text-inverse-primary">Régions les plus peuplées</h3>
+                <ol class="mt-4 space-y-3">
+                    {% for region in top_regions %}
+                    <li class="card group flex items-center justify-between gap-4 px-4 py-3">
+                        <div>
+                            <span class="font-display text-base font-semibold text-primary transition-colors group-hover:text-sovereign-gold dark:text-inverse-primary">{{ region.nom }}</span>
+                            <span class="ml-2 rounded-full bg-container px-2 py-0.5 font-mono text-[11px] text-on-surface-variant dark:bg-white/10 dark:text-outline">{{ region.pcode }}</span>
+                        </div>
+                        <span class="data-mono shrink-0 text-sm text-forest-deep dark:text-inverse-primary">{{ region.population }}</span>
+                    </li>
+                    {% endfor %}
+                </ol>
+                <p class="mt-3 text-xs text-on-surface-variant dark:text-outline">Source : RGPH-5 2023, ANSD.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================== CATÉGORIES =============================== -->
+<section class="bg-surface py-16 md:py-24 dark:bg-[#0d1626]">
+    <div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+        <h2 class="max-w-3xl font-display text-2xl font-bold text-primary sm:text-4xl dark:text-inverse-primary">Des données pour comprendre le Sénégal</h2>
+        <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {% for cat in categories_affichees %}
+            <a href="{% url 'donnees' %}?categorie={{ cat.slug }}"
+               class="card group flex items-start gap-4 p-6">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-forest-deep dark:bg-white/5 dark:text-inverse-primary" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+                </span>
+                <span>
+                    <span class="block font-display text-base font-semibold text-on-surface transition-colors group-hover:text-forest-deep dark:text-[#ecf1ff]">{{ cat.label }}</span>
+                    <span class="mt-1 block text-sm text-on-surface-variant dark:text-outline">
+                        {{ cat.n }} jeu{{ cat.n|pluralize }}x de données
+                    </span>
+                </span>
+            </a>
+            {% endfor %}
+            <div class="flex items-start gap-4 rounded-lg border border-dashed border-border-subtle p-6 opacity-70 dark:border-[#2c3a52]" aria-disabled="true">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-container text-outline" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-4.03-4.5-9-4.5s-9 2.015-9 4.5m18 0c0 .42-.09.83-.27 1.22M21 8.25v7.5c0 2.485-4.03 4.5-9 4.5s-9-2.015-9-4.5v-7.5m18 0c0 .42-.09.83-.27 1.22M3 8.25V15.75c0 2.485 4.03 4.5 9 4.5s9-2.015 9-4.5V9.47"/></svg>
+                </span>
+                <span>
+                    <span class="block font-display text-base font-semibold text-on-surface dark:text-[#ecf1ff]">Santé</span>
+                    <span class="mt-1 block text-sm text-on-surface-variant dark:text-outline">À venir — aucune source ouverte fiable identifiée à ce jour.</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================== DATASETS RÉCENTS ============================ -->
+<section class="bg-surface-container-low py-16 md:py-24 dark:bg-[#10192a]">
+    <div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+            <h2 class="font-display text-2xl font-semibold text-primary sm:text-3xl dark:text-inverse-primary">Dernières mises à jour</h2>
+            <a href="{% url 'donnees' %}" class="inline-flex items-center gap-1 text-sm font-semibold text-forest-deep hover:underline dark:text-inverse-primary">
+                Voir les {{ nb_datasets }} jeux de données
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+            </a>
+        </div>
+        <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {% for ds in datasets_recents %}
+            <article class="card flex flex-col p-6">
+                <div class="flex items-start justify-between gap-3">
+                    <h3 class="font-headline-md text-lg font-semibold leading-snug text-forest-deep dark:text-inverse-primary">{{ ds.titre }}</h3>
+                    <span class="badge-pending shrink-0">{{ ds.get_categorie_display }}</span>
+                </div>
+                <p class="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-on-surface-variant dark:text-outline">{{ ds.description }}</p>
+                <dl class="mt-4 space-y-1 border-t border-border-subtle pt-4 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">
+                    <div class="flex justify-between gap-2"><dt>Source</dt><dd class="truncate font-medium text-on-surface dark:text-[#ecf1ff]">{{ ds.source.nom }}</dd></div>
+                    <div class="flex justify-between gap-2"><dt>Licence</dt><dd class="font-medium text-on-surface dark:text-[#ecf1ff]">{{ ds.source.license_nom }}</dd></div>
+                    {% if ds.latest_version and ds.latest_version.record_count is not None %}
+                    <div class="flex justify-between gap-2"><dt>Enregistrements</dt><dd class="data-mono !text-xs">{{ ds.latest_version.record_count }}</dd></div>
+                    {% endif %}
+                </dl>
+                <div class="mt-5 flex flex-wrap gap-2">
+                    <a href="{% url 'donnees' %}?q={{ ds.slug|urlencode }}" class="btn-secondary px-4 py-2 text-xs">Explorer</a>
+                    <a href="/api/v1/datasets/{{ ds.slug }}/download/?format=json" class="btn-ghost px-4 py-2 text-xs">Télécharger JSON</a>
+                    <a href="/docs" class="rounded px-4 py-2 text-xs font-semibold text-forest-deep underline-offset-2 hover:underline dark:text-inverse-primary">API</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============================== CTA =================================== -->
+<section class="relative overflow-hidden bg-primary py-20 text-on-primary md:py-28">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_80%_at_50%_120%,rgba(234,179,8,0.14),transparent)]" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-3xl px-4 text-center">
+        <h2 class="font-display text-2xl font-bold leading-tight sm:text-4xl">Construisez l'avenir numérique du Sénégal</h2>
+        <p class="mx-auto mt-4 max-w-xl text-primary-fixed/90">
+            Toutes les données sont accessibles librement via une API REST documentée,
+            paginée et stable. Intégrez-les dans vos applications, recherches et visualisations.
+        </p>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <a href="/docs" class="rounded bg-secondary-container px-6 py-3 font-display text-sm font-semibold text-on-secondary-container transition-colors hover:bg-secondary-fixed">Commencer avec l'API</a>
+            <a href="https://github.com/sibylassana95/GalsenAPi" target="_blank" rel="noopener noreferrer"
+               class="rounded border border-white/30 px-6 py-3 font-display text-sm font-semibold text-white transition-colors hover:bg-white/10">
+                Contribuer sur GitHub
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function () {
+    'use strict';
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var targets = document.querySelectorAll('[data-countup]');
+    if (!targets.length) return;
+    var fmt = function (n) { try { return new Intl.NumberFormat('fr-FR').format(n); } catch (e) { return String(n); } };
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+        targets.forEach(function (el) {
+            var v = parseInt(el.getAttribute('data-countup'), 10);
+            if (!isNaN(v)) el.textContent = fmt(v);
+        });
+        return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            observer.unobserve(entry.target);
+            var el = entry.target;
+            var target = parseInt(el.getAttribute('data-countup'), 10);
+            if (isNaN(target)) return;
+            var start = null, duration = 900;
+            function step(ts) {
+                if (!start) start = ts;
+                var p = Math.min((ts - start) / duration, 1);
+                el.textContent = fmt(Math.round(target * (1 - Math.pow(1 - p, 3))));
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        });
+    }, { threshold: 0.4 });
+    targets.forEach(function (el) { observer.observe(el); });
+})();
+</script>
+{% endblock %}

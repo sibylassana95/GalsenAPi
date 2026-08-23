@@ -7,6 +7,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 
+from . import frontend_views
+
 schema_view = get_schema_view(
     openapi.Info(
         title="GalsenApi",
@@ -21,6 +23,8 @@ schema_view = get_schema_view(
 )
 urlpatterns = [
     path('admin', admin.site.urls),
+    path('', frontend_views.home_view, name='home'),
+    path('donnees/', frontend_views.donnees_view, name='donnees'),
     path('', include('app.urls')),
     path('api/v1/', include('geo.api.urls')),
     path('api/v1/', include('datasets.api.urls')),

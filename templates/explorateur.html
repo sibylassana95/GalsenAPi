@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Données — GalsenAPI{% endblock %}
+{% block page_title %}Explorateur de données{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <!-- En-tête -->
+    <header class="py-10 md:py-14">
+        <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Explorateur de données</h2>
+        <p class="mt-3 max-w-2xl text-on-surface-variant dark:text-outline">
+            {{ total_datasets }} jeux de données ouverts, sourcés et licenciés.
+            Téléchargeables en JSON, CSV ou GeoJSON selon les cas.
+        </p>
+    </header>
+
+    <!-- Filtres -->
+    <form method="get" action="{% url 'donnees' %}" class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between" role="search" aria-label="Filtrer les jeux de données">
+        <nav class="flex flex-wrap gap-2" aria-label="Catégories">
+            <a href="{% url 'donnees' %}{% if recherche %}?q={{ recherche|urlencode }}{% endif %}"
+               class="rounded-full px-4 py-2 font-display text-sm font-semibold transition-colors {% if not categorie_active %}bg-forest-deep text-white dark:bg-inverse-primary dark:text-[#002117]{% else %}border border-border-subtle bg-white text-on-surface-variant hover:border-forest-deep hover:text-forest-deep dark:border-[#2c3a52] dark:bg-transparent dark:text-outline{% endif %}">
+                Toutes <span class="ml-1 font-mono text-xs opacity-70">{{ total_datasets }}</span>
+            </a>
+            {% for cat in categories_affichees %}
+            <a href="{% url 'donnees' %}?categorie={{ cat.slug }}{% if recherche %}&amp;q={{ recherche|urlencode }}{% endif %}"
+               class="rounded-full px-4 py-2 font-display text-sm font-semibold transition-colors {% if categorie_active == cat.slug %}bg-forest-deep text-white dark:bg-inverse-primary dark:text-[#002117]{% else %}border border-border-subtle bg-white text-on-surface-variant hover:border-forest-deep hover:text-forest-deep dark:border-[#2c3a52] dark:bg-transparent dark:text-outline{% endif %}">
+                {{ cat.label }}
+                <span class="ml-1 font-mono text-xs opacity-70">{{ cat.n }}</span>
+            </a>
+            {% endfor %}
+        </nav>
+        <div class="relative w-full md:w-80">
+            <label for="dataset-search" class="sr-only">Rechercher un jeu de données</label>
+            <div class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-forest-deep dark:text-inverse-primary" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+            </div>
+            <input type="search" id="dataset-search" name="q" value="{{ recherche }}" autocomplete="off"
+                   placeholder="Rechercher un jeu de données…"
+                   class="input-field w-full pl-9 pr-20">
+            {% if categorie_active %}<input type="hidden" name="categorie" value="{{ categorie_active }}">{% endif %}
+            <button type="submit" class="btn-secondary absolute right-1.5 top-1/2 -translate-y-1/2 px-3 py-1.5 text-xs">Rechercher</button>
+        </div>
+    </form>
+
+    <!-- Résultats -->
+    <section class="mt-8 pb-16" aria-label="Jeux de données">
+        {% if datasets %}
+        <p class="mb-6 text-sm text-on-surface-variant dark:text-outline">{{ datasets|length }} résultat{{ datasets|length|pluralize }}</p>
+        <ul class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {% for ds in datasets %}
+            <li class="card group flex flex-col p-6">
+                <div class="flex items-start justify-between gap-3">
+                    <h3 class="font-headline-md text-xl font-semibold leading-snug text-primary transition-colors group-hover:text-sovereign-gold dark:text-inverse-primary">{{ ds.titre }}</h3>
+                    <span class="badge-pending shrink-0">{{ ds.get_categorie_display }}</span>
+                </div>
+                <p class="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-on-surface-variant dark:text-outline">{{ ds.description }}</p>
+
+                <dl class="mt-4 space-y-1.5 border-t border-border-subtle pt-4 text-xs text-on-surface-variant dark:border-[#2c3a52] dark:text-outline">
+                    <div class="flex items-center justify-between gap-2">
+                        <dt>Source</dt>
+                        <dd><a href="{{ ds.source.url }}" target="_blank" rel="noopener noreferrer" class="font-medium text-on-surface underline-offset-2 hover:underline dark:text-[#ecf1ff]">{{ ds.source.nom }}</a></dd>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <dt>Licence</dt>
+                        <dd class="badge-success !text-[11px]">{{ ds.source.license_nom }}</dd>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <dt>Couverture</dt>
+                        <dd class="data-mono !text-xs">{% if ds.coverage_period %}{{ ds.coverage_period }}{% else %}—{% endif %}</dd>
+                    </div>
+                    {% if ds.latest_version and ds.latest_version.record_count != None %}
+                    <div class="flex items-center justify-between gap-2">
+                        <dt>Enregistrements</dt>
+                        <dd class="data-mono !text-xs">{{ ds.latest_version.record_count }}</dd>
+                    </div>
+                    {% endif %}
+                </dl>
+
+                <div class="mt-5 flex flex-wrap gap-2">
+                    {% if 'json' in ds.export_formats %}
+                    <a href="/api/v1/datasets/{{ ds.slug }}/download/?format=json" class="btn-secondary px-4 py-2 text-xs">Télécharger JSON</a>
+                    {% endif %}
+                    {% if 'csv' in ds.export_formats %}
+                    <a href="/api/v1/datasets/{{ ds.slug }}/download/?format=csv" class="btn-ghost px-4 py-2 text-xs">CSV</a>
+                    {% endif %}
+                    {% if 'geojson' in ds.export_formats %}
+                    <a href="/api/v1/datasets/{{ ds.slug }}/download/?format=geojson" class="btn-ghost px-4 py-2 text-xs">GeoJSON</a>
+                    {% endif %}
+                    <a href="/api/v1/datasets/{{ ds.slug }}/" class="ml-auto inline-flex items-center gap-1 px-2 py-2 text-xs font-semibold text-forest-deep underline-offset-2 hover:underline dark:text-inverse-primary">
+                        API
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3 w-3" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+                    </a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="card flex flex-col items-center px-6 py-16 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-12 w-12 text-outline" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+            <h3 class="mt-4 font-display text-lg font-semibold text-on-surface dark:text-[#ecf1ff]">Aucun jeu de données trouvé</h3>
+            <p class="mt-2 max-w-sm text-sm text-on-surface-variant dark:text-outline">
+                {% if recherche %}Aucun résultat pour «&nbsp;{{ recherche }}&nbsp;». Essayez d'autres mots-clés.{% else %}Cette catégorie ne contient pas encore de données.{% endif %}
+            </p>
+            <a href="{% url 'donnees' %}" class="btn-ghost mt-6 px-5 py-2.5 text-sm">Réinitialiser les filtres</a>
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
