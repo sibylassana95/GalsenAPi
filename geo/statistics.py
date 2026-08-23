@@ -8,6 +8,15 @@ from geo.models import Arrondissement, Commune, Departement, Region, Village
 POPULATION_SOURCE_NOTE = (
     "Chiffres hérités du dataset Galsenify (base ANSD) — RGPH-5 2023 à intégrer"
 )
+POPULATION_SOURCE_NOTE_RGPH = 'RGPH-5 2023 (ANSD)'
+
+
+def population_source_note():
+    """Note de source dynamique : RGPH-5 si les régions ont été rafraîchies."""
+    for meta in Region.objects.exclude(meta={}).values_list('meta', flat=True):
+        if isinstance(meta, dict) and 'RGPH' in str(meta.get('population_source') or ''):
+            return POPULATION_SOURCE_NOTE_RGPH
+    return POPULATION_SOURCE_NOTE
 
 
 def _densite(population, superficie):
@@ -75,7 +84,7 @@ def build_statistics():
         },
         'population': {
             'totale': int(population_totale),
-            'source_note': POPULATION_SOURCE_NOTE,
+            'source_note': population_source_note(),
             'par_region': par_region,
             'plus_peuplee': plus_peuplee,
             'plus_dense': plus_dense,

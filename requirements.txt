@@ -8,4 +8,5 @@ PyMySQL==1.1.2
 python-dotenv==1.1.1
 whitenoise==6.9.0
 requests==2.32.5
+pypdf==6.16.1
 gunicorn==23.0.0

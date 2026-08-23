@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "source": "RGPH-5 2023, ANSD (fixture de test)",
+    "sources": [
+      {
+        "url": "https://example.org/fixture-rgph5",
+        "date_consultation": "2026-08-23",
+        "note": "Mini-fixture pour les tests unitaires — valeurs fictives."
+      }
+    ],
+    "license": "CC BY 4.0 (revendiquée sur anads.ansd.sn)",
+    "total_national": 1500,
+    "annee": 2023,
+    "value_type": "officielle"
+  },
+  "regions": [
+    {"nom": "Dakar", "population": 1000, "hommes": 600, "femmes": 400},
+    {"nom": "Thiès", "population": 500, "hommes": 250, "femmes": 250}
+  ],
+  "departements": [
+    {"region": "Dakar", "nom": "Dakar", "population": 700},
+    {"region": "Thiès", "nom": "Malem Hoddar", "population": 120}
+  ]
+}

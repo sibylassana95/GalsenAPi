@@ -4,6 +4,7 @@
 def _record_counts():
     from app.models import Universites
     from datasets.models import DataSource
+    from demographie.models import PopulationRecord
     from geo.models import Arrondissement, Commune, Departement, Region, Village
 
     return {
@@ -16,6 +17,7 @@ def _record_counts():
             Region.objects.filter(population__isnull=False).count()
             + Departement.objects.filter(population__isnull=False).count()
         ),
+        'sen-population-rgph5-2023': PopulationRecord.objects.count(),
         'sen-villages': Village.objects.count(),
         'sen-communes': Commune.objects.count(),
         'sen-universites': Universites.objects.count(),
@@ -66,19 +68,54 @@ CATALOG = [
             },
             {
                 'slug': 'sen-population-admin',
-                'titre': 'Population par région et département',
+                'titre': 'Population par région et département (legacy)',
                 'description': (
-                    "Chiffres de population par région et département issus du jeu "
-                    "de données historique Galsenify (base ANSD). À remplacer par "
-                    "le RGPH-5 2023."
+                    "Chiffres de population hérités du jeu de données historique "
+                    "Galsenify (base ANSD), désormais supplantés par le RGPH-5 2023 "
+                    "(voir le dataset sen-population-rgph5-2023). Conservés à titre "
+                    "de référence historique."
                 ),
                 'categorie': 'demographie',
-                'coverage_period': '≈2023',
+                'coverage_period': '≈2023 (hérité)',
                 'update_frequency': 'censaire',
                 'export_formats': ['json', 'csv'],
                 'methodology': (
                     'Enrichissement des entités administratives depuis les JSON '
-                    'legacy Galsenify (meta.population_source).'
+                    'legacy Galsenify (meta.population_source) ; valeurs écrasées '
+                    'par manage.py import_demographie après import du RGPH-5.'
+                ),
+            },
+        ],
+    },
+    {
+        'source': {
+            'nom': 'ANSD',
+            'slug': 'ansd',
+            'url': 'https://www.ansd.sn',
+            'publisher': 'Agence Nationale de la Statistique et de la Démographie',
+            'license_nom': 'CC BY 4.0',
+            'license_url': 'https://anads.ansd.sn',
+            'redistribuable': True,
+        },
+        'datasets': [
+            {
+                'slug': 'sen-population-rgph5-2023',
+                'titre': 'Population RGPH-5 2023',
+                'description': (
+                    "Population résidente par région (14) et par département (46) "
+                    "selon le 5e Recensement Général de la Population et de "
+                    "l'Habitat (RGPH-5, ANSD, résultats définitifs). Total "
+                    f'national : {_fmt_nombre(18126390)} habitants.'
+                ),
+                'categorie': 'demographie',
+                'coverage_period': '2023',
+                'update_frequency': 'censaire',
+                'export_formats': ['json', 'csv'],
+                'methodology': (
+                    'Import depuis data/rgph5_2023.json extrait du rapport '
+                    'définitif RGPH-5 Thème I (tableaux I-9 et I-21) via '
+                    'manage.py import_demographie ; rafraîchit geo.Region / '
+                    'geo.Departement.population.'
                 ),
             },
         ],

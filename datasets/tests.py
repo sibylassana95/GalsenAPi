@@ -122,7 +122,10 @@ class DatasetsApiTests(TestCase):
         data = self.api_get('/api/v1/datasets/?search=villages')
         self.assertEqual([row['slug'] for row in data['results']], ['sen-villages'])
         data = self.api_get('/api/v1/datasets/?categorie=demographie')
-        self.assertEqual([row['slug'] for row in data['results']], ['sen-population-admin'])
+        self.assertEqual(
+            [row['slug'] for row in data['results']],
+            ['sen-population-rgph5-2023', 'sen-population-admin'],
+        )
         data = self.api_get('/api/v1/datasets/?source__slug=galsenify')
         self.assertGreaterEqual(len(data['results']), 3)
 
@@ -137,7 +140,7 @@ class DatasetsApiTests(TestCase):
     def test_action_sources(self):
         data = self.api_get('/api/v1/datasets/sources/')
         slugs = {row['slug'] for row in data}
-        self.assertEqual(slugs, {'hdx-cod-ab', 'galsenify'})
+        self.assertEqual(slugs, {'hdx-cod-ab', 'galsenify', 'ansd'})
 
     def test_download_csv_content_type_et_header(self):
         response = self.client.get('/api/v1/datasets/sen-villages/download/?format=csv')

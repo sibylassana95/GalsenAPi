@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'app',
     'geo',
     'datasets',
+    'demographie',
     'rest_framework',
     'drf_yasg',
     'corsheaders',
