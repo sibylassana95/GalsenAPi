@@ -1,44 +1,28 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="fr" class="h-full">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GalsenApi</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
-</head>
-<body>
-<div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 text-center mb-4 mb-md-0">
-            <div class="animated-element">
-                <svg class="img-fluid" width="400" height="400" viewBox="0 0 400 400">
-                    <circle cx="200" cy="200" r="180" fill="#fff3cd"/>
-                    <rect x="100" y="150" width="200" height="140" rx="20" fill="#ffc107"/>
-                    <circle cx="160" cy="220" r="20" fill="white"/>
-                    <circle cx="240" cy="220" r="20" fill="white"/>
-                    <path d="M180 260 Q200 280 220 260" stroke="white" stroke-width="8" stroke-linecap="round"/>
-                </svg>
-            </div>
-        </div>
-        <div class="col-md-6 text-center text-md-start">
-            <h1 class="display-1 fw-bold text-warning mb-2">400</h1>
-            <h2 class="display-6 mb-3">Requête incorrecte</h2>
-            <p class="lead text-muted mb-4">Votre navigateur a envoyé une requête invalide.</p>
-            <a href="{% url 'home' %}" class="btn btn-warning btn-lg px-4 gap-3">
-                Retour à l'accueil
-            </a>
-        </div>
+{% extends 'base.html' %}
+{% block title %}Erreur 400 — Requête incorrecte · GalsenAPI{% endblock %}
+{% block content %}
+<div class="flex flex-col items-center justify-center py-16 text-center md:py-24">
+    <p class="data-mono uppercase tracking-widest">Erreur client</p>
+    <p class="mt-2 font-mono text-7xl font-bold tracking-tighter text-forest-deep sm:text-8xl lg:text-9xl dark:text-inverse-primary" aria-hidden="true">400</p>
+    <h2 class="mt-6 font-display text-2xl font-bold text-on-surface dark:text-[#ecf1ff]">Requête incorrecte</h2>
+    <p class="mt-3 max-w-xl text-base leading-relaxed text-on-surface-variant dark:text-outline">
+        La requête envoyée au serveur est invalide ou mal formée.
+        Vérifiez l'adresse ou les paramètres utilisés, puis réessayez.
+    </p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="{% url 'home' %}" class="btn-primary">Retour à l'accueil</a>
+        <button type="button" class="btn-ghost" data-error-focus-search>Lancer une recherche</button>
     </div>
+    <p class="data-mono mt-12">Code HTTP&nbsp;: 400 · GalsenAPI</p>
 </div>
- <!-- Scripts -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
- <!-- Bootstrap JavaScript et dépendance Popper -->
- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-
-</body>
-</html>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+    document.querySelectorAll('[data-error-focus-search]').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var input = document.getElementById('global-search-input');
+            if (input) { input.focus(); input.scrollIntoView({ block: 'center' }); }
+        });
+    });
+</script>
+{% endblock %}

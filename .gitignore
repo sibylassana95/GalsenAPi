@@ -4,6 +4,9 @@
 *.pyc
 __pycache__
 
+# Outils locaux (CLI Tailwind standalone)
+tools/
+
 media
 
 # Fichiers statiques generes (collectstatic)
@@ -145,3 +148,6 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 .vscode/settings.json
+galsenapi_2.0_design/
+
+.playwright-mcp/

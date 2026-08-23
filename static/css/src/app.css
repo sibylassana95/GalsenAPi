@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   GalsenAPI 2.0 — Design system "Institutional Modern"
+   Source : galsenapi_2.0_design/DESIGN.md
+   Build  : .\build_css.ps1  ->  static/css/galsenapi.css
+   ========================================================================== */
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* Compatibilité pages legacy (ancien base.html) */
+    --bg-primary: #f3f4f6;
+    --bg-secondary: #ffffff;
+    --text-primary: #111c2d;
+    --text-secondary: #404944;
+    --border-color: #e2e8f0;
+    --sidebar-bg: linear-gradient(180deg, #003527 0%, #064e3b 100%);
+    --sidebar-text: #ffffff;
+  }
+
+  .dark {
+    color-scheme: dark;
+
+    --bg-primary: #10192a;
+    --bg-secondary: #1b2739;
+    --text-primary: #ecf1ff;
+    --text-secondary: #bfc9c3;
+    --border-color: #2c3a52;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body bg-surface text-on-surface antialiased dark:bg-[#10192a] dark:text-[#ecf1ff];
+  }
+
+  ::selection {
+    @apply bg-sovereign-gold/30;
+  }
+
+  /* Focus visible accessible et cohérent */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid theme('colors.sovereign-gold');
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar discrète, teinte verte institutionnelle */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(6, 78, 59, 0.35) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(6, 78, 59, 0.35);
+    border-radius: 9999px;
+  }
+  .dark ::-webkit-scrollbar-thumb,
+  *.dark::-webkit-scrollbar-thumb {
+    background-color: rgba(149, 211, 186, 0.3);
+  }
+}
+
+@layer components {
+  /* ---- Boutons institutionnels ------------------------------------------ */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded bg-sovereign-gold px-4 py-2 font-display text-sm font-semibold text-neutral-900 transition-colors hover:bg-secondary-fixed-dim focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sovereign-gold dark:text-neutral-900;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded bg-forest-deep px-4 py-2 font-display text-sm font-semibold text-white transition-colors hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-deep;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded border border-forest-deep px-4 py-2 font-display text-sm font-semibold text-forest-deep transition-colors hover:bg-primary/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-deep dark:border-inverse-primary dark:text-inverse-primary dark:hover:bg-inverse-primary/10;
+  }
+
+  /* ---- Cartes ------------------------------------------------------------ */
+  .card {
+    @apply block rounded-lg border border-border-subtle bg-white p-5 transition-all duration-200 dark:border-[#2c3a52] dark:bg-[#1b2739];
+  }
+  .card:hover {
+    border-color: theme('colors.forest-deep');
+    box-shadow: 0 2px 12px rgba(6, 78, 59, 0.05);
+  }
+  .dark .card:hover {
+    border-color: theme('colors.inverse-primary');
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  /* ---- Tableaux de données ------------------------------------------------ */
+  .table-institutional {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  .table-institutional thead th {
+    @apply bg-primary px-4 py-3 font-display text-xs font-semibold uppercase tracking-wider text-white;
+  }
+  .table-institutional tbody tr:nth-child(odd) {
+    @apply bg-white dark:bg-transparent;
+  }
+  .table-institutional tbody tr:nth-child(even) {
+    @apply bg-surface dark:bg-white/5;
+  }
+  .table-institutional tbody tr:hover {
+    box-shadow: inset 3px 0 0 theme('colors.sovereign-gold');
+  }
+  .table-institutional tbody td {
+    @apply border-b border-border-subtle px-4 py-3 text-on-surface dark:border-[#2c3a52] dark:text-[#ecf1ff];
+  }
+
+  /* ---- Champs de formulaire ------------------------------------------------ */
+  .input-field {
+    @apply w-full rounded border border-border-subtle bg-white px-3 py-2 text-sm text-on-surface placeholder:text-outline transition-shadow focus:border-forest-deep focus:outline-none focus:ring-2 focus:ring-sovereign-gold/10 dark:border-[#2c3a52] dark:bg-[#10192a] dark:text-[#ecf1ff] dark:placeholder:text-outline;
+  }
+
+  /* ---- Badges d'état (pill, fond 10 %) ------------------------------------ */
+  .badge-success {
+    @apply inline-flex items-center rounded-full bg-forest-deep/10 px-2.5 py-0.5 text-xs font-semibold text-forest-deep dark:bg-inverse-primary/15 dark:text-inverse-primary;
+  }
+  .badge-pending {
+    @apply inline-flex items-center rounded-full bg-sovereign-gold/10 px-2.5 py-0.5 text-xs font-semibold text-secondary dark:bg-sovereign-gold/15 dark:text-secondary-fixed-dim;
+  }
+  .badge-error {
+    @apply inline-flex items-center rounded-full bg-alert-red/10 px-2.5 py-0.5 text-xs font-semibold text-alert-red dark:bg-alert-red/20 dark:text-tertiary-fixed-dim;
+  }
+
+  /* ---- Données techniques --------------------------------------------------- */
+  .data-mono {
+    @apply font-mono text-sm font-medium leading-tight tracking-tight text-on-surface-variant dark:text-outline;
+  }
+
+  /* ---- Shims compatibilité pages legacy (refaites en 7b–d) ----------------- */
+  .stats-card {
+    @apply rounded-xl p-6 shadow-md relative overflow-hidden;
+    background: var(--bg-secondary);
+  }
+  .search-input {
+    @apply rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-forest-deep transition-all duration-300;
+    border-color: var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+}
