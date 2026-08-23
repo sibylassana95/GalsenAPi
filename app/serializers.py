@@ -31,14 +31,14 @@ class ArrondissementsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Arrondissement
         fields = '__all__'
-        
+
 
 class CommunesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Commune
-        fields = '__all__'   
-        
+        fields = '__all__'
+
 class UniversitesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Universites
-        fields = '__all__'             
+        fields = '__all__'

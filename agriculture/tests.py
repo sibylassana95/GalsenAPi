@@ -94,8 +94,8 @@ class PipelineAgricultureTests(TestCase):
             },
         )
         return importer_lignes(
-            (l for l in lignes_normalisees(io.BytesIO(csv_mini_faostat()))
-             if l['area'] == 'Senegal'),
+            (ligne for ligne in lignes_normalisees(io.BytesIO(csv_mini_faostat()))
+             if ligne['area'] == 'Senegal'),
             source=source, meta_base=meta_base, **kwargs,
         )
 
@@ -233,8 +233,8 @@ class AgricultureApiTests(TestCase):
             license_nom='CC BY 4.0',
         )
         importer_lignes(
-            (l for l in lignes_normalisees(io.BytesIO(csv_mini_faostat()))
-             if l['area'] == 'Senegal'),
+            (ligne for ligne in lignes_normalisees(io.BytesIO(csv_mini_faostat()))
+             if ligne['area'] == 'Senegal'),
             source=source, meta_base=meta_base,
         )
 

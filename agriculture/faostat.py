@@ -65,7 +65,8 @@ def telecharger_bulk(timeout=300):
     requete = urllib.request.Request(
         BULK_URL, headers={'User-Agent': 'GalsenAPI/1.0 (+django import)'}
     )
-    with urllib.request.urlopen(requete, timeout=timeout) as reponse:
+    # URL constante https du projet (pas de scheme arbitraire)  # nosec B310
+    with urllib.request.urlopen(requete, timeout=timeout) as reponse:  # nosec B310
         with open(tmp, 'wb') as fichier:
             while True:
                 bloc = reponse.read(1 << 20)

@@ -49,7 +49,7 @@ def ecrire_csv_ghcn(path, lignes, station_id=STATION_YOFF):
     with open(path, 'w', newline='', encoding='utf-8') as fichier:
         writer = module_csv.writer(fichier, quoting=module_csv.QUOTE_ALL)
         writer.writerow(entetes)
-        for ligne in sorted(lignes, key=lambda l: l['date']):
+        for ligne in sorted(lignes, key=lambda li: li['date']):
             cells = [station_id, ligne['date'], '14.733', '-17.5', '24.0',
                      'DAKAR YOFF, SG']
             for element in ELEMENTS:
@@ -120,7 +120,7 @@ class ParsingDixiemesTests(TestCase):
             ])
             lignes = ghcn.parser_journalier(path)
 
-        vide = [l for l in lignes if l['mois'] == 2][0]
+        vide = [li for li in lignes if li['mois'] == 2][0]
         self.assertEqual(vide['valeurs'], {})
 
 

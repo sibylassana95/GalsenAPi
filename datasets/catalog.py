@@ -5,7 +5,6 @@ def _record_counts():
     from agriculture.models import ProductionAgricole
     from app.models import Universites
     from climat.models import ObservationMensuelle
-    from datasets.models import DataSource
     from demographie.models import PopulationRecord
     from economie.models import ObservationEconomique
     from geo.models import Arrondissement, Commune, Departement, Region, Village

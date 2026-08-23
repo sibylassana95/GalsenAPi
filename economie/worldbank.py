@@ -40,7 +40,8 @@ def telecharger(code, timeout=60):
     requete = urllib.request.Request(
         url, headers={'User-Agent': 'GalsenAPI/1.0 (+django import)'}
     )
-    with urllib.request.urlopen(requete, timeout=timeout) as reponse:
+    # URL constante https du projet (pas de scheme arbitraire)  # nosec B310
+    with urllib.request.urlopen(requete, timeout=timeout) as reponse:  # nosec B310
         brut = reponse.read()
     payload = json.loads(brut)
     dest = chemin_cache(code)

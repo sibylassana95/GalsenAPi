@@ -127,7 +127,8 @@ class Command(BaseCommand):
 
     def _rapport_station(self, i, total, stats):
         controles = stats['controles']
-        fmt_d = lambda d: str(d).replace('.', ',') if d is not None else 'n/a'
+        def fmt_d(d):
+            return str(d).replace('.', ',') if d is not None else 'n/a'
         self.stdout.write('')
         self.stdout.write(
             f"[{i}/{total}] {stats['station_id']} — {stats['nom']} "

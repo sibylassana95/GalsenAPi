@@ -1,6 +1,6 @@
 import requests
 
-response = requests.get('https://galsenapi.vercel.app/api/regions/') # Remplacez l'URL par celle de votre serveur
+response = requests.get('https://galsenapi.lassanasiby.com/api/regions/', timeout=30)
 regions = response.json()
 
 for region in regions:
@@ -10,4 +10,3 @@ for region in regions:
     print(region['superficie'])
     print(region['departments'])
     print('-----------------------------------------------------')
-

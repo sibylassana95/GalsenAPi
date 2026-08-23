@@ -65,7 +65,7 @@ class Village(models.Model):
 
     def __str__(self):
         return self.nom
-    
+
 class Arrondissement(models.Model):
     nom = models.CharField(max_length=255)
     region = models.CharField(max_length=255)
@@ -76,7 +76,7 @@ class Arrondissement(models.Model):
         verbose_name_plural = 'Arrondissements'
 
     def __str__(self):
-        return self.nom    
+        return self.nom
 
 class Commune(models.Model):
     nom = models.CharField(max_length=255)
@@ -89,8 +89,8 @@ class Commune(models.Model):
 
     def __str__(self):
         return self.nom
-    
-    
+
+
 class Universites(models.Model):
     nom = models.CharField(max_length=255)
     logo = models.CharField(max_length=255)
@@ -101,7 +101,7 @@ class Universites(models.Model):
         verbose_name_plural = 'Universites'
 
     def __str__(self):
-        return self.nom   
-       
+        return self.nom
+
 
 

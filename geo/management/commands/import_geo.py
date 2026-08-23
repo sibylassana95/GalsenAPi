@@ -24,10 +24,10 @@ class Command(BaseCommand):
             for level, path in levels.items()
             if level in (1, 2, 3)
         }
-        counts = ingest.import_codab(features_by_level, report)
+        ingest.import_codab(features_by_level, report)
         if options['with_legacy']:
             ingest.import_legacy(report)
-        obtenus = ingest.validate(report)
+        ingest.validate(report)
         path = report.save()
         self.stdout.write(report.text())
         self.stdout.write(self.style.SUCCESS(f"Rapport écrit: {path}"))

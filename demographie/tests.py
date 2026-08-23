@@ -45,7 +45,7 @@ class BaseDemographieTestCase(TestCase):
 class ImportDemographieTests(BaseDemographieTestCase):
     def test_import_upsert_refresh_geo_et_stats(self):
         self.assertEqual(population_source_note(), POPULATION_SOURCE_NOTE)
-        output = self.run_import()
+        self.run_import()
 
         self.assertEqual(PopulationRecord.objects.count(), 4)
         record_dakar = PopulationRecord.objects.get(

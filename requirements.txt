@@ -1,12 +1,12 @@
-Django==5.2.6
+Django==5.2.17
 djangorestframework==3.16.1
 drf-yasg==1.21.10
 django-filter==25.1
 django-cors-headers==4.7.0
 psycopg[binary]==3.2.10
 PyMySQL==1.1.2
-python-dotenv==1.1.1
+python-dotenv==1.2.3
 whitenoise==6.9.0
-requests==2.32.5
+requests==2.34.2
 pypdf==6.16.1
 gunicorn==23.0.0

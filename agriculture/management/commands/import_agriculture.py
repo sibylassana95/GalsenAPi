@@ -59,8 +59,9 @@ class Command(BaseCommand):
             membre = faostat.membre_donnees(zip_path)
             with archive.open(membre) as flux:
                 lignes = (
-                    l for l in faostat.lignes_normalisees(flux)
-                    if l['area'] == faostat.AREA_NAME
+                    ligne
+                    for ligne in faostat.lignes_normalisees(flux)
+                    if ligne['area'] == faostat.AREA_NAME
                 )
                 stats = faostat.importer_lignes(
                     lignes, source=source_obj,
@@ -89,7 +90,9 @@ class Command(BaseCommand):
         return faostat.telecharger_bulk(timeout=options['timeout'])
 
     def _rapport(self, stats):
-        fmt = lambda n: f'{n:,}'.replace(',', ' ')
+        def fmt(n):
+            return f'{n:,}'.replace(',', ' ')
+
         self.stdout.write('')
         self.stdout.write('=== Rapport import_agriculture ===')
         self.stdout.write(

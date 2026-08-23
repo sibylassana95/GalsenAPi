@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements-dev.txt
+      - name: Ruff
+        run: ruff check .
+
+  tests:
+    name: Tests (PostgreSQL)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: galsenapi_test
+          POSTGRES_USER: galsenapi
+          POSTGRES_PASSWORD: galsenapi
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U galsenapi"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DJANGO_ENV: local
+      SECRET_KEY: ci-secret-key-uniquement-tests
+      DB_ENGINE: postgresql
+      POSTGRES_DB: galsenapi_test
+      POSTGRES_USER: galsenapi
+      POSTGRES_PASSWORD: galsenapi
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: '5432'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Vérifications Django
+        run: python manage.py check
+      - name: Migrations cohérentes
+        run: python manage.py makemigrations --check --dry-run
+      - name: Tests (runner Django)
+        run: python manage.py test --parallel
+      - name: Tests (pytest)
+        run: pytest -q
+
+  security:
+    name: Sécurité (pip-audit + bandit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: pip-audit (vulnérabilités des dépendances)
+        run: pip-audit -r requirements.txt --progress-spinner off
+      - name: Bandit (analyse statique, sévérité medium+)
+        run: bandit -q -ll -r GalsenifyDj geo datasets demographie agriculture economie climat app

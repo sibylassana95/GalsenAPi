@@ -81,7 +81,8 @@ def _telecharger(url, dest, timeout=120):
     requete = urllib.request.Request(
         url, headers={'User-Agent': 'GalsenAPI/1.0 (+django import)'}
     )
-    with urllib.request.urlopen(requete, timeout=timeout) as reponse:
+    # URL constante https du projet (pas de scheme arbitraire)  # nosec B310
+    with urllib.request.urlopen(requete, timeout=timeout) as reponse:  # nosec B310
         dest.parent.mkdir(parents=True, exist_ok=True)
         with open(dest, 'wb') as fichier:
             while True:

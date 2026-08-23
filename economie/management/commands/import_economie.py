@@ -91,11 +91,13 @@ class Command(BaseCommand):
         return worldbank.telecharger(code, timeout=options['timeout'])
 
     def _rapport_indicateur(self, i, total, stats):
-        fmt_n = lambda n: f'{n:,}'.replace(',', ' ')
-        fmt_d = lambda d: (
-            f'{d:,.2f}'.replace(',', ' ').replace('.', ',')
-            if d is not None else 'n/a'
-        )
+        def fmt_n(n):
+            return f'{n:,}'.replace(',', ' ')
+
+        def fmt_d(d):
+            if d is None:
+                return 'n/a'
+            return f'{d:,.2f}'.replace(',', ' ').replace('.', ',')
         self.stdout.write('')
         self.stdout.write(
             f'[{i}/{total}] {stats["code"]} — {stats["nom"]} '
