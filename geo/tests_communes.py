@@ -2,12 +2,11 @@
 
 import csv
 import io
+import tempfile
 from pathlib import Path
-from unittest import mock
 
 from django.test import TestCase
 
-from geo import ansd
 from geo.models import Commune, Departement, Pays, Region
 from geo.management.commands.import_communes import Command
 
@@ -48,16 +47,19 @@ class ImportCommunesTests(TestCase):
         )
 
     def _lancer_import(self):
-        with mock.patch.object(
-            ansd, "telecharger", return_value=Path("cache-inutile.csv")
-        ), mock.patch(
-            "geo.ansd.open",
-            mock.mock_open(read_data=csv_mini_ansd()),
-        ):
+        # Vrai fichier CSV temporaire : aucun mock, aucun dépendance au cache local
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".csv", delete=False, encoding="utf-8", newline=""
+        ) as tmp:
+            tmp.write(csv_mini_ansd())
+            chemin = tmp.name
+        try:
             commande = Command()
             commande.stdout = type("Sortie", (), {"write": staticmethod(lambda s: None)})()
             commande.style = type("Style", (), {"SUCCESS": staticmethod(lambda s: s)})()
-            commande.handle(offline=True, timeout=1)
+            commande.handle(offline=True, fichier=chemin, timeout=1)
+        finally:
+            Path(chemin).unlink(missing_ok=True)
 
     def test_rattachement_et_population(self):
         self._lancer_import()

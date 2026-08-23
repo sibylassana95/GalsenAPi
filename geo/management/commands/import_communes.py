@@ -23,12 +23,17 @@ class Command(BaseCommand):
             help="Utilise uniquement le cache var/ingest/ansd/.",
         )
         parser.add_argument(
+            "--fichier",
+            default=str(Path("var") / "ingest" / "ansd" / "repertoire_2023.csv"),
+            help="Chemin du CSV du répertoire (défaut : cache var/ingest/ansd/).",
+        )
+        parser.add_argument(
             "--timeout", type=int, default=300,
             help="Timeout du téléchargement en secondes (défaut : 300).",
         )
 
     def handle(self, *args, **options):
-        chemin_cache = Path("var") / "ingest" / "ansd" / "repertoire_2023.csv"
+        chemin_cache = Path(options["fichier"])
         if options["offline"]:
             if not chemin_cache.exists():
                 self.stderr.write(
