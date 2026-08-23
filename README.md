@@ -164,6 +164,18 @@ docker compose up
 
 Lance Django + PostgreSQL 16. Variables via `.env` (voir `.env.example`).
 
+## Serveur MCP (assistants IA)
+
+GalsenAPI expose ses données aux assistants IA (Claude Desktop, opencode, Cursor…) via un
+serveur MCP : 12 outils (recherche, régions, RGPH-5, FAOSTAT, Banque mondiale, NOAA,
+datasets). L'assistant ne devine rien : chaque réponse provient de l'API.
+
+```bash
+cd mcp-server && pip install -r requirements.txt && python server.py
+```
+
+Configuration Claude Desktop / opencode et liste des outils : [mcp-server/README.md](mcp-server/README.md).
+
 ## Tests
 
 ```bash
@@ -202,8 +214,8 @@ Signaler une donnée incorrecte ou manquante : ouvrez une issue avec le modèle
 ## Roadmap
 
 - [x] Phase 1-7 : modernisation, modèle géo, API v1, datasets, recherche/stats, domaines, frontend
-- [ ] Phase 10 : CI/CD GitHub Actions + pytest + audits sécurité
-- [ ] Phase 11 : serveur MCP (GalsenAPI MCP pour assistants IA)
+- [x] Phase 9-10 : documentation, CI/CD, audits sécurité
+- [x] Phase 11 : serveur MCP (`mcp-server/`) pour assistants IA
 - [ ] Source officielle des ~557 communes (rattachement complet aux départements)
 - [ ] Domaines supplémentaires selon disponibilité de sources ouvertes (santé, transport, énergie)
 

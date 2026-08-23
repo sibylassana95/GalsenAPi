@@ -63,6 +63,10 @@ jobs:
         run: python manage.py test --parallel
       - name: Tests (pytest)
         run: pytest -q
+      - name: Installer les dépendances MCP
+        run: pip install -r mcp-server/requirements.txt
+      - name: Tests serveur MCP
+        run: pytest mcp-server -q
 
   security:
     name: Sécurité (pip-audit + bandit)
