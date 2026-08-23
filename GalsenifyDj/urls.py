@@ -5,9 +5,22 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from drf_yasg.generators import OpenAPISchemaGenerator
 from rest_framework import permissions
 
 from . import frontend_views
+
+
+class ApiV1SchemaGenerator(OpenAPISchemaGenerator):
+    """Ne documente que l'API moderne /api/v1/ (les routes legacy restent servies mais hors doc)."""
+
+    def get_endpoints(self, request=None):
+        endpoints = super().get_endpoints(request)
+        return {
+            path: item
+            for path, item in endpoints.items()
+            if path.startswith('/api/v1')
+        }
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -20,11 +33,13 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
+    generator_class=ApiV1SchemaGenerator,
 )
 urlpatterns = [
     path('admin', admin.site.urls),
     path('', frontend_views.home_view, name='home'),
     path('donnees/', frontend_views.donnees_view, name='donnees'),
+    path('donnees/geographie/', frontend_views.geographie_view, name='geographie'),
     path('region/', frontend_views.regions_liste_view, name='region'),
     path('regions/<str:pcode>/', frontend_views.region_detail_view, name='region-detail'),
     path('departements/<str:pcode>/', frontend_views.departement_detail_view, name='departement-detail'),

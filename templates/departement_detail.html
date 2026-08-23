@@ -103,10 +103,15 @@
     var el = document.getElementById('carte-departement');
     if (!el || typeof L === 'undefined') return;
     var map = L.map(el, { scrollWheelZoom: false }).setView([{{ departement.latitude|default:"14.5" }}, {{ departement.longitude|default:"-14.5" }}], 8);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    var tuiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        subdomains: 'abcd',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    });
+    tuiles.on('tileerror', function () {
+        el.setAttribute('aria-label', 'Fond de carte indisponible — les frontières restent affichées.');
+    });
+    tuiles.addTo(map);
     fetch('{{ geometry_url|escapejs }}')
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function (data) {

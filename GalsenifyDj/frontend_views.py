@@ -117,46 +117,138 @@ def home_view(request):
 
 
 def donnees_view(request):
-    qs = (
-        Dataset.objects.filter(is_public=True)
+    """Hub : chaque domaine pointe vers sa page de données réelles."""
+    from datasets.models import Dataset as _Dataset
+
+    domains = [
+        {
+            "slug": "geographie",
+            "label": "Géographie",
+            "description": "14 régions, 46 départements, 125 arrondissements, communes et 8 635 villages.",
+            "url": "/donnees/geographie/",
+            "cta": "Explorer les territoires",
+            "stats": [
+                ("Régions", Region.objects.count()),
+                ("Départements", Departement.objects.count()),
+                ("Villages", Village.objects.count()),
+            ],
+        },
+        {
+            "slug": "demographie",
+            "label": "Démographie",
+            "description": "Population officielle RGPH-5 2023 (ANSD) par région et par département, avec répartition hommes / femmes.",
+            "url": "/demographie/",
+            "cta": "Tableau de bord",
+            "stats": [("Population", 18_126_388), ("Régions couvertes", 14), ("Départements", 46)],
+        },
+        {
+            "slug": "agriculture",
+            "label": "Agriculture",
+            "description": "Productions, superficies et rendements par culture de 1961 à 2024 (FAOSTAT).",
+            "url": "/agriculture/",
+            "cta": "Tableau de bord",
+            "stats": [("Cultures", Culture.objects.count()), ("Observations", ProductionAgricole.objects.count()), ("Années", 64)],
+        },
+        {
+            "slug": "climat",
+            "label": "Climat",
+            "description": "Températures et précipitations mensuelles de 14 stations GHCN (NOAA), 1950 à 2025.",
+            "url": "/climat/",
+            "cta": "Tableau de bord",
+            "stats": [("Stations", StationClimatique.objects.count()), ("Mois-station", ObservationMensuelle.objects.count()), ("Années", 76)],
+        },
+        {
+            "slug": "economie",
+            "label": "Économie",
+            "description": "21 indicateurs macroéconomiques de la Banque mondiale, 1960 à 2025.",
+            "url": "/economie/",
+            "cta": "Tableau de bord",
+            "stats": [("Indicateurs", ObservationEconomique.objects.values("indicateur").distinct().count()), ("Observations", ObservationEconomique.objects.count()), ("Années", 66)],
+        },
+        {
+            "slug": "education",
+            "label": "Éducation",
+            "description": "Établissements d'enseignement supérieur et de formation référencés (source communautaire).",
+            "url": "/education/",
+            "cta": "Voir les établissements",
+            "stats": [("Établissements", _nb_universites())],
+        },
+    ]
+
+    datasets = (
+        _Dataset.objects.filter(is_public=True)
         .select_related("source")
-        .prefetch_related("versions")
+        .order_by("categorie", "titre")
     )
-
-    categorie = request.GET.get("categorie", "")
-    recherche = request.GET.get("q", "")
-
-    categories_valides = [c for c, _ in Dataset.CATEGORIE_CHOICES]
-    if categorie in categories_valides:
-        qs = qs.filter(categorie=categorie)
-    elif categorie:
-        categorie = ""
-    if recherche:
-        from django.db.models import Q
-
-        qs = qs.filter(Q(titre__icontains=recherche) | Q(description__icontains=recherche))
-
-    datasets = qs.order_by("-last_refreshed")
-
-    totaux_par_categorie = {
-        c["categorie"]: c["n"]
-        for c in Dataset.objects.filter(is_public=True).values("categorie").annotate(n=Count("id"))
-    }
-    total_datasets = sum(totaux_par_categorie.values())
 
     return render(
         request,
-        "explorateur.html",
+        "donnees.html",
+        {"domains": domains, "datasets": datasets},
+    )
+
+
+def _nb_universites():
+    from app.models import Universites
+
+    return Universites.objects.count()
+
+
+ENTITES_GEO = {
+    "region": {
+        "label": "Régions",
+        "search_label": "Rechercher une région…",
+    },
+    "departement": {"label": "Départements", "search_label": "Rechercher un département…"},
+    "arrondissement": {"label": "Arrondissements", "search_label": "Rechercher un arrondissement…"},
+    "commune": {"label": "Communes", "search_label": "Rechercher une commune…"},
+    "village": {"label": "Villages", "search_label": "Rechercher un village…"},
+}
+
+
+def geographie_view(request):
+    from django.core.paginator import Paginator
+
+    entite = request.GET.get("entite", "region")
+    if entite not in ENTITES_GEO:
+        entite = "region"
+    recherche = request.GET.get("q", "").strip()
+
+    configs = {
+        "region": Region.objects.all(),
+        "departement": Departement.objects.select_related("region"),
+        "arrondissement": Arrondissement.objects.select_related("departement", "departement__region"),
+        "commune": Commune.objects.select_related("departement", "departement__region"),
+        "village": Village.objects.select_related("region", "commune"),
+    }
+    qs = configs[entite]
+    if recherche:
+        qs = qs.filter(nom__icontains=recherche)
+    qs = qs.order_by("nom")
+
+    paginator = Paginator(qs, 25)
+    page = paginator.get_page(request.GET.get("page"))
+
+    comptages = {k: v.count() for k, v in configs.items()}
+    entites_list = [
         {
-            "datasets": datasets,
-            "categories_affichees": [
-                {"slug": slug, "label": label, "n": totaux_par_categorie.get(slug, 0)}
-                for slug, label in CATEGORIES_AFFICHEES
-            ],
-            "totaux_par_categorie": totaux_par_categorie,
-            "total_datasets": total_datasets,
-            "categorie_active": categorie,
+            "slug": slug,
+            "label": conf["label"],
+            "n": comptages[slug],
+            "placeholder": conf["search_label"],
+        }
+        for slug, conf in ENTITES_GEO.items()
+    ]
+    return render(
+        request,
+        "geographie.html",
+        {
+            "entite": entite,
+            "entites_list": entites_list,
+            "comptages": comptages,
+            "page_obj": page,
             "recherche": recherche,
+            "entite_placeholder": ENTITES_GEO[entite]["search_label"],
         },
     )
 

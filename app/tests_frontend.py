@@ -14,8 +14,16 @@ class PagesFrontendTests(TestCase):
         r = self.client.get('/donnees/')
         self.assertEqual(r.status_code, 200)
 
-    def test_explorateur_filtre_categorie(self):
-        r = self.client.get('/donnees/', {'categorie': 'climat', 'q': 'climat'})
+    def test_geographie_par_defaut(self):
+        r = self.client.get('/donnees/geographie/')
+        self.assertEqual(r.status_code, 200)
+
+    def test_geographie_villages_pagines(self):
+        r = self.client.get('/donnees/geographie/', {'entite': 'village', 'q': 'dar', 'page': 1})
+        self.assertEqual(r.status_code, 200)
+
+    def test_geographie_entite_inconnue(self):
+        r = self.client.get('/donnees/geographie/', {'entite': 'inconnu'})
         self.assertEqual(r.status_code, 200)
 
     def test_regions_liste(self):

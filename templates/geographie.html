@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Géographie — GalsenAPI{% endblock %}
+{% block page_title %}Explorateur géographique{% endblock %}
+
+{% block content %}
+<div class="mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10">
+    <header class="py-10 md:py-14">
+        <nav aria-label="Fil d'Ariane" class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            <ol class="flex flex-wrap items-center gap-2">
+                <li><a href="/" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Accueil</a></li>
+                <li aria-hidden="true">/</li>
+                <li><a href="{% url 'donnees' %}" class="hover:text-forest-deep dark:hover:text-inverse-primary hover:underline">Données</a></li>
+                <li aria-hidden="true">/</li>
+                <li aria-current="page" class="font-medium text-on-surface dark:text-[#ecf1ff]">Géographie</li>
+            </ol>
+        </nav>
+        <h2 class="font-display text-3xl font-bold tracking-tight text-primary sm:text-4xl dark:text-inverse-primary">Territoires du Sénégal</h2>
+        <p class="mt-3 max-w-2xl text-on-surface-variant dark:text-outline">
+            Hiérarchie administrative complète (limites HDX, P-codes officiels) et villages de la base Galsenify.
+        </p>
+    </header>
+
+    <!-- Onglets entités -->
+    <nav class="flex flex-wrap gap-2" aria-label="Niveaux administratifs">
+        {% for e in entites_list %}
+        <a href="{% url 'geographie' %}?entite={{ e.slug }}"
+           class="rounded-full px-4 py-2 font-display text-sm font-semibold transition-colors {% if entite == e.slug %}bg-forest-deep text-white dark:bg-inverse-primary dark:text-[#002117]{% else %}border border-border-subtle bg-white text-on-surface-variant hover:border-forest-deep hover:text-forest-deep dark:border-[#2c3a52] dark:bg-transparent dark:text-outline{% endif %}">
+            {{ e.label }}
+            <span class="ml-1 font-mono text-xs opacity-70">{{ e.n }}</span>
+        </a>
+        {% endfor %}
+    </nav>
+
+    <!-- Recherche -->
+    <form method="get" action="{% url 'geographie' %}" role="search" aria-label="Rechercher" class="mt-6 max-w-md">
+        <input type="hidden" name="entite" value="{{ entite }}">
+        <label for="geo-search" class="sr-only">{{ entite_placeholder }}</label>
+        <div class="relative">
+            <div class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-forest-deep dark:text-inverse-primary" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+            </div>
+            <input type="search" id="geo-search" name="q" value="{{ recherche }}" autocomplete="off"
+                   placeholder="{{ entite_placeholder }}"
+                   class="input-field w-full pl-9">
+        </div>
+    </form>
+
+    <!-- Table -->
+    <section class="mt-6 pb-16" aria-label="Résultats">
+        <p class="mb-4 text-sm text-on-surface-variant dark:text-outline">
+            {{ page_obj.paginator.count }} résultat{{ page_obj.paginator.count|pluralize }} — page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+        </p>
+
+        <div class="card overflow-x-auto">
+            {% if entite == 'region' %}
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Région</th><th scope="col">P-code</th><th scope="col">Chef-lieu</th><th scope="col" class="text-right">Population (RGPH-5 2023)</th><th scope="col" class="text-right">Superficie (km²)</th><th scope="col" class="text-right">Densité</th></tr></thead>
+                <tbody>
+                    {% for r in page_obj %}
+                    <tr>
+                        <td><a href="{% url 'region-detail' r.pcode %}" class="font-medium text-forest-deep hover:underline dark:text-inverse-primary">{{ r.nom }}</a></td>
+                        <td class="data-mono !text-xs">{{ r.pcode }}</td>
+                        <td>{{ r.chef_lieu|default:"—" }}</td>
+                        <td class="data-mono !text-sm text-right">{{ r.population|default:"—" }}</td>
+                        <td class="data-mono !text-sm text-right">{{ r.superficie_km2|floatformat:"-2"|default:"—" }}</td>
+                        <td class="data-mono !text-sm text-right">{% if r.population and r.superficie_km2 %}{% widthratio r.population r.superficie_km2 1 %}{% else %}—{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% elif entite == 'departement' %}
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Département</th><th scope="col">P-code</th><th scope="col">Région</th><th scope="col" class="text-right">Population (RGPH-5 2023)</th><th scope="col" class="text-right">Superficie (km²)</th></tr></thead>
+                <tbody>
+                    {% for d in page_obj %}
+                    <tr>
+                        <td><a href="{% url 'departement-detail' d.pcode %}" class="font-medium text-forest-deep hover:underline dark:text-inverse-primary">{{ d.nom }}</a></td>
+                        <td class="data-mono !text-xs">{{ d.pcode }}</td>
+                        <td><a href="{% url 'region-detail' d.region.pcode %}" class="hover:underline">{{ d.region.nom }}</a></td>
+                        <td class="data-mono !text-sm text-right">{{ d.population|default:"—" }}</td>
+                        <td class="data-mono !text-sm text-right">{{ d.superficie_km2|floatformat:"-2"|default:"—" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% elif entite == 'arrondissement' %}
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Arrondissement</th><th scope="col">P-code</th><th scope="col">Département</th><th scope="col">Région</th></tr></thead>
+                <tbody>
+                    {% for a in page_obj %}
+                    <tr>
+                        <td class="font-medium">{{ a.nom }}</td>
+                        <td class="data-mono !text-xs">{{ a.pcode }}</td>
+                        <td>{{ a.departement.nom }}</td>
+                        <td>{{ a.departement.region.nom }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% elif entite == 'commune' %}
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Commune</th><th scope="col">Type</th><th scope="col">Département</th><th scope="col">Région</th></tr></thead>
+                <tbody>
+                    {% for c in page_obj %}
+                    <tr>
+                        <td class="font-medium">{{ c.nom }}</td>
+                        <td class="text-xs">{{ c.get_type_display }}</td>
+                        <td>{{ c.departement.nom }}</td>
+                        <td>{{ c.departement.region.nom }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table-institutional w-full">
+                <thead><tr><th scope="col">Village</th><th scope="col">Région</th><th scope="col">Commune rattachée</th></tr></thead>
+                <tbody>
+                    {% for v in page_obj %}
+                    <tr>
+                        <td class="font-medium">{{ v.nom }}</td>
+                        <td>{{ v.region.nom }}</td>
+                        <td>{{ v.commune.nom|default:"—" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="mt-6 flex items-center justify-center gap-2" aria-label="Pagination">
+            {% if page_obj.has_previous %}
+            <a href="?entite={{ entite }}&amp;q={{ recherche|urlencode }}&amp;page={{ page_obj.previous_page_number }}" class="btn-ghost px-4 py-2 text-sm">Précédent</a>
+            {% endif %}
+            <span class="px-3 py-2 font-mono text-sm text-on-surface-variant dark:text-outline">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+            <a href="?entite={{ entite }}&amp;q={{ recherche|urlencode }}&amp;page={{ page_obj.next_page_number }}" class="btn-ghost px-4 py-2 text-sm">Suivant</a>
+            {% endif %}
+        </nav>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
