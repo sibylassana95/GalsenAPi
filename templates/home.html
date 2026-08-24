@@ -101,7 +101,7 @@
                 <span>
                     <span class="block font-display text-base font-semibold text-on-surface transition-colors group-hover:text-forest-deep dark:text-[#ecf1ff]">{{ cat.label }}</span>
                     <span class="mt-1 block text-sm text-on-surface-variant dark:text-outline">
-                        {{ cat.n }} jeu{{ cat.n|pluralize }}x de données
+                        {{ cat.n }} jeu{{ cat.n|pluralize:"x" }} de données
                     </span>
                     {% if cat.slug != 'geographie' %}
                     <span class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-forest-deep dark:text-inverse-primary">{% if cat.slug == 'education' %}Voir les établissements{% else %}Tableau de bord{% endif %} <span aria-hidden="true">→</span></span>
