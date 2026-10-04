@@ -9,7 +9,7 @@ django-filter==23.1
 django-rest-swagger==2.2.0
 djangorestframework==3.14.0
 drf-yasg==1.21.7
-idna==3.4
+idna==3.15
 inflection==0.5.1
 itypes==1.2.0
 Jinja2==3.1.4
